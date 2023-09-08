@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import ArticleReducer from "./reducers/articleReducer";
+import loginReducer from "./reducers/loginReducer";
 
 import {
   persistStore,
@@ -16,6 +17,7 @@ import autoMergeLevel2 from "redux-persist/es/stateReconciler/autoMergeLevel2";
 
 const rootReducer = combineReducers({
   ArticleReducer,
+  loginReducer,
 });
 
 const persistConfig = {

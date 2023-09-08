@@ -1,6 +1,8 @@
+import ActionTypes from "../action-types/actionTypes";
+
 export const getArticles = (arr) => {
   return {
-    type: "GET_ARTICLES",
+    type: ActionTypes.ARTICLE.GET_ARTICLES,
     payload: arr,
   };
 };
