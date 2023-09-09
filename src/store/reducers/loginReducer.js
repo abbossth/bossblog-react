@@ -18,12 +18,11 @@ const loginReducer = (state = initialState, action) => {
         ...state,
         loggedIn: true,
         error: null,
-        tokenExpDays: action.payload.tokenExpirationPeriodInDays,
-        role: action.payload.role,
-        roles: action.payload.roles,
-        token: action.payload.token,
-        userLoggedInTime: new Date(),
-        userId: action.payload.userId,
+        // role: action.payload.role,
+        // roles: action.payload.roles,
+        // token: action.payload.token,
+        // userLoggedInTime: new Date(),
+        // userId: action.payload.userId,
       };
     case actionTypes.AUTH.LOG_OUT:
       return {

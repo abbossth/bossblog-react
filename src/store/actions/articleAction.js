@@ -6,3 +6,9 @@ export const getArticles = (arr) => {
     payload: arr,
   };
 };
+
+export const loadMoreArticles = () => {
+  return {
+    type: ActionTypes.ARTICLE.LOAD_MORE_ARTICLES,
+  };
+};

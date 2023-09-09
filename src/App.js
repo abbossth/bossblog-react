@@ -7,6 +7,7 @@ import Layout from "./layout/layout";
 import Home from "./pages/home";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { useSelector } from "react-redux";
+import Login from "./components/modals/login";
 
 const App = () => {
   const loggedIn = useSelector((state) => state.loginReducer.loggedIn);
@@ -22,10 +23,12 @@ const App = () => {
         </Layout>
       </ProtectedRoute>
       {!loggedIn && (
-        <Routes>
-          <Route path="/login" element={<h2>Login</h2>}></Route>
-          <Route path="*" element={<h2>Not Found</h2>}></Route>
-        </Routes>
+        <Layout>
+          <Routes>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="*" element={<h2>Not Found</h2>}></Route>
+          </Routes>
+        </Layout>
       )}
     </>
   );

@@ -1,7 +1,9 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
-import ArticleReducer from "./reducers/articleReducer";
+import articleReducer from "./reducers/articleReducer";
 import loginReducer from "./reducers/loginReducer";
+import trendingTopicsReducer from "./reducers/trendingTopicsReducer";
+import trendingArticlesReducer from "./reducers/trendingArticlesReducer";
 
 import {
   persistStore,
@@ -16,15 +18,17 @@ import {
 import autoMergeLevel2 from "redux-persist/es/stateReconciler/autoMergeLevel2";
 
 const rootReducer = combineReducers({
-  ArticleReducer,
+  articleReducer,
   loginReducer,
+  trendingTopicsReducer,
+  trendingArticlesReducer,
 });
 
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  blacklist: [],
+  blacklist: ["articleReducer"],
   stateReconciler: autoMergeLevel2, // optional state reconciler
 };
 
