@@ -6,8 +6,20 @@ import MoreLine from "../assets/img/ic_more_line.svg";
 import Profile from "../assets/img/ic_profile.svg";
 import Time from "../assets/img/ic_time.svg";
 import Seen from "../assets/img/ic_seen.svg";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  const { articles } = useSelector((state) => state.articleReducer);
+  const { trendingTopics } = useSelector(
+    (state) => state.trendingTopicsReducer
+  );
+  const { trendingArticles } = useSelector(
+    (state) => state.trendingArticlesReducer
+  );
+
+  console.log("articles", articles);
+  console.log("trending topics", trendingTopics);
+  console.log("trending articles", trendingArticles);
   return (
     <main>
       <section class="es-regular-section es-main-section">
