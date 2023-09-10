@@ -11,6 +11,10 @@ const ActionTypes = {
   TOPICS: {
     GET_TRENDING_TOPICS: "GET_TRENDING_TOPICS",
   },
+  MODALS: {
+    SHOW_AUTH: "SHOW_AUTH",
+    CLOSE_AUTH: "CLOSE_AUTH",
+  }
 };
 
 export default ActionTypes;

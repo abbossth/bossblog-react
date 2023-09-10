@@ -4,6 +4,7 @@ import articleReducer from "./reducers/articleReducer";
 import loginReducer from "./reducers/loginReducer";
 import trendingTopicsReducer from "./reducers/trendingTopicsReducer";
 import trendingArticlesReducer from "./reducers/trendingArticlesReducer";
+import modalsReducer from "./reducers/modalsReducer";
 
 import {
   persistStore,
@@ -22,13 +23,14 @@ const rootReducer = combineReducers({
   loginReducer,
   trendingTopicsReducer,
   trendingArticlesReducer,
+  modalsReducer,
 });
 
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  blacklist: ["articleReducer"],
+  blacklist: ["articleReducer", "modalsReducer"],
   stateReconciler: autoMergeLevel2, // optional state reconciler
 };
 

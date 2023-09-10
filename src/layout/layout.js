@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import axios from "../api/axios";
 import Navbar from "../components/navbar";
+import Footer from "../components/footer";
+import AuthModal from "../components/modals/authModal";
 import { useDispatch, useSelector } from "react-redux";
 import { getTrendingTopics } from "../store/actions/trendingTopicsAction";
 import { getTrendingArticles } from "../store/actions/trendingArticlesAction";
@@ -52,6 +54,8 @@ const Layout = ({ children }) => {
     <div>
       <Navbar />
       {children}
+      <AuthModal />
+      <Footer />
     </div>
   );
 };

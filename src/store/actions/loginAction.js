@@ -13,3 +13,5 @@ export const logOut = (data) => {
     payload: data,
   };
 };
+
+
