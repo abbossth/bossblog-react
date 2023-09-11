@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import Search from "../assets/img/ic_search.svg";
-import { showAuth } from "../store/actions/modalAction";
+import MenuModal from "../assets/img/ic_mob_menu.svg";
+import { showAuth, showMenuModal } from "../store/actions/modalAction";
 
 const Navbar = () => {
   // const userInfo = useSelector((state) => state.userInfoReducer);
@@ -8,8 +9,8 @@ const Navbar = () => {
 
   return (
     <header className="es-main-navbar">
-      <nav className="navbar navbar-expand-lg">
-        <div className="container">
+      <div className="container">
+        <nav className="navbar navbar-expand-lg">
           <ul className="navbar-nav">
             <li className="nav item m-0">
               <a className="navbar-brand" href="#">
@@ -186,29 +187,27 @@ const Navbar = () => {
                 </div>
               </li>
               <li className="nav-item">
-                <a
+                <button
                   className="btn es-btn-primary"
-                  href="#"
-                  type="button"
                   data-toggle="modal"
                   data-target="#codeModal"
+                  onClick={() => dispatch(showAuth())}
                 >
                   Boshlash
-                </a>
+                </button>
               </li>
             </ul>
           </div>
           <div className="es-mobile-nav">
             <button
               className="btn nav-link"
-              data-target="#menuModal"
-              data-toggle="modal"
+              onClick={() => dispatch(showMenuModal())}
             >
-              <img src={require("../assets/img/ic_mob_menu.svg")} alt="" />
+              <img src={MenuModal} alt="" />
             </button>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </div>
     </header>
   );
 };

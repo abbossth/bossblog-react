@@ -14,6 +14,8 @@ const ActionTypes = {
   MODALS: {
     SHOW_AUTH: "SHOW_AUTH",
     CLOSE_AUTH: "CLOSE_AUTH",
+    SHOW_MENU_MODAL: "SHOW_MENU_MODAL",
+    CLOSE_MENU_MODAL: "CLOSE_MENU_MODAL",
   }
 };
 

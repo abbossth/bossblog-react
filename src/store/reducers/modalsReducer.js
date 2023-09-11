@@ -10,6 +10,10 @@ const modalsReducer = (state = initialState, action) => {
       return { ...state, authModal: true };
     case ActionTypes.MODALS.CLOSE_AUTH:
       return { ...state, authModal: false };
+    case ActionTypes.MODALS.SHOW_MENU_MODAL:
+      return { ...state, menuModal: true };
+    case ActionTypes.MODALS.CLOSE_MENU_MODAL:
+      return { ...state, menuModal: false };
     default:
       return state;
   }

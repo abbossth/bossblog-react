@@ -4,6 +4,7 @@ import YouTube from "../assets/img/ic_youtube.svg";
 import Facebook from "../assets/img/ic_facebook.svg";
 import Appstore from "../assets/img/ic_appstore.svg";
 import Googleplay from "../assets/img/ic_googleplay.svg";
+import LogoIcon from "../assets/img/ic_logo.png";
 
 const Footer = () => {
   return (
@@ -15,7 +16,7 @@ const Footer = () => {
               <a href="#">
                 <img
                   className="img-fluid es-footer-logo-ic"
-                  src={require("../assets/img/ic_logo.png")}
+                  src={LogoIcon}
                   alt="BossBlog"
                 />
                 <img className="img-fluid" src={Logo} alt="BossBlog" />

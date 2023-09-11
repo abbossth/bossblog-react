@@ -149,6 +149,7 @@ button:focus,
 .es-section-header {
  display: flex;
  justify-content: space-between;
+ align-items: center;
  margin-bottom: 30px;
 }
 
@@ -415,7 +416,7 @@ button:focus,
 
 .es-article-r-hour,
 .es-article-seen {
- margin: auto;
+ margin: auto 0;
  font-size: 13px;
  line-height: 20px;
  color: var(--main-grey-color);
@@ -1682,4 +1683,16 @@ button:focus,
 #authModal .modal-content {
   border: none !important;
   border-radius: 0 !important;
+}
+
+.navbar-expand-lg {
+  justify-content: space-between !important; 
+}
+
+.navbar-expand-lg .navbar-collapse {
+  justify-content: end;
+}
+
+.menu-modal-dialog {
+  margin: 0 !important;
 }

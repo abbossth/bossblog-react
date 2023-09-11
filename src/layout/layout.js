@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTrendingTopics } from "../store/actions/trendingTopicsAction";
 import { getTrendingArticles } from "../store/actions/trendingArticlesAction";
 import { getArticles } from "../store/actions/articleAction";
+import MenuModal from "../components/modals/menuModal";
 
 const Layout = ({ children }) => {
   const dispatch = useDispatch();
@@ -55,6 +56,7 @@ const Layout = ({ children }) => {
       <Navbar />
       {children}
       <AuthModal />
+      <MenuModal />
       <Footer />
     </div>
   );

@@ -41,6 +41,7 @@ const AuthModal = () => {
                 className="btn close p-0"
                 data-dismiss="modal"
                 aria-label="Close"
+                onClick={hideAuth}
               >
                 <span aria-hidden="true">
                   <img src={Close} alt="close" />
