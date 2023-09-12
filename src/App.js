@@ -5,6 +5,9 @@ import "./assets/css/media.css";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./layout/layout";
 import Home from "./pages/home";
+import Profile from "./pages/profile";
+import About from "./pages/about";
+import ProfileEdit from "./pages/profile-edit";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { useSelector } from "react-redux";
 import Login from "./components/modals/login";
@@ -17,6 +20,9 @@ const App = () => {
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile-edit" element={<ProfileEdit />} />
             <Route path="/test" element={<h2>Test</h2>} />
             <Route path="*" element={<h2>Not Found Auth</h2>}></Route>
           </Routes>

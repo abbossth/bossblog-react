@@ -330,7 +330,7 @@ button:focus,
 
 .es-article-content {
  margin: auto 0;
- width: 750px;
+ width: 100%;
 }
 
 .es-article-type {
@@ -992,7 +992,7 @@ button:focus,
 }
 
 .es-form-group input {
- padding: 24px 10px;
+ padding: 12px 10px;
 }
 
 .es-profile-save {

@@ -2,9 +2,9 @@ import { useDispatch, useSelector } from "react-redux";
 import Search from "../assets/img/ic_search.svg";
 import MenuModal from "../assets/img/ic_mob_menu.svg";
 import { showAuth, showMenuModal } from "../store/actions/modalAction";
+import { logIn } from "../store/actions/loginAction";
 
 const Navbar = () => {
-  // const userInfo = useSelector((state) => state.userInfoReducer);
   const dispatch = useDispatch();
 
   return (
@@ -90,16 +90,14 @@ const Navbar = () => {
                 </a>
               </li>
               <li className="nav-item">
-                {/* {!userInfo && ( */}
                 <button
                   className="nav-link"
-                  onClick={() => dispatch(showAuth())}
+                  // onClick={() => }
                   data-toggle="modal"
                   data-target="#authModal"
                 >
                   Kirish
                 </button>
-                {/* )} */}
               </li>
               <li className="nav-item dropdown">
                 <a

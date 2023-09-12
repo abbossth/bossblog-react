@@ -115,12 +115,12 @@ const AuthModal = () => {
               </div> */}
               <button className="btn es-google-btn w-100">
                 <img src={Google} alt="google" />
-                Sign up with Google
+                Google bilan boshlash
                 <div></div>
               </button>
               <button className="btn es-btn-auth w-100">
               <img src={Email} alt="google" />
-                Sign up with Email
+                Email bilan boshlash
                 <div></div>
               </button>
             </div>

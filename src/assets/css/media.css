@@ -5,6 +5,9 @@
  .es-mobile-nav {
   display: none;
  }
+ .es-mobile-app-img img:nth-child(2) {
+  display: none;
+ }
 }
 
 
@@ -199,12 +202,9 @@
  .es-nav-pills {
   display: none;
  }
- .es-main-navbar {
-  padding: 0 !important;
- }
- .es-main-navbar .navbar {
-  padding: 0;
- }
+ /* .es-main-navbar {
+  padding-bottom: 0 !important;
+ } */
  .navbar-brand img {
   height: 30px;
   object-fit: cover;
