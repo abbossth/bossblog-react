@@ -8,6 +8,9 @@
  .es-mobile-app-img img:nth-child(2) {
   display: none;
  }
+ .es-404-img-sm {
+  display: none;
+ }
 }
 
 
@@ -514,6 +517,9 @@
   margin-left: 5px;
  }
  .es-saved-last-tab {
+  margin-bottom: 0px;
+ }
+ .es-saved-last-tab a {
   margin-bottom: 28px;
  }
  .es-404-container {

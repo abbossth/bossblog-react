@@ -7,7 +7,15 @@ import Layout from "./layout/layout";
 import Home from "./pages/home";
 import Profile from "./pages/profile";
 import About from "./pages/about";
+import Saved from "./pages/saved";
+import Topic from "./pages/topic";
+import Search from "./pages/search";
+import Privacy from "./pages/privacy";
+import NotFound from "./pages/404";
 import ProfileEdit from "./pages/profile-edit";
+import UserArticles from "./pages/user-articles";
+import WriteArticle from "./pages/write-article";
+import WriteArticleForm from "./pages/write-article-form";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { useSelector } from "react-redux";
 import Login from "./components/modals/login";
@@ -21,10 +29,16 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
+            <Route path="/saved" element={<Saved />} />
+            <Route path="/topic" element={<Topic />} />
+            <Route path="/search" element={<Search />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/user-articles" element={<UserArticles />} />
             <Route path="/profile-edit" element={<ProfileEdit />} />
-            <Route path="/test" element={<h2>Test</h2>} />
-            <Route path="*" element={<h2>Not Found Auth</h2>}></Route>
+            <Route path="/write-article" element={<WriteArticle />} />
+            <Route path="/write-article-form" element={<WriteArticleForm />} />
+            <Route path="*" element={<NotFound />}></Route>
           </Routes>
         </Layout>
       </ProtectedRoute>

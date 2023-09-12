@@ -72,18 +72,18 @@ const About = () => {
 
   return (
     <main>
-      <section class="es-article-header">
-        <div class="es-av-header">
-          <div class="container">
-            <div class="es-av-title">
+      <section className="es-article-header">
+        <div className="es-av-header">
+          <div className="container">
+            <div className="es-av-title">
               O‘zbek ma’naviy boy davlat, ammo internet kontenti-chi?
             </div>
             <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item">
+              <ol className="breadcrumb">
+                <li className="breadcrumb-item">
                   <a href="#">Home</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">
+                <li className="breadcrumb-item active" aria-current="page">
                   About Us
                 </li>
               </ol>
@@ -91,163 +91,163 @@ const About = () => {
           </div>
         </div>
       </section>
-      <section class="es-regular-section">
-        <div class="container">
-          <div class="es-map-container">
+      <section className="es-regular-section">
+        <div className="container">
+          <div className="es-map-container">
             <img
-              class="img-fluid es-uzb-map"
+              className="img-fluid es-uzb-map"
               src={require("../assets/img/about_banner.png")}
               alt="uzb"
             />
-            <div class="es-av-title text-center">
+            <div className="es-av-title text-center">
               O'zbeklar yangi yilni yangi yil deb nomlangan bayram bilan
               nishonlaydilar. Ular yangi yil daraxtini bezashadi, yangi yil
               bayramini nishonlashadi va bir-birlariga sovg'alar berishadi.
             </div>
-            <button class="btn es-btn-light es-btn-save">
+            <button className="btn es-btn-light es-btn-save">
               Siz ham bilim ulashing
             </button>
           </div>
         </div>
       </section>
-      <section class="es-regular-section">
-        <div class="container">
-          <h2 class="es-section-title">Employees</h2>
-          <Slider {...settings} class="employees-slider">
-            <div class="es-employee">
-              <div class="es-employee-img">
+      <section className="es-regular-section">
+        <div className="container">
+          <h2 className="es-section-title">Employees</h2>
+          <Slider {...settings} className="employees-slider">
+            <div className="es-employee">
+              <div className="es-employee-img">
                 <a href="#">
-                  <img src={require("../assets/img/team.jpg")} class="img-fluid" alt="team" />
+                  <img
+                    src={require("../assets/img/team.jpg")}
+                    className="img-fluid"
+                    alt="team"
+                  />
                 </a>
               </div>
-              <img
-                class="es-employee-arrow"
-                src={IconDown}
-                alt="down"
-              />
-              <div class="es-employee-name">
+              <img className="es-employee-arrow" src={IconDown} alt="down" />
+              <div className="es-employee-name">
                 <a href="#">Khamrayev Shokhrukh</a>
               </div>
-              <div class="es-employee-role">General manager</div>
+              <div className="es-employee-role">General manager</div>
             </div>
-            <div class="es-employee">
-              <div class="es-employee-img">
+            <div className="es-employee">
+              <div className="es-employee-img">
                 <a href="#">
-                  <img src={require("../assets/img/team.jpg")} class="img-fluid" alt="team" />
+                  <img
+                    src={require("../assets/img/team.jpg")}
+                    className="img-fluid"
+                    alt="team"
+                  />
                 </a>
               </div>
-              <img
-                class="es-employee-arrow"
-                src={IconDown}
-                alt="down"
-              />
-              <div class="es-employee-name">
+              <img className="es-employee-arrow" src={IconDown} alt="down" />
+              <div className="es-employee-name">
                 <a href="#">Khamrayev Shokhrukh</a>
               </div>
-              <div class="es-employee-role">General manager</div>
+              <div className="es-employee-role">General manager</div>
             </div>
-            <div class="es-employee">
-              <div class="es-employee-img">
+            <div className="es-employee">
+              <div className="es-employee-img">
                 <a href="#">
-                  <img src={require("../assets/img/team.jpg")} class="img-fluid" alt="team" />
+                  <img
+                    src={require("../assets/img/team.jpg")}
+                    className="img-fluid"
+                    alt="team"
+                  />
                 </a>
               </div>
-              <img
-                class="es-employee-arrow"
-                src={IconDown}
-                alt="down"
-              />
-              <div class="es-employee-name">
+              <img className="es-employee-arrow" src={IconDown} alt="down" />
+              <div className="es-employee-name">
                 <a href="#">Khamrayev Shokhrukh</a>
               </div>
-              <div class="es-employee-role">General manager</div>
+              <div className="es-employee-role">General manager</div>
             </div>
-            <div class="es-employee">
-              <div class="es-employee-img">
+            <div className="es-employee">
+              <div className="es-employee-img">
                 <a href="#">
-                  <img src={require("../assets/img/team.jpg")} class="img-fluid" alt="team" />
+                  <img
+                    src={require("../assets/img/team.jpg")}
+                    className="img-fluid"
+                    alt="team"
+                  />
                 </a>
               </div>
-              <img
-                class="es-employee-arrow"
-                src={IconDown}
-                alt="down"
-              />
-              <div class="es-employee-name">
+              <img className="es-employee-arrow" src={IconDown} alt="down" />
+              <div className="es-employee-name">
                 <a href="#">Khamrayev Shokhrukh</a>
               </div>
-              <div class="es-employee-role">General manager</div>
+              <div className="es-employee-role">General manager</div>
             </div>
-            <div class="es-employee">
-              <div class="es-employee-img">
+            <div className="es-employee">
+              <div className="es-employee-img">
                 <a href="#">
-                  <img src={require("../assets/img/team.jpg")} class="img-fluid" alt="team" />
+                  <img
+                    src={require("../assets/img/team.jpg")}
+                    className="img-fluid"
+                    alt="team"
+                  />
                 </a>
               </div>
-              <img
-                class="es-employee-arrow"
-                src={IconDown}
-                alt="down"
-              />
-              <div class="es-employee-name">
+              <img className="es-employee-arrow" src={IconDown} alt="down" />
+              <div className="es-employee-name">
                 <a href="#">Khamrayev Shokhrukh</a>
               </div>
-              <div class="es-employee-role">General manager</div>
+              <div className="es-employee-role">General manager</div>
             </div>
-            <div class="es-employee">
-              <div class="es-employee-img">
+            <div className="es-employee">
+              <div className="es-employee-img">
                 <a href="#">
-                  <img src={require("../assets/img/team.jpg")} class="img-fluid" alt="team" />
+                  <img
+                    src={require("../assets/img/team.jpg")}
+                    className="img-fluid"
+                    alt="team"
+                  />
                 </a>
               </div>
-              <img
-                class="es-employee-arrow"
-                src={IconDown}
-                alt="down"
-              />
-              <div class="es-employee-name">
+              <img className="es-employee-arrow" src={IconDown} alt="down" />
+              <div className="es-employee-name">
                 <a href="#">Khamrayev Shokhrukh</a>
               </div>
-              <div class="es-employee-role">General manager</div>
+              <div className="es-employee-role">General manager</div>
             </div>
           </Slider>
         </div>
       </section>
-      <section class="es-regular-section es-mobile-app-section">
-        <div class="container">
-          <div class="es-mobile-app-container">
-            <div class="es-mobile-app-content">
-              <div class="es-mobile-app-title">BossBlog</div>
-              <div class="es-mobile-app-desc">
+      <section className="es-regular-section es-mobile-app-section">
+        <div className="container">
+          <div className="es-mobile-app-container">
+            <div className="es-mobile-app-content">
+              <div className="es-mobile-app-title">BossBlog</div>
+              <div className="es-mobile-app-desc">
                 Mobil ilova bilan o’qish yana ham qulayroq
               </div>
-              <nav class="nav">
-                <a class="nav-link active" href="#">
-                  <img
-                    class="img-fluid"
-                    src={Appstore}
-                    alt="appstore"
-                  />
+              <nav className="nav">
+                <a className="nav-link active" href="#">
+                  <img className="img-fluid" src={Appstore} alt="appstore" />
                 </a>
-                <a class="nav-link" href="#">
+                <a className="nav-link" href="#">
                   <img
-                    class="img-fluid"
+                    className="img-fluid"
                     src={GooglePlay}
                     alt="googleplay"
                   />
                 </a>
               </nav>
             </div>
-            <div class="es-mobile-app-img">
-              <img class="img-fluid" src={require("../assets/img/app_img.png")} alt="app" />
-              <img class="img-fluid" src={MobileApp} alt="app" />
+            <div className="es-mobile-app-img">
+              <img
+                className="img-fluid"
+                src={require("../assets/img/app_img.png")}
+                alt="app"
+              />
+              <img className="img-fluid" src={MobileApp} alt="app" />
             </div>
           </div>
         </div>
       </section>
-      <section class="es-regular-section">
-        <div class="container">
-          <div class="es-article-text">
+      <section className="es-regular-section">
+        <div className="container">
+          <div className="es-article-text">
             Yarim tunda ular yangi yilni kutib olish uchun O'zbekiston
             madhiyasini kuylaydilar va bayramni davom ettiradilar. bundan
             tashqari, o'zbeklar uchun eng mashhur bayram Navro'z bo'ladi va u

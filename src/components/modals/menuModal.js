@@ -6,61 +6,60 @@ import Logo from "../../assets/img/logo.svg";
 import Close from "../../assets/img/ic_close (2).svg";
 
 const MenuModal = () => {
- const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
- const { menuModal } = useSelector((state) => state.modalsReducer);
+  const { menuModal } = useSelector((state) => state.modalsReducer);
 
- const hideMenuModal = () => {
-  dispatch(closeMenuModal());
+  const hideMenuModal = () => {
+    dispatch(closeMenuModal());
   };
   return (
     <Modal
       show={menuModal}
       onHide={hideMenuModal}
       animation={false}
-      class="modal fade es-menu-modal"
+      className="modal fade es-menu-modal"
       id="menuModal"
       tabindex="-1"
       role="dialog"
       aria-labelledby="menuModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-full menu-modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="container">
-            <div class="modal-header">
+      <div
+        className="modal-dialog modal-dialog-full menu-modal-dialog"
+        role="document"
+      >
+        <div className="modal-content">
+          <div className="container">
+            <div className="modal-header">
               <a href="#">
-                <img
-                  class="es-mob-modal-logo"
-                  src={Logo}
-                  alt="logo"
-                />
+                <img className="es-mob-modal-logo" src={Logo} alt="logo" />
               </a>
               <button
                 type="button"
-                class="btn close p-0"
+                className="btn close p-0"
                 data-dismiss="modal"
                 aria-label="Close"
                 onClick={hideMenuModal}
               >
                 <span aria-hidden="true">
-                <img src={Close} alt="close" />
+                  <img src={Close} alt="close" />
                 </span>
               </button>
             </div>
           </div>
-          <div class="modal-body">
-            <nav class="nav flex-column">
-              <a class="nav-link active" href="#">
+          <div className="modal-body">
+            <nav className="nav flex-column">
+              <a className="nav-link active" href="#">
                 Qidiruv
               </a>
-              <a class="nav-link" href="#">
+              <a className="nav-link" href="#">
                 Loyiha haqida
               </a>
-              <a class="nav-link" href="#">
+              <a className="nav-link" href="#">
                 Yozish
               </a>
-              <a class="nav-link" href="#">
+              <a className="nav-link" href="#">
                 Kirish
               </a>
             </nav>
