@@ -41,7 +41,7 @@ const Home = () => {
             <div className="es-main-section-links">
               {trendingTopics.map((x) => (
                 <Link to={""} key={"trending-topic-id-" + x.id}>
-                  {x.name}
+                  {`#${x.name}`}
                 </Link>
               ))}
             </div>
@@ -85,7 +85,7 @@ const Home = () => {
                   <div className="es-popular-ar-img">
                     <a href="#">
                       <img
-                        src={require("../assets/img/article_1.jpg")}
+                        src={y.image}
                         alt="article"
                       />
                     </a>
@@ -168,14 +168,14 @@ const Home = () => {
                       <div className="es-article-img">
                         <a href="#">
                           <img
-                            src={require("../assets/img/article_2.jpg")}
+                            src={x.image}
                             alt="article"
                           />
                         </a>
                       </div>
                       <div className="es-article-content">
                         <div className="es-article-type">
-                          vizual dizayn <span>{x.createdAt}</span>{" "}
+                          <a href="#">vizual dizayn</a>  <span>{x.createdAt}</span>{" "}
                         </div>
                         <a href="#" className="es-article-title">
                           {x.title}
@@ -188,7 +188,7 @@ const Home = () => {
                             <a href="#" className="es-article-writer">
                               <img
                                 className="img-fluid"
-                                src={Profile}
+                                src={x.user.user_img}
                                 alt="profile"
                               />
                               {x.user.full_name}
@@ -230,7 +230,7 @@ const Home = () => {
                               Keyinroq o‘qish
                             </button>
                             <div className="es-article-r-hour">
-                              <img src={Time} alt="time" /> 3 daqiqa o‘qis h
+                              <img src={Time} alt="time" /> {x.body.readingTimes} daqiqa o‘qish
                             </div>
                             <button
                               className="btn es-article-chat-modal"
@@ -251,11 +251,11 @@ const Home = () => {
                                   fill="#969696"
                                 />
                               </svg>
-                              34
+                              {x.body.comments}
                             </button>
                             <div className="es-article-seen">
                               <img src={Seen} alt="seen" />
-                              8.6 K
+                              {x.body.views}
                             </div>
                           </div>
                         </div>
@@ -285,7 +285,7 @@ const Home = () => {
                   </div>
                   <div className="es-article-content">
                     <div className="es-article-type">
-                      vizual dizayn <span>{x.createdAt}</span>{" "}
+                      <a href="#">vizual dizayn</a> <span>{x.createdAt}</span>{" "}
                     </div>
                     <a href="#" className="es-article-title">
                       {x.title}

@@ -191,7 +191,7 @@ button:focus,
   height: 80px;
   width: 80px;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 .es-popular-ar-date {
@@ -1335,13 +1335,19 @@ button:focus,
   margin-bottom: 32px;
 }
 
-.es-main-section-content .es-btn-primary,
-.es-main-section-links {
+.es-main-section-content .es-btn-primary {
   margin-bottom: 32px;
 }
 
 .es-main-section-links a {
+  display: inline-block;
   margin-right: 24px;
+  margin-bottom: 32px;
+}
+
+.es-main-section-links {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .es-main-section-links a:last-child {
@@ -1695,4 +1701,30 @@ button:focus,
 
 .menu-modal-dialog {
   margin: 0 !important;
+}
+
+.es-article-type a {
+  color: var(--main-blue-color);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.es-article-writer img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.es-article-img img {
+  width: 340px;
+  height: 270px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+
+.es-article-content-inner img,
+.es-article-content-inner svg {
+  margin-right: 5px;
 }

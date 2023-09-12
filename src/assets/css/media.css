@@ -1,3 +1,13 @@
+@media screen and (max-width: 1400px) {
+ .xl-hide {
+  display: none;
+ }
+ .es-mobile-nav {
+  display: none;
+ }
+}
+
+
 @media (min-width: 1200px) {
  .es-mobile-nav {
   display: none;
@@ -708,6 +718,9 @@
  .es-main-section-links {
   display: flex;
   flex-wrap: wrap;
+ }
+ .es-popular-ar-content {
+  max-width: 100%;
  }
  
 }
