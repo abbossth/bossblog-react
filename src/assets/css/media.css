@@ -422,6 +422,7 @@
  }
  .es-mobile-app-img img:nth-child(2) {
   height: 280px;
+  display: block;
  }
  .es-mobile-app-img {
   margin: auto;
