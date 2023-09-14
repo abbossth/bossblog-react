@@ -199,6 +199,9 @@
  .es-article-content {
   width: 100%;
  }
+ .es-article-content-inner-sec {
+  justify-content: space-between;
+ }
 }
 
 @media (max-width: 600px) {
@@ -729,5 +732,7 @@
  .es-popular-ar-content {
   max-width: 100%;
  }
- 
+ .es-article-content-inner-sec {
+  justify-content: space-between;
+ }
 }

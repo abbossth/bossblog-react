@@ -14,6 +14,10 @@ const modalsReducer = (state = initialState, action) => {
       return { ...state, menuModal: true };
     case ActionTypes.MODALS.CLOSE_MENU_MODAL:
       return { ...state, menuModal: false };
+    case ActionTypes.MODALS.SHOW_COMMENT_MODAL:
+        return { ...state, comment: true };
+    case ActionTypes.MODALS.CLOSE_COMMENT_MODAL:
+          return { ...state, comment: false };
     default:
       return state;
   }

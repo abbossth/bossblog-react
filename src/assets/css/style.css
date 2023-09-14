@@ -13,6 +13,10 @@ html {
  scroll-behavior: smooth;
 }
 
+main {
+  overflow-x: hidden;
+}
+
 html,
 body {
  font-size: 16px;
@@ -391,7 +395,6 @@ button:focus,
 }
 
 .es-article-writer img,
-.es-btn-save svg,
 .es-like-btn img,
 .es-av-writer img {
  margin-right: 8px;
@@ -402,7 +405,6 @@ button:focus,
  font-size: 13px;
  line-height: 20px;
  color: var(--main-black-color);
- margin-right: 12px;
  border-color: #E8E8E8;
 }
 
@@ -1733,4 +1735,21 @@ button:focus,
 .es-article-content-inner img,
 .es-article-content-inner svg {
   margin-right: 5px;
+}
+
+.es-article-content-inner-sec {
+  display: flex;
+}
+
+.es-article-content-inner-sec img,
+.es-article-content-inner-sec .es-article-chat-modal svg {
+  margin-right: 8px;
+}
+
+.es-article-content-inner-sec .btn {
+  margin-left: 8px;
+}
+
+.es-article-info-inner {
+  display: flex;
 }

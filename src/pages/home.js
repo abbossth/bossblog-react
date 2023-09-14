@@ -9,6 +9,7 @@ import Seen from "../assets/img/ic_seen.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { loadMoreArticles } from "../store/actions/articleAction";
+import Article from "../components/article";
 
 const Home = () => {
   const { articles } = useSelector((state) => state.articleReducer);
@@ -40,7 +41,7 @@ const Home = () => {
             </a>
             <div className="es-main-section-links">
               {trendingTopics.map((x) => (
-                <Link to={""} key={"trending-topic-id-" + x.id}>
+                <Link to={"/"} key={"trending-topic-id-" + x.id}>
                   {`#${x.name}`}
                 </Link>
               ))}
@@ -84,10 +85,14 @@ const Home = () => {
                 <div className="es-popular-ar-wrp">
                   <div className="es-popular-ar-img">
                     <a href="#">
-                      <img
+                      {y.image === "null" ? (
+                        <img src={require("../assets/img/article_2.jpg")} alt="article" />
+                      ) : (
+                        <img
                         src={y.image}
                         alt="article"
                       />
+                      )}
                     </a>
                   </div>
                   <div className="es-popular-ar-content">
@@ -116,8 +121,8 @@ const Home = () => {
               <div className="input-group es-input-select">
                 <select className="custom-select" id="SelectArticle">
                   <option selected>Barcha maqolalar</option>
-                  <option value="1">Mashhur maqolalar</option>
-                  <option value="2">Ko'p o'qilgan</option>
+                  {/* <option value="1">Mashhur maqolalar</option>
+                  <option value="2">Ko'p o'qilgan</option> */}
                 </select>
               </div>
               <ul
@@ -163,105 +168,9 @@ const Home = () => {
             >
               <div className="es-tab-pane-main">
                 <div className="es-article-list">
-                  {articles.map((x) => (
-                    <div className="es-article-item" key={"topic-" + x.id}>
-                      <div className="es-article-img">
-                        <a href="#">
-                          <img
-                            src={x.image}
-                            alt="article"
-                          />
-                        </a>
-                      </div>
-                      <div className="es-article-content">
-                        <div className="es-article-type">
-                          <a href="#">vizual dizayn</a>  <span>{x.createdAt}</span>{" "}
-                        </div>
-                        <a href="#" className="es-article-title">
-                          {x.title}
-                        </a>
-                        <a href="#" className="es-article-info">
-                          {x.sub_title}
-                        </a>
-                        <div className="es-article-footer">
-                          <div className="es-article-content-inner">
-                            <a href="#" className="es-article-writer">
-                              <img
-                                className="img-fluid"
-                                src={x.user.user_img}
-                                alt="profile"
-                              />
-                              {x.user.full_name}
-                            </a>
-                            <button className="btn es-btn-light es-btn-save xl-hide">
-                              <svg
-                                width="12"
-                                height="16"
-                                viewBox="0 0 12 16"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  clipRule="evenodd"
-                                  d="M10.166 0.5H1.83268C0.916016 0.5 0.166016 1.25 0.166016 2.16667V15.5L5.99935 13L11.8327 15.5V2.16667C11.8327 1.25 11.0827 0.5 10.166 0.5Z"
-                                  fill="#969696"
-                                />
-                              </svg>
-                              Keyinroq o‘qish
-                            </button>
-                          </div>
-                          <div className="es-article-content-inner">
-                            <button className="btn es-btn-light es-btn-save sm-hide">
-                              <svg
-                                width="12"
-                                height="16"
-                                viewBox="0 0 12 16"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  clipRule="evenodd"
-                                  d="M10.166 0.5H1.83268C0.916016 0.5 0.166016 1.25 0.166016 2.16667V15.5L5.99935 13L11.8327 15.5V2.16667C11.8327 1.25 11.0827 0.5 10.166 0.5Z"
-                                  fill="#969696"
-                                />
-                              </svg>
-                              Keyinroq o‘qish
-                            </button>
-                            <div className="es-article-r-hour">
-                              <img src={Time} alt="time" /> {x.body.readingTimes} daqiqa o‘qish
-                            </div>
-                            <button
-                              className="btn es-article-chat-modal"
-                              data-target="#commentModal"
-                              data-toggle="modal"
-                            >
-                              <svg
-                                width="14"
-                                height="14"
-                                viewBox="0 0 14 14"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  clipRule="evenodd"
-                                  d="M12.334 2.99999H11.6673V8.33333C11.6673 8.7 11.3673 9 11.0007 9H3.00065V9.66666C3.00065 10.4 3.60065 11 4.33398 11H11.0007L13.6673 13.6667V4.33333C13.6673 3.59999 13.0673 2.99999 12.334 2.99999ZM10.334 6.33333V1.66666C10.334 0.933328 9.73398 0.333328 9.00065 0.333328H1.66732C0.933984 0.333328 0.333984 0.933328 0.333984 1.66666V10.3333L3.00065 7.66666H9.00065C9.73398 7.66666 10.334 7.06666 10.334 6.33333Z"
-                                  fill="#969696"
-                                />
-                              </svg>
-                              {x.body.comments}
-                            </button>
-                            <div className="es-article-seen">
-                              <img src={Seen} alt="seen" />
-                              {x.body.views}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                  {articles.map((x, idx) => {
+                    return <Article key={"topic-" + idx} article={x} />
+                  })}
                 </div>
               </div>
             </div>
@@ -349,7 +258,6 @@ const Home = () => {
                             fill="#969696"
                           />
                         </svg>
-                        Keyinroq o‘qish
                       </button>
                     </div>
                   </div>

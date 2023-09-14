@@ -19,3 +19,15 @@ export const closeMenuModal = () => {
     type: "CLOSE_MENU_MODAL",
   };
 };
+
+export const showCommentModal = () => {
+  return {
+    type: "SHOW_COMMENT_MODAL",
+  };
+};
+
+export const closeCommentModal = () => {
+  return {
+    type: "CLOSE_COMMENT_MODAL",
+  };
+};

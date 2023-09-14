@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import axios from "../api/axios";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
+import Comment from "../components/modals/comment";
 import AuthModal from "../components/modals/authModal";
 import { useDispatch, useSelector } from "react-redux";
 import { getTrendingTopics } from "../store/actions/trendingTopicsAction";
@@ -57,6 +58,7 @@ const Layout = ({ children }) => {
       {children}
       <AuthModal />
       <MenuModal />
+      <Comment />
       <Footer />
     </div>
   );
