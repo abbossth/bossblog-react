@@ -9,7 +9,7 @@ import Profile from "./pages/profile";
 import About from "./pages/about";
 import Saved from "./pages/saved";
 import Topic from "./pages/topic";
-import Search from "./pages/search";
+import Topics from "./pages/topics";
 import Privacy from "./pages/privacy";
 import NotFound from "./pages/404";
 import ProfileEdit from "./pages/profile-edit";
@@ -19,6 +19,7 @@ import WriteArticleForm from "./pages/write-article-form";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { useSelector } from "react-redux";
 import Login from "./components/modals/login";
+import Article from "./pages/article";
 
 const App = () => {
   const loggedIn = useSelector((state) => state.loginReducer.loggedIn);
@@ -31,7 +32,7 @@ const App = () => {
             <Route path="/about" element={<About />} />
             <Route path="/saved" element={<Saved />} />
             <Route path="/topic" element={<Topic />} />
-            <Route path="/search" element={<Search />} />
+            <Route path="/topics" element={<Topics />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/user-articles" element={<UserArticles />} />
@@ -47,10 +48,11 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
+            <Route path="/topics" element={<Topics />} />
+            <Route path="/profile/:profileId" element={<Profile />} />
+            <Route path="/article/:articleId" element={<Article />} />
+            <Route path="/topics/:topicId" element={<Topic />} />
             <Route path="/saved" element={<Saved />} />
-            <Route path="/topic" element={<Topic />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/profile" element={<Profile />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/user-articles" element={<UserArticles />} />
             <Route path="/profile-edit" element={<ProfileEdit />} />
@@ -58,7 +60,6 @@ const App = () => {
             <Route path="/write-article-form" element={<WriteArticleForm />} />
             <Route path="*" element={<NotFound />}></Route>
             <Route path="/login" element={<Login />}></Route>
-            <Route path="*" element={<h2>Not Found</h2>}></Route>
           </Routes>
         </Layout>
       )}

@@ -9,8 +9,11 @@ import { getTrendingTopics } from "../store/actions/trendingTopicsAction";
 import { getTrendingArticles } from "../store/actions/trendingArticlesAction";
 import { getArticles } from "../store/actions/articleAction";
 import MenuModal from "../components/modals/menuModal";
+import { useLocation } from "react-router-dom";
+import { backToTop } from "../plugins/custom";
 
 const Layout = ({ children }) => {
+  const { pathname } = useLocation();
   const dispatch = useDispatch();
   const { currentPage, limit, pagination, articles } = useSelector(
     (state) => state.articleReducer
@@ -46,6 +49,10 @@ const Layout = ({ children }) => {
     fetchTrendingTopics();
     fetchTrendingArticles();
   }, []);
+
+  useEffect(() => {
+    backToTop();
+  }, [pathname]);
 
   useEffect(() => {
     if (currentPage === 1 || currentPage !== pagination.page) {

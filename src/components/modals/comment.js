@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Close from "../../assets/img/ic_close (2).svg";
@@ -9,20 +9,24 @@ import { useCollapse } from "react-collapsed";
 import Profile from "../../assets/img/ic_profile.svg";
 
 const Comment = () => {
-  const config = {
-    duration: 5000
+  const [isExpanded, setExpanded] = useState(false);
+
+  const handleToggleOnClick = () => {
+    setExpanded(!isExpanded);
   };
-  
+
   const { articles } = useSelector((state) => state.articleReducer);
   const { comment } = useSelector((state) => state.modalsReducer);
-  const { getCollapseProps, getToggleProps } = useCollapse(config);
+  const { getCollapseProps, getToggleProps } = useCollapse({
+    isExpanded,
+    duration: 500,
+    hasDisabledAnimation: true,
+  });
   const dispatch = useDispatch();
 
   const hideCommentModal = () => {
     dispatch(closeCommentModal());
   };
-
-  
 
   return (
     <Modal
@@ -40,9 +44,7 @@ const Comment = () => {
         <div className="modal-content">
           <div className="container">
             <div className="modal-header border-0">
-              <h5 className="modal-title">
-                Izohlar (5)
-              </h5>
+              <h5 className="modal-title">Izohlar (5)</h5>
               <button
                 type="button"
                 className="btn close p-0"
@@ -57,11 +59,7 @@ const Comment = () => {
             </div>
             <div className="es-new-comment-wrp">
               <div className="es-new-comment-writer">
-                <img
-                  className="img-fluid"
-                  src={Profile}
-                  alt="profile"
-                />
+                <img className="img-fluid" src={Profile} alt="profile" />
                 Ilhomjon Davlatov
               </div>
               <div className="form-group">
@@ -95,7 +93,7 @@ const Comment = () => {
                     <img src={LikeIcon} alt="like" />4
                   </button>
                   <button
-                    {...getToggleProps()}
+                    {...getToggleProps({ onClick: handleToggleOnClick })}
                     className="btn  es-btn-light"
                     type="button"
                     data-toggle="collapse"
@@ -106,9 +104,11 @@ const Comment = () => {
                     <img src={Reply} alt="reply" /> Reply
                   </button>
                 </div>
-                <div 
+                <div
                   {...getCollapseProps()}
-                  className="collapse" id="collapseReply1">
+                  className="collapse"
+                  id="collapseReply1"
+                >
                   <div className="card card-body es-card-body">
                     <div className="form-group">
                       <textarea

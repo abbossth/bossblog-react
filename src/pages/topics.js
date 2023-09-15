@@ -1,7 +1,7 @@
 import React from "react";
 import SearchIcon from "../assets/img/ic_search.svg";
 
-const Search = () => {
+const Topics = () => {
   return (
     <main>
       <section className="es-article-header es-regular-section">
@@ -98,4 +98,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default Topics;

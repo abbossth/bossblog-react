@@ -4,6 +4,7 @@ import MenuModal from "../assets/img/ic_mob_menu.svg";
 import { showAuth, showMenuModal } from "../store/actions/modalAction";
 import { logIn } from "../store/actions/loginAction";
 import Dropdown from "react-bootstrap/Dropdown";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -15,9 +16,9 @@ const Navbar = () => {
         <nav className="navbar navbar-expand-lg">
           <ul className="navbar-nav">
             <li className="nav item m-0">
-              <a className="navbar-brand" href="#">
+              <Link className="navbar-brand" to="/">
                 <img src={require("../assets/img/ic_logo.png")} alt="logo" />
-              </a>
+              </Link>
             </li>
             <li className="nav-item ml-0 pt-1">
               <form className="form-group es-form-search-main">
@@ -84,18 +85,30 @@ const Navbar = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link">Loyiha haqida</a>
+                <Link to={"/about"} className="nav-link">
+                  Loyiha haqida
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Yozish
-                </a>
+                {loggedIn ? (
+                  <Link to={"/write"} className="nav-link">
+                    Yozish
+                  </Link>
+                ) : (
+                  <button
+                    className="nav-link"
+                    type="button"
+                    onClick={() => dispatch(showAuth())}
+                  >
+                    Yozish
+                  </button>
+                )}
               </li>
               {!loggedIn && (
                 <li className="nav-item">
                   <button
                     className="nav-link"
-                    // onClick={() => }
+                    onClick={() => dispatch(showAuth())}
                     data-toggle="modal"
                     data-target="#authModal"
                   >

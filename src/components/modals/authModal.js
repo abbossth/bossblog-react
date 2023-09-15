@@ -1,7 +1,7 @@
 import { Modal } from "react-bootstrap";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { closeAuth } from "../../store/actions/modalAction";
+import { closeAuth, showAuth } from "../../store/actions/modalAction";
 import Close from "../../assets/img/ic_close (2).svg";
 import Google from "../../assets/img/ic_google.svg";
 import Email from "../../assets/img/ic_email.svg";
@@ -9,7 +9,6 @@ import Email from "../../assets/img/ic_email.svg";
 const AuthModal = () => {
   const { authModal } = useSelector((state) => state.modalsReducer);
   const dispatch = useDispatch();
-
 
   const hideAuth = () => {
     dispatch(closeAuth());
@@ -119,7 +118,7 @@ const AuthModal = () => {
                 <div></div>
               </button>
               <button className="btn es-btn-auth w-100">
-              <img src={Email} alt="google" />
+                <img src={Email} alt="google" />
                 Email bilan boshlash
                 <div></div>
               </button>
@@ -130,7 +129,12 @@ const AuthModal = () => {
               <div className="es-modal-login w-100">
                 Sizda allaqachon hisob mavjudmi?
               </div>
-              <button className="btn es-btn-login">Kirish</button>
+              <button
+                className="btn es-btn-login"
+                onClick={() => dispatch(showAuth())}
+              >
+                Kirish
+              </button>
             </div>
           </div>
         </div>
