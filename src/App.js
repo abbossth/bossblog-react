@@ -45,6 +45,18 @@ const App = () => {
       {!loggedIn && (
         <Layout>
           <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/saved" element={<Saved />} />
+            <Route path="/topic" element={<Topic />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/user-articles" element={<UserArticles />} />
+            <Route path="/profile-edit" element={<ProfileEdit />} />
+            <Route path="/write-article" element={<WriteArticle />} />
+            <Route path="/write-article-form" element={<WriteArticleForm />} />
+            <Route path="*" element={<NotFound />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="*" element={<h2>Not Found</h2>}></Route>
           </Routes>

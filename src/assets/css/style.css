@@ -275,6 +275,10 @@ button:focus,
  color: var(--main-grey-color);
 }
 
+.es-article-list {
+  width: 100%;
+}
+
 .es-article-item {
  display: flex;
  margin-bottom: 24px;
