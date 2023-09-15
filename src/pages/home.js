@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { loadMoreArticles } from "../store/actions/articleAction";
 import Article from "../components/article";
 import moment from "moment";
+import { Nav, Tab } from "react-bootstrap";
 
 const Home = () => {
   const { articles } = useSelector((state) => state.articleReducer);
@@ -126,46 +127,38 @@ const Home = () => {
                   <option value="2">Ko'p o'qilgan</option> */}
                 </select>
               </div>
-              <ul
+              <Nav
                 className="nav nav-pills es-nav-pills"
                 id="pills-tab"
                 role="tablist"
+                variant="pills"
               >
-                <li className="nav-item" role="presentation">
-                  <a
+                <Nav.Item className="nav-item" role="presentation">
+                  <Nav.Link
                     className="nav-link active"
                     id="pills-two-tab"
-                    data-toggle="pill"
-                    href="#pills-two"
-                    role="tab"
-                    aria-controls="pills-two"
-                    aria-selected="true"
+                    eventKey="first"
                   >
                     <img src={TwoLine} alt="two" />
-                  </a>
-                </li>
-                <li className="nav-item" role="presentation">
-                  <a
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item className="nav-item" role="presentation">
+                  <Nav.Link
                     className="nav-link"
                     id="pills-more-tab"
-                    data-toggle="pill"
-                    href="#pills-more"
-                    role="tab"
-                    aria-controls="pills-more"
-                    aria-selected="false"
+                    eventKey="second"
                   >
                     <img src={MoreLine} alt="more" />
-                  </a>
-                </li>
-              </ul>
+                  </Nav.Link>
+                </Nav.Item>
+              </Nav>
             </div>
           </div>
-          <div className="tab-content" id="pills-tabContent">
-            <div
+          <Tab.Content className="tab-content" id="pills-tabContent">
+            <Tab.Pane
               className="tab-pane fade show active"
               id="pills-two"
-              role="tabpanel"
-              aria-labelledby="pills-two-tab"
+              eventKey="first"
             >
               <div className="es-tab-pane-main">
                 <div className="es-article-list">
@@ -174,12 +167,11 @@ const Home = () => {
                   })}
                 </div>
               </div>
-            </div>
-            <div
+            </Tab.Pane>
+            <Tab.Pane
               className="tab-pane fade"
               id="pills-more"
-              role="tabpanel"
-              aria-labelledby="pills-more-tab"
+              eventKey="second"
             >
               <div className="es-search-list">
                 {articles.map((x) => (
@@ -265,8 +257,8 @@ const Home = () => {
                 </div>
                 ))}
               </div>
-            </div>
-          </div>
+            </Tab.Pane>
+          </Tab.Content>
           <div className="es-more-article">
             <button className="btn es-btn-light es-btn-save" onClick={loadMoreHandler}>
               <svg

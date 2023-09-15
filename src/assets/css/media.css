@@ -735,4 +735,8 @@
  .es-article-content-inner-sec {
   justify-content: space-between;
  }
+ #commentModal {
+  margin: 0;
+ }
+
 }

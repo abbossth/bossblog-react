@@ -29,6 +29,7 @@ body {
 a {
  color: var(--main-black-color);
  transition: all 300ms;
+ text-decoration: none;
 }
 
 a:hover,
@@ -1764,4 +1765,25 @@ button:focus,
 
 .es-dropdown-pr .dropdown-item svg {
   margin-right: 8px;
+}
+
+#commentModal {
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.es-comment-item-info a img,
+.es-new-comment-writer img {
+  margin-right: 8px;
+}
+
+.es-comment-modal .modal-header {
+  padding: 16px 0 16px 0;
+}
+
+.btn-check:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .btn.show {
+  color: var(--bs-btn-active-color);
+  background-color: var(--bs-btn-active-bg);
+  border-color: transparent;
 }

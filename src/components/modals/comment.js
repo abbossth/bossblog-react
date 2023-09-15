@@ -6,16 +6,24 @@ import { closeCommentModal } from "../../store/actions/modalAction";
 import LikeIcon from "../../assets/img/ic_like.svg";
 import Reply from "../../assets/img/ic_reply.svg";
 import { useCollapse } from "react-collapsed";
+import Profile from "../../assets/img/ic_profile.svg";
 
 const Comment = () => {
+  const config = {
+    duration: 5000
+  };
+  
   const { articles } = useSelector((state) => state.articleReducer);
   const { comment } = useSelector((state) => state.modalsReducer);
-  const { getCollapseProps, getToggleProps } = useCollapse()
+  const { getCollapseProps, getToggleProps } = useCollapse(config);
   const dispatch = useDispatch();
 
   const hideCommentModal = () => {
     dispatch(closeCommentModal());
   };
+
+  
+
   return (
     <Modal
       show={comment}
@@ -33,7 +41,7 @@ const Comment = () => {
           <div className="container">
             <div className="modal-header border-0">
               <h5 className="modal-title">
-                Izohlar ({articles.map((x) => x.body.comments)})
+                Izohlar (5)
               </h5>
               <button
                 type="button"
@@ -51,10 +59,10 @@ const Comment = () => {
               <div className="es-new-comment-writer">
                 <img
                   className="img-fluid"
-                  // src={articles.map((x) => (x.user.user_img))}
+                  src={Profile}
                   alt="profile"
                 />
-                {/* {articles.map((x) => x.user.full_name)} */}
+                Ilhomjon Davlatov
               </div>
               <div className="form-group">
                 <textarea
@@ -69,7 +77,7 @@ const Comment = () => {
               <div className="es-modal-comment-item">
                 <div className="es-comment-item-info">
                   <a href="#">
-                    <img src="img/ic_profile.svg" alt="profile" />
+                    <img src={Profile} alt="profile" />
                     Ilhomjon Davlatov
                   </a>
                   <div className="es-comment-item-date">17 Sep 2020</div>
@@ -98,7 +106,9 @@ const Comment = () => {
                     <img src={Reply} alt="reply" /> Reply
                   </button>
                 </div>
-                <div {...getCollapseProps()} className="collapse" id="collapseReply1">
+                <div 
+                  {...getCollapseProps()}
+                  className="collapse" id="collapseReply1">
                   <div className="card card-body es-card-body">
                     <div className="form-group">
                       <textarea
@@ -114,7 +124,7 @@ const Comment = () => {
               <div className="es-modal-comment-item">
                 <div className="es-comment-item-info">
                   <a href="#">
-                    <img src="img/ic_profile.svg" alt="profile" />
+                    <img src={Profile} alt="profile" />
                     Ilhomjon Davlatov
                   </a>
                   <div className="es-comment-item-date">17 Sep 2020</div>
