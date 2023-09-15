@@ -1753,3 +1753,15 @@ button:focus,
 .es-article-info-inner {
   display: flex;
 }
+
+.dropdown-toggle::after {
+  content: none;
+}
+
+.es-profile-dp {
+  border: none;
+}
+
+.es-dropdown-pr .dropdown-item svg {
+  margin-right: 8px;
+}

@@ -3,6 +3,7 @@ import Search from "../assets/img/ic_search.svg";
 import MenuModal from "../assets/img/ic_mob_menu.svg";
 import { showAuth, showMenuModal } from "../store/actions/modalAction";
 import { logIn } from "../store/actions/loginAction";
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -100,7 +101,8 @@ const Navbar = () => {
                 </button>
               </li>
               <li className="nav-item dropdown">
-                <a
+                <Dropdown>
+                <Dropdown.Toggle
                   className="btn es-btn-primary es-profile-dp"
                   type="button"
                   id="profileDropdown"
@@ -109,12 +111,12 @@ const Navbar = () => {
                   aria-expanded="false"
                 >
                   ak
-                </a>
-                <div
+                </Dropdown.Toggle>
+                <Dropdown.Menu
                   className="dropdown-menu es-dropdown-pr"
                   aria-labelledby="profileDropdown"
                 >
-                  <a className="dropdown-item" href="#">
+                  <Dropdown.Item className="dropdown-item" href="#">
                     <svg
                       width="14"
                       height="14"
@@ -130,8 +132,8 @@ const Navbar = () => {
                       />
                     </svg>
                     Profil sozlamalari
-                  </a>
-                  <a className="dropdown-item" href="#">
+                  </Dropdown.Item>
+                  <Dropdown.Item className="dropdown-item" href="#">
                     <svg
                       width="12"
                       height="16"
@@ -147,8 +149,8 @@ const Navbar = () => {
                       />
                     </svg>
                     Saqlanganlar
-                  </a>
-                  <a className="dropdown-item" href="#">
+                  </Dropdown.Item>
+                  <Dropdown.Item className="dropdown-item" href="#">
                     <svg
                       width="16"
                       height="16"
@@ -164,8 +166,8 @@ const Navbar = () => {
                       />
                     </svg>
                     Maqolalarim
-                  </a>
-                  <a className="dropdown-item" href="#">
+                  </Dropdown.Item>
+                  <Dropdown.Item className="dropdown-item" href="#">
                     <svg
                       width="12"
                       height="12"
@@ -181,8 +183,9 @@ const Navbar = () => {
                       />
                     </svg>
                     Statistika
-                  </a>
-                </div>
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+                </Dropdown>
               </li>
               <li className="nav-item">
                 <button
