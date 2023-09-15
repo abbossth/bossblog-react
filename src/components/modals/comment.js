@@ -10,7 +10,7 @@ import Profile from "../../assets/img/ic_profile.svg";
 
 const Comment = () => {
   const config = {
-    duration: 5000
+    duration: 1000
   };
   
   const { articles } = useSelector((state) => state.articleReducer);

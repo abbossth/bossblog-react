@@ -9,6 +9,8 @@ import { getTrendingTopics } from "../store/actions/trendingTopicsAction";
 import { getTrendingArticles } from "../store/actions/trendingArticlesAction";
 import { getArticles } from "../store/actions/articleAction";
 import MenuModal from "../components/modals/menuModal";
+import $ from "jquery";
+import Top from "../assets/img/ic_top.svg";
 
 const Layout = ({ children }) => {
   const dispatch = useDispatch();
@@ -48,10 +50,41 @@ const Layout = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (currentPage === 1 || currentPage !== pagination.page) {
-      fetchArticles();
+    const handleScroll = () => {
+      const scrollTop = $(window).scrollTop();
+      const t = $("#back-top");
+
+      if (scrollTop > 350) {
+        t.addClass("visible");
+      } else {
+        t.removeClass("visible");
+      }
+
+      if (scrollTop > 0) {
+        $(".es-main-navbar ").addClass("es-navbar-fixed");
+      } else {
+        $(".es-main-navbar ").removeClass("es-navbar-fixed");
+      }
+    };
+
+    const handleBackToTop = (e) => {
+      e.preventDefault();
+      $("html, body").animate({ scrollTop: 0 }, 200);
+    };
+
+    $(window).on("scroll", handleScroll);
+    const t = $("#back-top");
+    if (t.length) {
+      t.on("click", handleBackToTop);
     }
-  }, [currentPage]);
+
+    return () => {
+      $(window).off("scroll", handleScroll);
+      if (t.length) {
+        t.off("click", handleBackToTop);
+      }
+    };
+  }, []);
   return (
     <div>
       <Navbar />
@@ -60,6 +93,9 @@ const Layout = ({ children }) => {
       <MenuModal />
       <Comment />
       <Footer />
+      <button id="back-top" className="btn">
+        <img alt="To Top" src={Top} />
+      </button>
     </div>
   );
 };
