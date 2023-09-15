@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { loadMoreArticles } from "../store/actions/articleAction";
 import Article from "../components/article";
+import moment from "moment";
 
 const Home = () => {
   const { articles } = useSelector((state) => state.articleReducer);
@@ -97,7 +98,7 @@ const Home = () => {
                   </div>
                   <div className="es-popular-ar-content">
                     <p className="es-popular-ar-date">
-                      {y.createdAt}{" "}
+                    {moment(y.createdAt).format('ll')}{" "}
                       <span className="es-popular-ar-by">{y.fullname}</span>
                     </p>
                     <a href="#" className="es-popular-ar-title">

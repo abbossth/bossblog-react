@@ -14,14 +14,14 @@ const Footer = () => {
         <div className="row">
           <div className="col-md-2">
             <div className="es-footer-logo">
-              <Link to='/'>
+              <a href="#">
                 <img
                   className="img-fluid es-footer-logo-ic"
                   src={LogoIcon}
                   alt="BossBlog"
                 />
                 <img className="img-fluid" src={Logo} alt="BossBlog" />
-              </Link>
+              </a>
             </div>
           </div>
           <div className="col-md-7">
