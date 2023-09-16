@@ -30,7 +30,7 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  blacklist: ["articleReducer", "modalsReducer"],
+  blacklist: ["articleReducer"],
   stateReconciler: autoMergeLevel2, // optional state reconciler
 };
 

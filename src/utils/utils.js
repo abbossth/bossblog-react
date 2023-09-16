@@ -1,0 +1,4 @@
+export const MODAL_TYPES = {
+  SIGN_IN_MODAL: "SIGN_IN_MODAL",
+  SIGN_UP_MODAL: "SIGN_UP_MODAL",
+};

@@ -18,7 +18,6 @@ import WriteArticle from "./pages/write-article";
 import WriteArticleForm from "./pages/write-article-form";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { useSelector } from "react-redux";
-import Login from "./components/modals/login";
 import Article from "./pages/article";
 
 const App = () => {
@@ -59,7 +58,6 @@ const App = () => {
             <Route path="/write-article" element={<WriteArticle />} />
             <Route path="/write-article-form" element={<WriteArticleForm />} />
             <Route path="*" element={<NotFound />}></Route>
-            <Route path="/login" element={<Login />}></Route>
           </Routes>
         </Layout>
       )}

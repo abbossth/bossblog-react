@@ -1,7 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import Search from "../assets/img/ic_search.svg";
 import MenuModal from "../assets/img/ic_mob_menu.svg";
-import { showAuth, showMenuModal } from "../store/actions/modalAction";
+import {
+  showAuthSignIn,
+  showAuthSignUp,
+  showMenuModal,
+} from "../store/actions/modalAction";
 import { logIn } from "../store/actions/loginAction";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Link } from "react-router-dom";
@@ -98,7 +102,7 @@ const Navbar = () => {
                   <button
                     className="nav-link"
                     type="button"
-                    onClick={() => dispatch(showAuth())}
+                    onClick={() => dispatch(showAuthSignIn())}
                   >
                     Yozish
                   </button>
@@ -108,7 +112,7 @@ const Navbar = () => {
                 <li className="nav-item">
                   <button
                     className="nav-link"
-                    onClick={() => dispatch(showAuth())}
+                    onClick={() => dispatch(showAuthSignIn())}
                     data-toggle="modal"
                     data-target="#authModal"
                   >
@@ -211,7 +215,7 @@ const Navbar = () => {
                     className="btn es-btn-primary"
                     data-toggle="modal"
                     data-target="#codeModal"
-                    onClick={() => dispatch(showAuth())}
+                    onClick={() => dispatch(showAuthSignUp())}
                   >
                     Boshlash
                   </button>

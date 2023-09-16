@@ -12,7 +12,7 @@ import { loadMoreArticles } from "../store/actions/articleAction";
 import Article from "../components/article-card";
 import moment from "moment";
 import { Nav, Tab } from "react-bootstrap";
-import { showAuth } from "../store/actions/modalAction";
+import { showAuthSignUp } from "../store/actions/modalAction";
 import ArticleCard from "../components/article-card";
 
 const Home = () => {
@@ -46,7 +46,7 @@ const Home = () => {
             <button
               className="btn es-btn-primary"
               type="button"
-              onClick={() => dispatch(showAuth())}
+              onClick={() => dispatch(showAuthSignUp())}
             >
               Hamjamiyatga qo’shiling
             </button>
