@@ -19,7 +19,7 @@ const SignIn = () => {
 
   const handleSignIn = async () => {
     const formData = {
-      email,
+      usernameOrEmail: email,
       password,
     };
     try {
