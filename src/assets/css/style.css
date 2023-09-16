@@ -550,7 +550,6 @@ button:focus,
   object-fit: cover;
   padding-right: 0.75rem;
   margin-right: 0.75rem;
-  /* border-right: 0.5px solid var(--main-grey-color); */
 }
 
 .es-modal-content-header .modal-title {
