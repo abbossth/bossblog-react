@@ -1,15 +1,48 @@
 import { Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { closeAuth, showAuthSignIn } from "../../store/actions/modalAction";
+import {
+  closeAuth,
+  showAuthSignIn,
+  showEmailVerification,
+} from "../../store/actions/modalAction";
 import Close from "../../assets/img/ic_close (2).svg";
 import { ReactComponent as AlertIcon } from "../../assets/img/ic_error.svg";
 import { Link } from "react-router-dom";
+import axios from "../../api/axios";
+import { useState } from "react";
+import { logIn } from "../../store/actions/loginAction";
 
 const SignUp = () => {
   const dispatch = useDispatch();
   const { authModal } = useSelector((state) => state.modalsReducer);
+  const [fullName, setFullName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   const hideAuth = () => {
     dispatch(closeAuth());
+  };
+
+  const handleSignUp = async () => {
+    const formData = {
+      full_name: fullName,
+      username,
+      email,
+      password,
+      confirmPassword,
+    };
+    try {
+      const res = await axios.post(`/users/auth/signup`, formData);
+      if (res?.status === 201) {
+        dispatch(logIn(res?.data));
+        dispatch(closeAuth());
+      }
+      console.log("signup", res?.data);
+    } catch (err) {
+      console.log(`Unhandled Error while Signing Up ${err}`);
+    }
   };
   return (
     <Modal
@@ -68,6 +101,8 @@ const SignUp = () => {
                   className="form-control"
                   id="fullname"
                   placeholder="Ism familiyangizni kiriting"
+                  onChange={(e) => setFullName(e.target.value)}
+                  value={fullName}
                 />
               </div>
               <div className="form-group es-form-group">
@@ -77,6 +112,8 @@ const SignUp = () => {
                   className="form-control"
                   id="username"
                   placeholder="Foydalanuvchi nomi kiriting"
+                  onChange={(e) => setUsername(e.target.value)}
+                  value={username}
                 />
               </div>
               <div className="form-group es-form-group">
@@ -86,6 +123,8 @@ const SignUp = () => {
                   className="form-control"
                   id="email"
                   placeholder="Email kiriting"
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
                 />
               </div>
               <div className="form-group es-form-group">
@@ -95,6 +134,8 @@ const SignUp = () => {
                   className="form-control"
                   id="password"
                   placeholder="Parol yarating"
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
                 />
               </div>
               <div className="form-group es-form-group">
@@ -105,6 +146,8 @@ const SignUp = () => {
                   id="passwordConfirm"
                   required
                   placeholder="parolni qaytadan kiriting"
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  value={confirmPassword}
                 />
                 <div id="passwordConfirm" className="invalid-feedback">
                   <AlertIcon className="me-2" />
@@ -125,7 +168,10 @@ const SignUp = () => {
                   ga rozilik bildiraman.
                 </label>
               </div>
-              <button className="btn btn-primary text-center w-100">
+              <button
+                onClick={handleSignUp}
+                className="btn btn-primary text-center w-100"
+              >
                 Ro'yhatdan O'tish
               </button>
             </div>
