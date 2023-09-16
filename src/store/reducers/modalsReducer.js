@@ -12,13 +12,13 @@ const initialState = {
 
 const modalsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionTypes.MODALS.SHOW_AUTH_SIGN_IN:
+    case ActionTypes.MODALS.SHOW_AUTH_SIGN_IN_OPTIONS:
       return {
         ...state,
         authModal: true,
         store: { modalType: MODAL_TYPES.SIGN_IN_MODAL },
       };
-    case ActionTypes.MODALS.SHOW_AUTH_SIGN_UP:
+    case ActionTypes.MODALS.SHOW_AUTH_SIGN_UP_OPTIONS:
       return {
         ...state,
         authModal: true,
