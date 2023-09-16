@@ -11,6 +11,8 @@ import { getArticles } from "../store/actions/articleAction";
 import MenuModal from "../components/modals/menuModal";
 import { useLocation } from "react-router-dom";
 import { backToTop } from "../plugins/custom";
+import $ from "jquery";
+import Top from "../assets/img/ic_top.svg";
 
 const Layout = ({ children }) => {
   const { pathname } = useLocation();
@@ -51,10 +53,6 @@ const Layout = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    backToTop();
-  }, [pathname]);
-
-  useEffect(() => {
     if (currentPage === 1 || currentPage !== pagination.page) {
       fetchArticles();
     }
@@ -67,6 +65,9 @@ const Layout = ({ children }) => {
       <MenuModal />
       <Comment />
       <Footer />
+      <button id="back-top" className="btn">
+        <img alt="To Top" src={Top} />
+      </button>
     </div>
   );
 };
