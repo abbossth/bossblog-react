@@ -539,6 +539,24 @@ button:focus,
  padding: 1rem 0;
 }
 
+.es-modal-content-header {
+  display: flex;
+  align-items: center;
+}
+
+.es-modal-content-header > svg {
+  width: fit-content;
+  height: 100%;
+  object-fit: cover;
+  padding-right: 0.75rem;
+  margin-right: 0.75rem;
+  /* border-right: 0.5px solid var(--main-grey-color); */
+}
+
+.es-modal-content-header .modal-title {
+  font-weight: 550;
+}
+
 .es-modal-comment-list {
  padding: 40px 0;
 }
@@ -1014,11 +1032,19 @@ button:focus,
 }
 
 .es-form-group {
- margin-bottom: 32px;
+ margin-bottom: 24px;
+}
+
+.es-form-group {
+  font-weight: 550;
 }
 
 .es-form-group input {
- padding: 12px 10px;
+ padding: 6px 8px;
+}
+
+.es-form-group input::placeholder {
+  font-size: 14px;
 }
 
 .es-profile-save {
@@ -1154,13 +1180,14 @@ button:focus,
   border-top: 1px solid #E8E8E8;
   text-align: center;
   padding-top: 16px;
-  margin-bottom: 8px;
+  /* margin-bottom: 8px; */
 }
 
 .es-btn-login {
   color: var(--main-blue-color);
   display: flex;
   margin: auto;
+  padding-top: 0;
 }
 
 .invalid-feedback img {

@@ -12,7 +12,10 @@ import { loadMoreArticles } from "../store/actions/articleAction";
 import Article from "../components/article-card";
 import moment from "moment";
 import { Nav, Tab } from "react-bootstrap";
-import { showAuthSignUp } from "../store/actions/modalAction";
+import {
+  showAuthSignUp,
+  showAuthSignUpOptions,
+} from "../store/actions/modalAction";
 import ArticleCard from "../components/article-card";
 
 const Home = () => {
@@ -29,9 +32,9 @@ const Home = () => {
     dispatch(loadMoreArticles());
   };
 
-  console.log("articles", articles);
-  console.log("trending topics", trendingTopics);
-  console.log("trending articles", trendingArticles);
+  // console.log("articles", articles);
+  // console.log("trending topics", trendingTopics);
+  // console.log("trending articles", trendingArticles);
   return (
     <main>
       <section className="es-regular-section es-main-section">
@@ -46,7 +49,7 @@ const Home = () => {
             <button
               className="btn es-btn-primary"
               type="button"
-              onClick={() => dispatch(showAuthSignUp())}
+              onClick={() => dispatch(showAuthSignUpOptions())}
             >
               Hamjamiyatga qo’shiling
             </button>

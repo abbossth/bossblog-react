@@ -1,15 +1,27 @@
 import ActionTypes from "../action-types/actionTypes";
 
-export const showAuthSignIn = () => {
+export const showAuthSignInOptions = () => {
   return {
     type: ActionTypes.MODALS.SHOW_AUTH_SIGN_IN_OPTIONS,
   };
 };
-export const showAuthSignUp = () => {
+export const showAuthSignUpOptions = () => {
   return {
     type: ActionTypes.MODALS.SHOW_AUTH_SIGN_UP_OPTIONS,
   };
 };
+
+export const showAuthSignIn = () => {
+  return {
+    type: ActionTypes.MODALS.SHOW_AUTH_SIGN_IN,
+  };
+};
+export const showAuthSignUp = () => {
+  return {
+    type: ActionTypes.MODALS.SHOW_AUTH_SIGN_UP,
+  };
+};
+
 export const closeAuth = () => {
   return {
     type: ActionTypes.MODALS.CLOSE_AUTH,

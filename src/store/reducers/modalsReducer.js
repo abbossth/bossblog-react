@@ -16,13 +16,25 @@ const modalsReducer = (state = initialState, action) => {
       return {
         ...state,
         authModal: true,
-        store: { modalType: MODAL_TYPES.SIGN_IN_MODAL },
+        store: { modalType: MODAL_TYPES.SIGN_IN_OPTIONS },
       };
     case ActionTypes.MODALS.SHOW_AUTH_SIGN_UP_OPTIONS:
       return {
         ...state,
         authModal: true,
-        store: { modalType: MODAL_TYPES.SIGN_UP_MODAL },
+        store: { modalType: MODAL_TYPES.SIGN_UP_OPTIONS },
+      };
+    case ActionTypes.MODALS.SHOW_AUTH_SIGN_IN:
+      return {
+        ...state,
+        authModal: true,
+        store: { modalType: MODAL_TYPES.SIGN_IN },
+      };
+    case ActionTypes.MODALS.SHOW_AUTH_SIGN_UP:
+      return {
+        ...state,
+        authModal: true,
+        store: { modalType: MODAL_TYPES.SIGN_UP },
       };
     case ActionTypes.MODALS.CLOSE_AUTH:
       return { ...state, authModal: false, store: { modalType: null } };

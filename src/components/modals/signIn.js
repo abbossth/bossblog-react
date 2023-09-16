@@ -1,37 +1,15 @@
 import { Modal } from "react-bootstrap";
-import {
-  closeAuth,
-  showAuthSignIn,
-  showAuthSignUp,
-  showAuthSignUpOptions,
-} from "../../store/actions/modalAction";
 import { useDispatch, useSelector } from "react-redux";
-import { logIn } from "../../store/actions/loginAction";
+import { closeAuth, showAuthSignUp } from "../../store/actions/modalAction";
 import Close from "../../assets/img/ic_close (2).svg";
-import Google from "../../assets/img/ic_google.svg";
-import Email from "../../assets/img/ic_email.svg";
+import { ReactComponent as AlertIcon } from "../../assets/img/ic_error.svg";
 
-const SignInAuthOptions = () => {
+const SignIn = () => {
   const dispatch = useDispatch();
-  const { loggedIn } = useSelector((state) => state.loginReducer);
   const { authModal } = useSelector((state) => state.modalsReducer);
-  const logInHandler = () => {
-    dispatch(logIn());
-  };
-
   const hideAuth = () => {
     dispatch(closeAuth());
   };
-
-  const handleEmailSignIn = () => {
-    dispatch(showAuthSignIn());
-  };
-
-  const handleGoogleSignIn = () => {
-    // dispatch(showAuthSignIn());
-  };
-
-  console.log(loggedIn);
   return (
     <Modal
       show={authModal}
@@ -81,21 +59,45 @@ const SignInAuthOptions = () => {
           </div>
           <div className="modal-body">
             <div className="container">
-              <button
-                onClick={handleGoogleSignIn}
-                className="btn es-google-btn w-100"
-              >
-                <img src={Google} alt="google" />
-                Google bilan kirish
-                <div></div>
-              </button>
-              <button
-                onClick={handleEmailSignIn}
-                className="btn es-btn-auth w-100"
-              >
-                <img src={Email} alt="google" />
-                Email bilan kirish
-                <div></div>
+              <div className="form-group es-form-group">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="email"
+                  placeholder="Email yoki foydalanuvchi nomini kiriting"
+                />
+              </div>
+              <div className="form-group es-form-group">
+                <label for="password">Parol</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="password"
+                  placeholder="Parolni kiriting"
+                />
+                <div id="passwordConfirm" className="invalid-feedback">
+                  <AlertIcon className="me-2" />
+                  Error Alert
+                </div>
+              </div>
+              <div className="form-group es-form-group es-form-password">
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    id="savePassword"
+                  />
+                  <label className="form-check-label" for="savePassword">
+                    Eslab qolish
+                  </label>
+                </div>
+                <button className="btn" href="#">
+                  Parolni unutdingizmi?
+                </button>
+              </div>
+              <button className="btn btn-primary text-center w-100">
+                Kirish
               </button>
             </div>
           </div>
@@ -106,7 +108,7 @@ const SignInAuthOptions = () => {
               </div>
               <button
                 className="btn es-btn-login"
-                onClick={() => dispatch(showAuthSignUpOptions())}
+                onClick={() => dispatch(showAuthSignUp())}
               >
                 Ro'yhatdan O'tish
               </button>
@@ -118,4 +120,4 @@ const SignInAuthOptions = () => {
   );
 };
 
-export default SignInAuthOptions;
+export default SignIn;

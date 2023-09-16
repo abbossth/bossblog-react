@@ -3,7 +3,9 @@ import Search from "../assets/img/ic_search.svg";
 import MenuModal from "../assets/img/ic_mob_menu.svg";
 import {
   showAuthSignIn,
+  showAuthSignInOptions,
   showAuthSignUp,
+  showAuthSignUpOptions,
   showMenuModal,
 } from "../store/actions/modalAction";
 import { logIn } from "../store/actions/loginAction";
@@ -102,7 +104,7 @@ const Navbar = () => {
                   <button
                     className="nav-link"
                     type="button"
-                    onClick={() => dispatch(showAuthSignIn())}
+                    onClick={() => dispatch(showAuthSignInOptions())}
                   >
                     Yozish
                   </button>
@@ -112,7 +114,7 @@ const Navbar = () => {
                 <li className="nav-item">
                   <button
                     className="nav-link"
-                    onClick={() => dispatch(showAuthSignIn())}
+                    onClick={() => dispatch(showAuthSignInOptions())}
                     data-toggle="modal"
                     data-target="#authModal"
                   >
@@ -215,7 +217,7 @@ const Navbar = () => {
                     className="btn es-btn-primary"
                     data-toggle="modal"
                     data-target="#codeModal"
-                    onClick={() => dispatch(showAuthSignUp())}
+                    onClick={() => dispatch(showAuthSignUpOptions())}
                   >
                     Boshlash
                   </button>
