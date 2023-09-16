@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal } from "react-bootstrap";
+import { Modal, Collapse, Accordion, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Close from "../../assets/img/ic_close (2).svg";
 import { closeCommentModal } from "../../store/actions/modalAction";
@@ -15,12 +15,10 @@ const Comment = () => {
     setExpanded(!isExpanded);
   };
 
-  const { articles } = useSelector((state) => state.articleReducer);
   const { comment } = useSelector((state) => state.modalsReducer);
   const { getCollapseProps, getToggleProps } = useCollapse({
     isExpanded,
-    duration: 500,
-    hasDisabledAnimation: true,
+    duration: 2000,
   });
   const dispatch = useDispatch();
 
@@ -93,22 +91,17 @@ const Comment = () => {
                     <img src={LikeIcon} alt="like" />4
                   </button>
                   <button
-                    {...getToggleProps({ onClick: handleToggleOnClick })}
-                    className="btn  es-btn-light"
+                    className="btn es-btn-light"
                     type="button"
-                    data-toggle="collapse"
-                    data-target="#collapseReply1"
+                    data-bs-toggle="collapse"
+                    data-bs-target={`#collapseComment-${1}`}
                     aria-expanded="false"
-                    aria-controls="collapseReply1"
+                    aria-controls="collapseExample"
                   >
                     <img src={Reply} alt="reply" /> Reply
                   </button>
                 </div>
-                <div
-                  {...getCollapseProps()}
-                  className="collapse"
-                  id="collapseReply1"
-                >
+                <div className="collapse" id={`collapseComment-${1}`}>
                   <div className="card card-body es-card-body">
                     <div className="form-group">
                       <textarea
@@ -139,20 +132,64 @@ const Comment = () => {
                 <button className="btn es-comment-item-text-more">More</button>
                 <div className="es-comment-item-reaction">
                   <button className="btn es-like-btn">
-                    <img src={LikeIcon} alt="like" /> 4
+                    <img src={LikeIcon} alt="like" />4
                   </button>
                   <button
-                    className="btn  es-btn-light"
+                    className="btn es-btn-light"
                     type="button"
-                    data-toggle="collapse"
-                    data-target="#collapseReply2"
+                    data-bs-toggle="collapse"
+                    data-bs-target={`#collapseComment-${2}`}
                     aria-expanded="false"
-                    aria-controls="collapseReply2"
+                    aria-controls="collapseExample"
                   >
                     <img src={Reply} alt="reply" /> Reply
                   </button>
                 </div>
-                <div className="collapse" id="collapseReply2">
+                <div className="collapse" id={`collapseComment-${2}`}>
+                  <div className="card card-body es-card-body">
+                    <div className="form-group">
+                      <textarea
+                        className="form-control"
+                        placeholder="Izohingiz matni bayon qiling"
+                        rows="5"
+                      ></textarea>
+                    </div>
+                    <button className="btn es-btn-light">Chop etish</button>
+                  </div>
+                </div>
+              </div>
+              <div className="es-modal-comment-item">
+                <div className="es-comment-item-info">
+                  <a href="#">
+                    <img src={Profile} alt="profile" />
+                    Ilhomjon Davlatov
+                  </a>
+                  <div className="es-comment-item-date">17 Sep 2020</div>
+                </div>
+                <div className="es-comment-item-text">
+                  Wow, I've been using Axios for data fetching in my React
+                  projects, but I didn't know about React Query. The code
+                  example you provided looks clean and concise. I'll definitely
+                  give it a try in my next project. Thanks for introducing me to
+                  a new approa
+                </div>
+                <button className="btn es-comment-item-text-more">More</button>
+                <div className="es-comment-item-reaction">
+                  <button className="btn es-like-btn">
+                    <img src={LikeIcon} alt="like" />4
+                  </button>
+                  <button
+                    className="btn es-btn-light"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target={`#collapseComment-${3}`}
+                    aria-expanded="false"
+                    aria-controls="collapseExample"
+                  >
+                    <img src={Reply} alt="reply" /> Reply
+                  </button>
+                </div>
+                <div className="collapse" id={`collapseComment-${3}`}>
                   <div className="card card-body es-card-body">
                     <div className="form-group">
                       <textarea
