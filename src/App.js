@@ -28,17 +28,18 @@ const App = () => {
       <ProtectedRoute isSignedIn={loggedIn}>
         <Layout>
           <Routes>
-            <Route path="/" element={<AuthorizedHome />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/profile/:profileId" element={<Profile />} />
+            <Route path="/article/:articleId" element={<Article />} />
+            <Route path="/topics/:topicId" element={<Topic />} />
+            <Route path="/topics" element={<Topics />} />
             <Route path="/about" element={<About />} />
             <Route path="/saved" element={<Saved />} />
-            <Route path="/topic" element={<Topic />} />
-            <Route path="/topics" element={<Topics />} />
-            <Route path="/profile" element={<Profile />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/user-articles" element={<UserArticles />} />
             <Route path="/profile-edit" element={<ProfileEdit />} />
-            <Route path="/write-article" element={<WriteArticle />} />
-            <Route path="/write-article-form" element={<WriteArticleForm />} />
+            <Route path="/write" element={<WriteArticle />} />
+            <Route path="/write-form" element={<WriteArticleForm />} />
             <Route path="*" element={<NotFound />}></Route>
           </Routes>
         </Layout>
@@ -52,12 +53,7 @@ const App = () => {
             <Route path="/profile/:profileId" element={<Profile />} />
             <Route path="/article/:articleId" element={<Article />} />
             <Route path="/topics/:topicId" element={<Topic />} />
-            <Route path="/saved" element={<Saved />} />
             <Route path="/privacy" element={<Privacy />} />
-            <Route path="/user-articles" element={<UserArticles />} />
-            <Route path="/profile-edit" element={<ProfileEdit />} />
-            <Route path="/write-article" element={<WriteArticle />} />
-            <Route path="/write-article-form" element={<WriteArticleForm />} />
             <Route path="*" element={<NotFound />}></Route>
           </Routes>
         </Layout>

@@ -3,12 +3,35 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeAuth, showAuthSignUp } from "../../store/actions/modalAction";
 import Close from "../../assets/img/ic_close (2).svg";
 import { ReactComponent as AlertIcon } from "../../assets/img/ic_error.svg";
+import { useState } from "react";
+import axios from "../../api/axios";
+import { logIn } from "../../store/actions/loginAction";
 
 const SignIn = () => {
   const dispatch = useDispatch();
   const { authModal } = useSelector((state) => state.modalsReducer);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const hideAuth = () => {
     dispatch(closeAuth());
+  };
+
+  const handleSignIn = async () => {
+    const formData = {
+      usernameOrEmail: email,
+      password,
+    };
+    try {
+      const res = await axios.post(`/users/auth/signin`, formData);
+      if (res?.status === 200) {
+        dispatch(logIn(res?.data));
+        dispatch(closeAuth());
+      }
+      console.log("signin", res);
+    } catch (err) {
+      console.log(`Unhandled Error while Signing In ${err}`);
+    }
   };
   return (
     <Modal
@@ -66,6 +89,8 @@ const SignIn = () => {
                   className="form-control"
                   id="email"
                   placeholder="Email yoki foydalanuvchi nomini kiriting"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="form-group es-form-group">
@@ -75,8 +100,10 @@ const SignIn = () => {
                   className="form-control"
                   id="password"
                   placeholder="Parolni kiriting"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
-                <div id="passwordConfirm" className="invalid-feedback">
+                <div id="password" className="invalid-feedback">
                   <AlertIcon className="me-2" />
                   Error Alert
                 </div>
@@ -96,7 +123,10 @@ const SignIn = () => {
                   Parolni unutdingizmi?
                 </button>
               </div>
-              <button className="btn btn-primary text-center w-100">
+              <button
+                onClick={handleSignIn}
+                className="btn btn-primary text-center w-100"
+              >
                 Kirish
               </button>
             </div>

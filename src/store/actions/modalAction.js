@@ -22,6 +22,12 @@ export const showAuthSignUp = () => {
   };
 };
 
+export const showEmailVerification = () => {
+  return {
+    type: ActionTypes.MODALS.SHOW_EMAIL_VERIFICATION,
+  };
+};
+
 export const closeAuth = () => {
   return {
     type: ActionTypes.MODALS.CLOSE_AUTH,

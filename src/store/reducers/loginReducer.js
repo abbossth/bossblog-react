@@ -3,12 +3,9 @@ import actionTypes from "../action-types/actionTypes";
 const initialState = {
   loggedIn: false,
   error: null,
-  tokenExpDays: 0,
-  userLoggedInTime: null,
   role: null,
   roles: [],
   token: "",
-  userId: "",
 };
 
 const loginReducer = (state = initialState, action) => {
@@ -18,11 +15,7 @@ const loginReducer = (state = initialState, action) => {
         ...state,
         loggedIn: true,
         error: null,
-        // role: action.payload.role,
-        // roles: action.payload.roles,
-        // token: action.payload.token,
-        // userLoggedInTime: new Date(),
-        // userId: action.payload.userId,
+        token: action.payload.token,
       };
     case actionTypes.AUTH.LOG_OUT:
       return {
@@ -30,11 +23,7 @@ const loginReducer = (state = initialState, action) => {
         loggedIn: false,
         error: action.payload,
         tokenExpDays: 0,
-        role: null,
-        roles: [],
         token: "",
-        userLoggedInTime: null,
-        userId: "",
       };
     default:
       return state;
