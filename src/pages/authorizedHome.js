@@ -1,118 +1,23 @@
-import More from "../assets/img/ic_more_t.svg";
+import React from "react";
 import Vector from "../assets/img/ic_vector.svg";
-import VectorS from "../assets/img/ic_vector.svg";
 import TwoLine from "../assets/img/ic_two_line.svg";
 import MoreLine from "../assets/img/ic_more_line.svg";
 import Profile from "../assets/img/ic_profile.svg";
 import Time from "../assets/img/ic_time.svg";
 import Seen from "../assets/img/ic_seen.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { loadMoreArticles } from "../store/actions/articleAction";
-import moment from "moment";
-import { Nav, Tab } from "react-bootstrap";
-import {
-  showAuthSignUp,
-  showAuthSignUpOptions,
-} from "../store/actions/modalAction";
 import ArticleCard from "../components/article-card";
+import { Nav, Tab } from "react-bootstrap";
 
-const Home = () => {
+const AuthorizedHome = () => {
   const { articles } = useSelector((state) => state.articleReducer);
-  const { trendingTopics } = useSelector(
-    (state) => state.trendingTopicsReducer
-  );
-  const { trendingArticles } = useSelector(
-    (state) => state.trendingArticlesReducer
-  );
   const dispatch = useDispatch();
-
   const loadMoreHandler = () => {
     dispatch(loadMoreArticles());
   };
-
-  // console.log("articles", articles);
-  // console.log("trending topics", trendingTopics);
-  // console.log("trending articles", trendingArticles);
   return (
     <main>
-      <section className="es-regular-section es-main-section">
-        <div className="container">
-          <div className="es-main-section-content">
-            <h1 className="es-main-section-title">
-              Bizning maqsadimiz oʻzbek ilmiy kontentini boyitish
-            </h1>
-            <p className="es-main-section-desc">
-              Bilimingizni maqolalarda ulashing va hamjamiyatni kengaytiring
-            </p>
-            <button
-              className="btn es-btn-primary"
-              type="button"
-              onClick={() => dispatch(showAuthSignUpOptions())}
-            >
-              Hamjamiyatga qo’shiling
-            </button>
-            <div className="es-main-section-links">
-              {trendingTopics.map((x) => (
-                <Link to={`/topics/${x.id}`} key={"trending-topic-id-" + x.id}>
-                  {`#${x.name}`}
-                </Link>
-              ))}
-            </div>
-            <Link to="/topics" className="es-main-section-more">
-              Ko‘proq mavzularni ko‘rish
-              <img src={More} alt="more" />
-            </Link>
-          </div>
-        </div>
-      </section>
-      <section className="es-regular-section">
-        <div className="container">
-          <div className="es-section-header">
-            <div className="es-section-title">
-              <img src={VectorS} alt="vector" />
-              <span>Mashxur maqolalar</span>
-            </div>
-          </div>
-          <div className="es-popular-ar-list">
-            {trendingArticles.map((y) => (
-              <div
-                className="es-popular-ar-item"
-                key={"trending-article-id-" + y.id}
-              >
-                <div className="es-popular-ar-wrp">
-                  <div className="es-popular-ar-img">
-                    <Link to={`/article/${y.id}`}>
-                      {y.image === "null" ? (
-                        <img
-                          src={require("../assets/img/article_2.jpg")}
-                          alt="article"
-                        />
-                      ) : (
-                        <img src={y.image} alt="article" />
-                      )}
-                    </Link>
-                  </div>
-                  <div className="es-popular-ar-content">
-                    <p className="es-popular-ar-date">
-                      {moment(y.createdAt).format("ll")}{" "}
-                      <Link to={`/profile/${y.username}`}>
-                        <span className="es-popular-ar-by">{y.fullname}</span>
-                      </Link>
-                    </p>
-                    <Link
-                      to={`/article/${y.id}`}
-                      className="es-popular-ar-title"
-                    >
-                      {y.title}
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
       <section className="es-regular-section">
         <div className="container">
           <div className="es-section-header">
@@ -288,4 +193,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default AuthorizedHome;

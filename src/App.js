@@ -19,6 +19,7 @@ import WriteArticleForm from "./pages/write-article-form";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { useSelector } from "react-redux";
 import Article from "./pages/article";
+import AuthorizedHome from "./pages/authorizedHome";
 
 const App = () => {
   const loggedIn = useSelector((state) => state.loginReducer.loggedIn);
@@ -27,7 +28,7 @@ const App = () => {
       <ProtectedRoute isSignedIn={loggedIn}>
         <Layout>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<AuthorizedHome />} />
             <Route path="/about" element={<About />} />
             <Route path="/saved" element={<Saved />} />
             <Route path="/topic" element={<Topic />} />
