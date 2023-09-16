@@ -57,6 +57,11 @@ const Layout = ({ children }) => {
       fetchArticles();
     }
   }, [currentPage]);
+
+  useEffect(() => {
+    backToTop();
+  }, [pathname]);
+
   return (
     <div>
       <Navbar />
