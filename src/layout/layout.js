@@ -62,6 +62,43 @@ const Layout = ({ children }) => {
     backToTop();
   }, [pathname]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = $(window).scrollTop();
+      const t = $("#back-top");
+
+      if (scrollTop > 350) {
+        t.addClass("visible");
+      } else {
+        t.removeClass("visible");
+      }
+
+      if (scrollTop > 0) {
+        $(".es-main-navbar").addClass("es-navbar-fixed");
+      } else {
+        $(".es-main-navbar").removeClass("es-navbar-fixed");
+      }
+    };
+
+    const handleBackToTop = (e) => {
+      e.preventDefault();
+      $("html, body").animate({ scrollTop: 0 }, 200);
+    };
+
+    $(window).on("scroll", handleScroll);
+    const t = $("#back-top");
+    if (t.length) {
+      t.on("click", handleBackToTop);
+    }
+
+    return () => {
+      $(window).off("scroll", handleScroll);
+      if (t.length) {
+        t.off("click", handleBackToTop);
+      }
+    };
+  }, []);
+
   return (
     <div>
       <Navbar />
