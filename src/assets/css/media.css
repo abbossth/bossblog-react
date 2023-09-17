@@ -156,7 +156,7 @@
   font-size: 20px;
  }
  .es-menu-modal {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -628,7 +628,7 @@
   padding: 8px 0;
  }
  .es-menu-modal {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   transform: translate(0, 0);
@@ -736,5 +736,11 @@
  #commentModal {
   margin: 0;
  }
+   .es-add-topic-wrp {
+      padding: 28px 0;
+   }
+   .es-input-select {
+      display: none;
+   }
 
 }

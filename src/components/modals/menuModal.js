@@ -4,6 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeMenuModal } from "../../store/actions/modalAction";
 import Logo from "../../assets/img/logo.svg";
 import Close from "../../assets/img/ic_close (2).svg";
+import { Link } from "react-router-dom";
+import { logOut } from "../../store/actions/loginAction";
+import LogOut from "../../assets/img/ic_logout.svg";
+import Write from "../../assets/img/ic_write_m.svg";
+import About from "../../assets/img/ic_about.svg";
+
 
 const MenuModal = () => {
   const dispatch = useDispatch();
@@ -12,6 +18,10 @@ const MenuModal = () => {
 
   const hideMenuModal = () => {
     dispatch(closeMenuModal());
+  };
+
+  const logOutHandler = () => {
+    dispatch(logOut());
   };
   return (
     <Modal
@@ -50,18 +60,18 @@ const MenuModal = () => {
           </div>
           <div className="modal-body">
             <nav className="nav flex-column">
-              <a className="nav-link active" href="#">
-                Qidiruv
-              </a>
-              <a className="nav-link" href="#">
+              <Link className="nav-link es-mm-link" to={"/about"}>
+                <img src={About} />
                 Loyiha haqida
-              </a>
-              <a className="nav-link" href="#">
+              </Link>
+              <Link className="nav-link es-mm-link" to={"/write-article"}>
+                <img src={Write} />
                 Yozish
-              </a>
-              <a className="nav-link" href="#">
-                Kirish
-              </a>
+              </Link>
+              <Link className="nav-link es-mm-link" type="button" onClick={logOutHandler}>
+                <img className="es-logout-img" src={LogOut}/>Chiqish
+                <p className="es-dropdown-logout-email">khudoyberdieva1304@gmail.com</p>
+              </Link>
             </nav>
           </div>
         </div>
