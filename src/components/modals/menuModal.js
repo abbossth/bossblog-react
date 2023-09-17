@@ -10,7 +10,6 @@ import LogOut from "../../assets/img/ic_logout.svg";
 import Write from "../../assets/img/ic_write_m.svg";
 import About from "../../assets/img/ic_about.svg";
 
-
 const MenuModal = () => {
   const dispatch = useDispatch();
 
@@ -30,7 +29,7 @@ const MenuModal = () => {
       animation={false}
       className="modal fade es-menu-modal"
       id="menuModal"
-      tabindex="-1"
+      tabIndex="-1"
       role="dialog"
       aria-labelledby="menuModalLabel"
       aria-hidden="true"
@@ -68,9 +67,16 @@ const MenuModal = () => {
                 <img src={Write} />
                 Yozish
               </Link>
-              <Link className="nav-link es-mm-link" type="button" onClick={logOutHandler}>
-                <img className="es-logout-img" src={LogOut}/>Chiqish
-                <p className="es-dropdown-logout-email">khudoyberdieva1304@gmail.com</p>
+              <Link
+                className="nav-link es-mm-link"
+                type="button"
+                onClick={logOutHandler}
+              >
+                <img className="es-logout-img" src={LogOut} />
+                Chiqish
+                <p className="es-dropdown-logout-email">
+                  khudoyberdieva1304@gmail.com
+                </p>
               </Link>
             </nav>
           </div>

@@ -1269,8 +1269,8 @@ button:focus,
 .es-form-group fieldset label {
 	border: 0 !important;
 	clip: rect(1px, 1px, 1px, 1px) !important;
-	-webkit-clip-path: inset(50%) !important;
-	clip-path: inset(50%) !important;
+	-webkit-clipPath: inset(50%) !important;
+	clipPath: inset(50%) !important;
 	height: 1px !important;
 	margin: -1px !important;
 	overflow: hidden !important;
@@ -1679,9 +1679,10 @@ button:focus,
 }
 
 .es-sr-content {
-  padding: 20px;
+  padding: 40px 20px;
   border: 1px solid #E8E8E8;
   border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 8px;
 }
 
 .es-sr-title {
@@ -1715,7 +1716,11 @@ button:focus,
 
 .es-sr-content .es-btn-primary:hover {
   color: var(--main-light-color) !important;
-  background-color: var(--main-blue-color) !important;
+  background-color: var(--main-black-color) !important;
+}
+
+.es-sr-content .es-btn-primary:hover svg {
+  fill: var(--main-light-color);
 }
 
 .es-topic-wrp {
@@ -1944,4 +1949,14 @@ button:focus,
 
 .es-mm-link img {
   margin-right: 10px;
+}
+
+.es-btn-save:hover {
+  border-color: var(--main-black-color);
+}
+
+.es-sr-content svg {
+  height: 16px;
+  width: 16px;
+  margin-right: 8px;
 }

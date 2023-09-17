@@ -33,7 +33,7 @@ const Comment = () => {
       animation={false}
       className="modal fade p-0"
       id="commentModal"
-      tabindex="-1"
+      tabIndex="-1"
       role="dialog"
       aria-labelledby="commentModalLabel"
       aria-hidden="true"

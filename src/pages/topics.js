@@ -1,5 +1,6 @@
 import React from "react";
 import SearchIcon from "../assets/img/ic_search.svg";
+import Add from "../assets/img/ic_add (2).svg";
 
 const Topics = () => {
   return (
@@ -46,49 +47,45 @@ const Topics = () => {
             <div className="es-sr-item">
               <div className="es-sr-content">
                 <div className="es-sr-title">Dasturlash</div>
-                <div className="es-sr-topic-follower">
-                  Obunachilar: <span>1234</span>
-                </div>
-                <div className="es-sr-topic-stories">
-                  Maqolalar: <span>777</span>
-                </div>
-                <button className="btn es-btn-primary">Obuna bo’lish</button>
+                <button className="btn es-btn-primary">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                  </svg>
+                  Obuna bo’lish
+                </button>
               </div>
             </div>
             <div className="es-sr-item">
               <div className="es-sr-content">
                 <div className="es-sr-title">Dasturlash</div>
-                <div className="es-sr-topic-follower">
-                  Obunachilar: <span>1234</span>
-                </div>
-                <div className="es-sr-topic-stories">
-                  Maqolalar: <span>777</span>
-                </div>
-                <button className="btn es-btn-primary">Obuna bo’lish</button>
+                <button className="btn es-btn-primary">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                  </svg>
+                  Obuna bo’lish
+                </button>
               </div>
             </div>
             <div className="es-sr-item">
               <div className="es-sr-content">
                 <div className="es-sr-title">Dasturlash</div>
-                <div className="es-sr-topic-follower">
-                  Obunachilar: <span>1234</span>
-                </div>
-                <div className="es-sr-topic-stories">
-                  Maqolalar: <span>777</span>
-                </div>
-                <button className="btn es-btn-primary">Obuna bo’lish</button>
+                <button className="btn es-btn-primary">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                  </svg>
+                  Obuna bo’lish
+                </button>
               </div>
             </div>
             <div className="es-sr-item">
               <div className="es-sr-content">
                 <div className="es-sr-title">Dasturlash</div>
-                <div className="es-sr-topic-follower">
-                  Obunachilar: <span>1234</span>
-                </div>
-                <div className="es-sr-topic-stories">
-                  Maqolalar: <span>777</span>
-                </div>
-                <button className="btn es-btn-primary">Obuna bo’lish</button>
+                <button className="btn es-btn-primary">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                  </svg>
+                  Obuna bo’lish
+                </button>
               </div>
             </div>
           </div>
