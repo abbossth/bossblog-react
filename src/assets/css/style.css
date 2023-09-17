@@ -604,14 +604,25 @@ button:focus,
 
 .es-dropdown-pr {
   box-shadow: rgba(11, 32, 103, 0.12) 0px 2px 8px;
-  padding: 14px 0;
+  padding: 18px 0;
   border-radius: 4px;
   border: none;
+  margin-top: 15px;
 }
 
 .es-dropdown-pr .dropdown-item {
-  font-size: 14px !important;
+  font-size: 16px !important;
   margin-bottom: 10px;
+}
+
+.es-dropdown-pr .dropdown-item a {
+  font-size: 16px;
+}
+
+.es-dropdown-pr .dropdown-item:last-child {
+  border-top: 1px solid #E8E8E8;
+  padding-top: 18px;
+  margin-top: 18px;
 }
 
 .es-dropdown-pr .dropdown-item:hover {
@@ -624,7 +635,7 @@ button:focus,
 }
 
 .es-dropdown-pr .dropdown-item img {
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 .es-modal-comment-item {
@@ -1808,7 +1819,7 @@ button:focus,
 }
 
 .es-dropdown-pr .dropdown-item svg {
-  margin-right: 8px;
+  margin-right: 10px;
 }
 
 #commentModal {
@@ -1863,4 +1874,16 @@ button:focus,
   overflow-x: scroll;
   padding: 48px 0;
   margin-bottom: 15px;
+}
+
+.es-logout-img {
+  height: 13px;
+  width: 13px;
+}
+
+.es-dropdown-logout-email {
+  font-size: 13px;
+  color: var(--main-grey-color);
+  margin-top: 10px;
+  margin-bottom: 0;
 }
