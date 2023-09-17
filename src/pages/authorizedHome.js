@@ -10,6 +10,7 @@ import { loadMoreArticles } from "../store/actions/articleAction";
 import ArticleCard from "../components/article-card";
 import { Nav, Tab } from "react-bootstrap";
 import Add from "../assets/img/ic_add.svg";
+import { Link } from "react-router-dom";
 
 const AuthorizedHome = () => {
   const { articles } = useSelector((state) => state.articleReducer);
@@ -22,7 +23,7 @@ const AuthorizedHome = () => {
       <section className="es-regular-section">
         <div className="container">
           <div className="es-add-topic-wrp">
-            <button className="btn es-add-topic-btn">
+            <Link className="btn es-add-topic-btn" to={"/topics"}>
               <svg
                 width="20"
                 height="20"
@@ -37,7 +38,7 @@ const AuthorizedHome = () => {
                   fill="#969696"
                 />
               </svg>
-            </button>
+            </Link>
             <button className="btn es-added-topic">Siz uchun</button>
             <button className="btn es-added-topic">Dasturlash</button>
             <button className="btn es-added-topic">Dasturlash</button>
@@ -55,11 +56,6 @@ const AuthorizedHome = () => {
               <span>Yangi maqolalar</span>
             </div>
             <div className="d-flex">
-              <div className="input-group es-input-select">
-                <select className="custom-select" id="SelectArticle">
-                  <option selected>Barcha maqolalar</option>
-                </select>
-              </div>
               <Nav
                 className="nav nav-pills es-nav-pills"
                 id="pills-tab"
