@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadMoreArticles } from "../store/actions/articleAction";
 import ArticleCard from "../components/article-card";
 import { Nav, Tab } from "react-bootstrap";
+import Add from "../assets/img/ic_add.svg";
 
 const AuthorizedHome = () => {
   const { articles } = useSelector((state) => state.articleReducer);
@@ -20,6 +21,34 @@ const AuthorizedHome = () => {
     <main>
       <section className="es-regular-section">
         <div className="container">
+          <div class="es-add-topic-wrp">
+            <button class="btn es-add-topic-btn">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M14.9993 10.8333H10.8327V15C10.8327 15.4583 10.4577 15.8333 9.99935 15.8333C9.54102 15.8333 9.16602 15.4583 9.16602 15V10.8333H4.99935C4.54102 10.8333 4.16602 10.4583 4.16602 9.99996C4.16602 9.54163 4.54102 9.16663 4.99935 9.16663H9.16602V4.99996C9.16602 4.54163 9.54102 4.16663 9.99935 4.16663C10.4577 4.16663 10.8327 4.54163 10.8327 4.99996V9.16663H14.9993C15.4577 9.16663 15.8327 9.54163 15.8327 9.99996C15.8327 10.4583 15.4577 10.8333 14.9993 10.8333Z"
+                  fill="#969696"
+                />
+              </svg>
+            </button>
+            <button class="btn es-added-topic">Siz uchun</button>
+            <button class="btn es-added-topic">Dasturlash</button>
+            <button class="btn es-added-topic">Dasturlash</button>
+            <button class="btn es-added-topic">Dasturlash</button>
+            <button class="btn es-added-topic">Dasturlash</button>
+            <button class="btn es-added-topic">Dasturlash</button>
+            <button class="btn es-added-topic">Dasturlash</button>
+            <button class="btn es-added-topic">Dasturlash</button>
+            <button class="btn es-added-topic">Dasturlash</button>
+            <button class="btn es-added-topic">Dasturlash</button>
+          </div>
           <div className="es-section-header">
             <div className="es-section-title">
               <img src={Vector} alt="vector" />
@@ -29,8 +58,6 @@ const AuthorizedHome = () => {
               <div className="input-group es-input-select">
                 <select className="custom-select" id="SelectArticle">
                   <option selected>Barcha maqolalar</option>
-                  <option value="1">Mashhur maqolalar</option>
-                  <option value="2">Ko'p o'qilgan</option>
                 </select>
               </div>
               <Nav

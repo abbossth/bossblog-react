@@ -1831,3 +1831,36 @@ button:focus,
   background-color: var(--bs-btn-active-bg);
   border-color: transparent;
 }
+
+.es-added-topic {
+  border-radius: 8px;
+  margin-left: 16px;
+  white-space: nowrap;
+}
+
+.es-add-topic-btn {
+  border: 1px solid #E8E8E8;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.es-add-topic-btn:hover {
+  background-color: #E8E8E8;
+}
+
+.es-add-topic-btn:hover svg path {
+  fill: var(--main-light-color);
+}
+
+.es-added-topic:hover {
+  background-color: #D7ECFF;
+  color: var(--main-blue-color);
+}
+
+.es-add-topic-wrp {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  padding: 48px 0;
+  margin-bottom: 15px;
+}

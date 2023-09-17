@@ -28,7 +28,7 @@ const App = () => {
       <ProtectedRoute isSignedIn={loggedIn}>
         <Layout>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<AuthorizedHome />} />
             <Route path="/profile/:profileId" element={<Profile />} />
             <Route path="/article/:articleId" element={<Article />} />
             <Route path="/topics/:topicId" element={<Topic />} />
