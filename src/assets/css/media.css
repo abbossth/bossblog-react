@@ -55,7 +55,7 @@
  .es-article-item {
   display: flex;
   flex-direction: column;
-  margin-bottom: 24px;
+  margin-bottom: 5rem;
  }
  .es-article-img {
   margin-bottom: 13px;
@@ -232,6 +232,7 @@
  .es-article-item {
   display: flex;
   flex-direction: column;
+  margin-bottom: 3rem;
  }
  .es-article-img {
   margin-right: 0;

@@ -1,8 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SearchIcon from "../assets/img/ic_search.svg";
 import Add from "../assets/img/ic_add (2).svg";
+import axios from "../api/axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getTopics } from "../store/actions/topicsAction";
+import { showAuthSignInOptions } from "../store/actions/modalAction";
+import { Link } from "react-router-dom";
 
 const Topics = () => {
+  const dispatch = useDispatch();
+  const { topics } = useSelector((state) => state.topicsReducer);
+  const { loggedIn } = useSelector((state) => state.loginReducer);
+  const fetchTopics = async () => {
+    try {
+      const res = await axios.get(`/topics`);
+      dispatch(getTopics(res?.data?.data));
+    } catch (err) {
+      console.log(`Unhandled Error While Fetching Topics ${err}`);
+    }
+  };
+  useEffect(() => {
+    fetchTopics();
+  }, []);
+
+  const handleShowSignInOptions = () => {
+    dispatch(showAuthSignInOptions());
+  };
+
+  const handleFollowTopic = () => {};
+
   return (
     <main>
       <section className="es-article-header es-regular-section">
@@ -44,50 +70,26 @@ const Topics = () => {
       <section className="es-regular-section">
         <div className="container">
           <div className="es-sr-list">
-            <div className="es-sr-item">
-              <div className="es-sr-content">
-                <div className="es-sr-title">Dasturlash</div>
-                <button className="btn es-btn-primary">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                    <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
-                  </svg>
-                  Obuna bo’lish
-                </button>
-              </div>
-            </div>
-            <div className="es-sr-item">
-              <div className="es-sr-content">
-                <div className="es-sr-title">Dasturlash</div>
-                <button className="btn es-btn-primary">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                    <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
-                  </svg>
-                  Obuna bo’lish
-                </button>
-              </div>
-            </div>
-            <div className="es-sr-item">
-              <div className="es-sr-content">
-                <div className="es-sr-title">Dasturlash</div>
-                <button className="btn es-btn-primary">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                    <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
-                  </svg>
-                  Obuna bo’lish
-                </button>
-              </div>
-            </div>
-            <div className="es-sr-item">
-              <div className="es-sr-content">
-                <div className="es-sr-title">Dasturlash</div>
-                <button className="btn es-btn-primary">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                    <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
-                  </svg>
-                  Obuna bo’lish
-                </button>
-              </div>
-            </div>
+            {topics &&
+              topics?.map((t, idx) => {
+                return (
+                  <div className="es-sr-item" key={`topic-item-${idx}`}>
+                    <div className="es-sr-content">
+                      <div className="es-sr-title">
+                        <Link to={`/topics/${t.id}`}>{t.name}</Link>
+                      </div>
+                      <button
+                        className="btn es-btn-primary"
+                        onClick={
+                          loggedIn ? handleFollowTopic : handleShowSignInOptions
+                        }
+                      >
+                        Obuna bo’lish
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
           </div>
         </div>
       </section>
