@@ -11,13 +11,29 @@ import ArticleCard from "../components/article-card";
 import { Nav, Tab } from "react-bootstrap";
 import Add from "../assets/img/ic_add.svg";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import moment from "moment";
+import { showCommentModal } from "../store/actions/modalAction";
 
 const AuthorizedHome = () => {
+  const [toggle, setToggle] = useState(1);
   const { articles } = useSelector((state) => state.articleReducer);
   const dispatch = useDispatch();
   const loadMoreHandler = () => {
     dispatch(loadMoreArticles());
   };
+
+  function updateToggle(id) {
+    setToggle(id);
+  }
+
+  const [active, setActive] = useState("");
+
+  const handleClick = (event) => {
+    setActive(event.target.id);
+    
+  }
+
   return (
     <main>
       <section className="es-regular-section">
@@ -56,38 +72,46 @@ const AuthorizedHome = () => {
               <span>Yangi maqolalar</span>
             </div>
             <div className="d-flex">
-              <Nav
-                className="nav nav-pills es-nav-pills"
-                id="pills-tab"
-                role="tablist"
-                variant="pills"
-              >
-                <Nav.Item className="nav-item" role="presentation">
-                  <Nav.Link
-                    className="nav-link active"
-                    id="pills-two-tab"
-                    eventKey="first"
+              <div className="nav nav-pills es-nav-pills" id="pills-tab">
+                <div
+                  className="nav-item"
+                  role="presentation"
+                  onClick={() => updateToggle(1)}
+                >
+                  <div
+                    key={1}
+                    className={
+                      active === "1" ? `nav-link + active` : "nav-link"
+                    }
+                    id={"1"}
+                    onClick={handleClick}
                   >
                     <img src={TwoLine} alt="two" />
-                  </Nav.Link>
-                </Nav.Item>
-                <Nav.Item className="nav-item" role="presentation">
-                  <Nav.Link
-                    className="nav-link"
-                    id="pills-more-tab"
-                    eventKey="second"
+                  </div>
+                </div>
+                <div
+                  className="nav-item"
+                  role="presentation"
+                  onClick={() => updateToggle(2)}
+                >
+                  <div
+                    key={2}
+                    className={
+                      active === "2" ? `nav-link + active` : "nav-link"
+                    }
+                    id={"2"}
+                    onClick={handleClick}
                   >
                     <img src={MoreLine} alt="more" />
-                  </Nav.Link>
-                </Nav.Item>
-              </Nav>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <Tab.Content className="tab-content" id="pills-tabContent">
-            <Tab.Pane
-              className="tab-pane fade show active"
+          <div className="tab-content" id="pills-tabContent">
+            <div
+              className={toggle === 1 ? "show-tab-pane" : "tab-pane"}
               id="pills-two"
-              eventKey="first"
             >
               <div className="es-tab-pane-main">
                 <div className="es-article-list">
@@ -96,46 +120,61 @@ const AuthorizedHome = () => {
                   })}
                 </div>
               </div>
-            </Tab.Pane>
-            <Tab.Pane
-              className="tab-pane fade"
+            </div>
+            <div
+              className={toggle === 2 ? "show-tab-pane" : "tab-pane"}
               id="pills-more"
-              eventKey="second"
             >
               <div className="es-search-list">
                 {articles.map((x) => (
                   <div className="es-search-item" key={"topic-" + x.id}>
                     <div className="es-article-img">
-                      <a href="#">
-                        <img
-                          src="img/search.jpg"
-                          className="img-fluid"
-                          alt="article"
-                        />
-                      </a>
+                      <Link to={`/article/${x.id}`}>
+                        {x.image === "null" ? (
+                          <img
+                            src={require("../assets/img/article_2.jpg")}
+                            alt="article"
+                          />
+                        ) : (
+                          <img src={x.image} alt="article" />
+                        )}
+                      </Link>
                     </div>
                     <div className="es-article-content">
                       <div className="es-article-type">
-                        <a href="#">vizual dizayn</a> <span>{x.createdAt}</span>{" "}
+                        <Link to={`/topics/${x?.postTopics?.[0]?.id}`}>
+                          {x?.postTopics?.[0]?.name}
+                        </Link>{" "}
+                        <span>{moment(x.createdAt).format("ll")}</span>{" "}
                       </div>
-                      <a href="#" className="es-article-title">
+                      <Link
+                        to={`/article/${x?.id}`}
+                        className="es-article-title"
+                      >
                         {x.title}
-                      </a>
-                      <a href="#" className="es-article-info">
+                      </Link>
+                      <Link
+                        to={`/article/${x?.id}`}
+                        className="es-article-info"
+                      >
                         {x.sub_title}
-                      </a>
+                      </Link>
                       <div className="es-article-footer mb-3">
-                        <a href="#" className="es-article-writer">
+                        <Link
+                          to={`/profile/${x?.user?.username}`}
+                          className="es-article-writer"
+                        >
                           <img
                             className="img-fluid"
-                            src={Profile}
+                            src={x.user.user_img}
                             alt="profile"
                           />
                           {x.user.full_name}
-                        </a>
+                        </Link>
                         <div className="es-article-content-inner">
                           <button
                             className="btn es-article-chat-modal"
+                            onClick={() => dispatch(showCommentModal())}
                             data-target="#commentModal"
                             data-toggle="modal"
                           >
@@ -153,17 +192,17 @@ const AuthorizedHome = () => {
                                 fill="#969696"
                               />
                             </svg>
-                            34
+                            {x.body.comments}
                           </button>
                           <div className="es-article-seen">
                             <img src={Seen} alt="seen" />
-                            8.6 K
+                            {x.body.views}
                           </div>
                         </div>
                       </div>
                       <div className="es-article-footer">
                         <div className="es-article-r-hour">
-                          <img src={Time} alt="time" /> 3 daqiqa o‘qis h
+                          {~~(x.body.readingTimes / 60)} daqiqa o‘qish
                         </div>
                         <button className="btn es-btn-light es-btn-save">
                           <svg
@@ -186,8 +225,8 @@ const AuthorizedHome = () => {
                   </div>
                 ))}
               </div>
-            </Tab.Pane>
-          </Tab.Content>
+            </div>
+          </div>
           <div className="es-more-article">
             <button
               className="btn es-btn-light es-btn-save"
