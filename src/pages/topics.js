@@ -1,7 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SearchIcon from "../assets/img/ic_search.svg";
+import axios from "../api/axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getTopics } from "../store/actions/topicsAction";
+import { showAuthSignInOptions } from "../store/actions/modalAction";
+import { Link } from "react-router-dom";
 
 const Topics = () => {
+  const dispatch = useDispatch();
+  const { topics } = useSelector((state) => state.topicsReducer);
+  const { loggedIn } = useSelector((state) => state.loginReducer);
+  const fetchTopics = async () => {
+    try {
+      const res = await axios.get(`/topics`);
+      dispatch(getTopics(res?.data?.data));
+    } catch (err) {
+      console.log(`Unhandled Error While Fetching Topics ${err}`);
+    }
+  };
+  useEffect(() => {
+    fetchTopics();
+  }, []);
+
+  const handleShowSignInOptions = () => {
+    dispatch(showAuthSignInOptions());
+  };
+
+  const handleFollowTopic = () => {};
+
   return (
     <main>
       <section className="es-article-header es-regular-section">
@@ -43,54 +69,26 @@ const Topics = () => {
       <section className="es-regular-section">
         <div className="container">
           <div className="es-sr-list">
-            <div className="es-sr-item">
-              <div className="es-sr-content">
-                <div className="es-sr-title">Dasturlash</div>
-                <div className="es-sr-topic-follower">
-                  Obunachilar: <span>1234</span>
-                </div>
-                <div className="es-sr-topic-stories">
-                  Maqolalar: <span>777</span>
-                </div>
-                <button className="btn es-btn-primary">Obuna bo’lish</button>
-              </div>
-            </div>
-            <div className="es-sr-item">
-              <div className="es-sr-content">
-                <div className="es-sr-title">Dasturlash</div>
-                <div className="es-sr-topic-follower">
-                  Obunachilar: <span>1234</span>
-                </div>
-                <div className="es-sr-topic-stories">
-                  Maqolalar: <span>777</span>
-                </div>
-                <button className="btn es-btn-primary">Obuna bo’lish</button>
-              </div>
-            </div>
-            <div className="es-sr-item">
-              <div className="es-sr-content">
-                <div className="es-sr-title">Dasturlash</div>
-                <div className="es-sr-topic-follower">
-                  Obunachilar: <span>1234</span>
-                </div>
-                <div className="es-sr-topic-stories">
-                  Maqolalar: <span>777</span>
-                </div>
-                <button className="btn es-btn-primary">Obuna bo’lish</button>
-              </div>
-            </div>
-            <div className="es-sr-item">
-              <div className="es-sr-content">
-                <div className="es-sr-title">Dasturlash</div>
-                <div className="es-sr-topic-follower">
-                  Obunachilar: <span>1234</span>
-                </div>
-                <div className="es-sr-topic-stories">
-                  Maqolalar: <span>777</span>
-                </div>
-                <button className="btn es-btn-primary">Obuna bo’lish</button>
-              </div>
-            </div>
+            {topics &&
+              topics?.map((t, idx) => {
+                return (
+                  <div className="es-sr-item" key={`topic-item-${idx}`}>
+                    <div className="es-sr-content">
+                      <div className="es-sr-title">
+                        <Link to={`/topics/${t.id}`}>{t.name}</Link>
+                      </div>
+                      <button
+                        className="btn es-btn-primary"
+                        onClick={
+                          loggedIn ? handleFollowTopic : handleShowSignInOptions
+                        }
+                      >
+                        Obuna bo’lish
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
           </div>
         </div>
       </section>

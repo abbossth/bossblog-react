@@ -1725,7 +1725,11 @@ button:focus,
   height: 36px;
   border: 2px solid rgb(255, 255, 255);
   border-radius: 50%;
-  background: url(../img/topic_fi.jpg) 50% center / cover no-repeat lightgray;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: lightgray;
+  background-image: url("../img/topic_fi.jpg");
   margin-left: -12px;
 }
 

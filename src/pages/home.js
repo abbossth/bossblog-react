@@ -170,7 +170,7 @@ const Home = () => {
                 </div>
               </div>
             </Tab.Pane>
-            <Tab.Pane
+            {/* <Tab.Pane
               className="tab-pane fade"
               id="pills-more"
               eventKey="second"
@@ -236,7 +236,7 @@ const Home = () => {
                       </div>
                       <div className="es-article-footer">
                         <div className="es-article-r-hour">
-                          <img src={Time} alt="time" /> 3 daqiqa o‘qis h
+                          <img src={Time} alt="time" /> 3 daqiqa o‘qish
                         </div>
                         <button className="btn es-btn-light es-btn-save">
                           <svg
@@ -259,7 +259,7 @@ const Home = () => {
                   </div>
                 ))}
               </div>
-            </Tab.Pane>
+            </Tab.Pane> */}
           </Tab.Content>
           <div className="es-more-article">
             <button
