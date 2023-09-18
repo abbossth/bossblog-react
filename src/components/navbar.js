@@ -218,7 +218,6 @@ const Navbar = () => {
                   <button
                     className="btn es-btn-primary"
                     data-toggle="modal"
-                    data-target="#codeModal"
                     onClick={() => dispatch(showAuthSignUpOptions())}
                   >
                     Boshlash
@@ -228,7 +227,7 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="es-mobile-nav">
-            <a className="nav-link" href="#">
+            <Link className="nav-link es-mobile-search-link" to={"/mobile-search"}>
               <svg
                 width="24"
                 height="24"
@@ -263,8 +262,9 @@ const Navbar = () => {
                   </clipPath>
                 </defs>
               </svg>
-            </a>
-            <Dropdown>
+            </Link>
+            {loggedIn && (
+              <Dropdown>
               <Dropdown.Toggle
                 className="btn es-btn-primary es-profile-dp"
                 type="button"
@@ -367,7 +367,17 @@ const Navbar = () => {
                   </p>
                 </Dropdown.Item>
               </Dropdown.Menu>
-            </Dropdown>
+              </Dropdown>
+            )}
+            {!loggedIn && (
+              <button
+              className="es-mm-btn es-btn-primary btn"
+              data-toggle="modal"
+              onClick={() => dispatch(showAuthSignInOptions())}
+              >
+                Kirish
+              </button>
+            )}
             <button
               className="btn nav-link es-menu-btn"
               onClick={() => dispatch(showMenuModal())}

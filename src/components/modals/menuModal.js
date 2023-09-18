@@ -9,6 +9,7 @@ import { logOut } from "../../store/actions/loginAction";
 import LogOut from "../../assets/img/ic_logout.svg";
 import Write from "../../assets/img/ic_write_m.svg";
 import About from "../../assets/img/ic_about.svg";
+import Search from "../../assets/img/ic_search-topic.svg"
 
 const MenuModal = () => {
   const dispatch = useDispatch();
@@ -59,6 +60,10 @@ const MenuModal = () => {
           </div>
           <div className="modal-body">
             <nav className="nav flex-column">
+              <Link className="nav-link es-mm-link" to={"/topics"}>
+                <img src={Search} />
+                Mavzularni qidirish
+              </Link>
               <Link className="nav-link es-mm-link" to={"/about"}>
                 <img src={About} />
                 Loyiha haqida

@@ -20,6 +20,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import { useSelector } from "react-redux";
 import Article from "./pages/article";
 import AuthorizedHome from "./pages/authorizedHome";
+import MobileSearch from "./pages/mobile-search";
 
 const App = () => {
   const loggedIn = useSelector((state) => state.loginReducer.loggedIn);
@@ -40,6 +41,7 @@ const App = () => {
             <Route path="/profile-edit" element={<ProfileEdit />} />
             <Route path="/write" element={<WriteArticle />} />
             <Route path="/write-form" element={<WriteArticleForm />} />
+            <Route path="/mobile-search" element={<MobileSearch />}></Route>
             <Route path="*" element={<NotFound />}></Route>
           </Routes>
         </Layout>
@@ -54,6 +56,7 @@ const App = () => {
             <Route path="/article/:articleId" element={<Article />} />
             <Route path="/topics/:topicId" element={<Topic />} />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/mobile-search" element={<MobileSearch />}></Route>
             <Route path="*" element={<NotFound />}></Route>
           </Routes>
         </Layout>

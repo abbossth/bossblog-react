@@ -121,13 +121,13 @@ const Home = () => {
               <span>Yangi maqolalar</span>
             </div>
             <div className="d-flex">
-              <div className="input-group es-input-select">
-                <select className="custom-select" id="SelectArticle">
-                  <option selected>Barcha maqolalar</option>
-                  <option value="1">Mashhur maqolalar</option>
-                  <option value="2">Ko'p o'qilgan</option>
-                </select>
-              </div>
+            {/* <div className="input-group es-input-select">
+              <select className="custom-select" id="SelectArticle">
+                <option selected>Barcha maqolalar</option>
+                <option value="1">Mashhur maqolalar</option>
+                <option value="2">Ko'p o'qilgan</option>
+              </select>
+            </div> */}
               <Nav
                 className="nav nav-pills es-nav-pills"
                 id="pills-tab"
