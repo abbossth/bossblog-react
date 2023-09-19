@@ -248,6 +248,7 @@ button:focus,
 .es-saved-last-tab .nav-link {
   border: 1px solid var(--main-blue-color);
   margin-right: 10px;
+  cursor: pointer;
 }
 
 .es-saved-last-tab .nav-link.active, .nav-pills .show > .nav-link {

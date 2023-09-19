@@ -42,7 +42,6 @@ const Home = () => {
 
   const handleClick = (event) => {
     setActive(event.target.id);
-    
   }
 
   // console.log("articles", articles);
