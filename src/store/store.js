@@ -6,6 +6,8 @@ import trendingTopicsReducer from "./reducers/trendingTopicsReducer";
 import trendingArticlesReducer from "./reducers/trendingArticlesReducer";
 import modalsReducer from "./reducers/modalsReducer";
 import topicsReducer from "./reducers/topicsReducer";
+import userArticlesReducer from "./reducers/userArticlesReducer";
+import topicArticlesReducer from "./reducers/topicArticlesReducer";
 
 import {
   persistStore,
@@ -26,6 +28,8 @@ const rootReducer = combineReducers({
   trendingArticlesReducer,
   modalsReducer,
   topicsReducer,
+  userArticlesReducer,
+  topicArticlesReducer,
 });
 
 const persistConfig = {
@@ -37,6 +41,8 @@ const persistConfig = {
     "topicsReducer",
     "trendingArticlesReducer",
     "trendingTopicsReducer",
+    "userArticlesReducer",
+    "topicArticlesReducer",
   ],
   stateReconciler: autoMergeLevel2, // optional state reconciler
 };
