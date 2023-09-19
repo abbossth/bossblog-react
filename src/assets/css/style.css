@@ -550,10 +550,12 @@ button:focus,
 }
 
 .es-modal-content-header > svg {
-  width: fit-content;
+  /* width: fit-content;
   height: 100%;
-  object-fit: cover;
-  padding-right: 0.75rem;
+  object-fit: cover; */
+  height: 48px;
+  width: 48px;
+  padding-right: 0;
   margin-right: 0.75rem;
 }
 
@@ -1867,6 +1869,10 @@ button:focus,
 .es-comment-item-info a img,
 .es-new-comment-writer img {
   margin-right: 8px;
+}
+
+.modal-header {
+  align-items: flex-start;
 }
 
 .es-comment-modal .modal-header {

@@ -28,6 +28,12 @@ export const showEmailVerification = () => {
   };
 };
 
+export const showSendCode = () => {
+  return {
+    type: ActionTypes.MODALS.SHOW_SEND_CODE,
+  };
+};
+
 export const closeAuth = () => {
   return {
     type: ActionTypes.MODALS.CLOSE_AUTH,

@@ -5,6 +5,7 @@ const initialState = {
   authModal: false,
   menuModal: false,
   comment: false,
+  sendCode: false,
   store: {
     modalType: null,
   },
@@ -41,6 +42,12 @@ const modalsReducer = (state = initialState, action) => {
         ...state,
         authModal: true,
         store: { modalType: MODAL_TYPES.EMAIL_VERIFICATION },
+      };
+    case ActionTypes.MODALS.SHOW_SEND_CODE:
+      return {
+        ...state,
+        sendCode: true,
+        store: { modalType: MODAL_TYPES.SHOW_SEND_CODE },
       };
     case ActionTypes.MODALS.CLOSE_AUTH:
       return { ...state, authModal: false, store: { modalType: null } };

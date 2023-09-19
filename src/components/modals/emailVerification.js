@@ -2,6 +2,8 @@ import { Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { closeAuth } from "../../store/actions/modalAction";
 import Close from "../../assets/img/ic_close (2).svg";
+import { useState } from "react";
+import SendCode from "./sendCode";
 
 const EmailVerification = () => {
   const dispatch = useDispatch();
@@ -9,6 +11,12 @@ const EmailVerification = () => {
   const hideAuth = () => {
     dispatch(closeAuth());
   };
+  const [email, setEmail] = useState("");
+
+  const handleSendCode = () => {
+    dispatch(SendCode());
+  };
+
   return (
     <Modal
       show={authModal}
@@ -22,26 +30,11 @@ const EmailVerification = () => {
           <div className="container">
             <div className="modal-header">
               <div className="es-modal-content-header">
-                {/* <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 32 32"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M16 16C20.42 16 24 12.42 24 8C24 3.58 20.42 0 16 0C11.58 0 8 3.58 8 8C8 12.42 11.58 16 16 16ZM16 20C10.66 20 0 22.68 0 28V30C0 31.1 0.9 32 2 32H30C31.1 32 32 31.1 32 30V28C32 22.68 21.34 20 16 20Z"
-                    fill="#969696"
-                  />
-                </svg> */}
-
                 <div>
-                  <h5 className="modal-title">Emailingizni Tasdiqlang</h5>
-                  {/* <p className="modal-title-desc">
-                    Bilim ulashish har doim yaxshi
-                  </p> */}
+                  <h5 className="modal-title">Elektron pochtani tasdiqlang</h5>
+                  <p className="modal-title-desc">
+                  Davom etish uchun elektron pochta manzilingizni tasdiqlashingiz kerak.
+                  </p>
                 </div>
               </div>
               <button
@@ -59,23 +52,25 @@ const EmailVerification = () => {
           </div>
           <div className="modal-body">
             <div className="container">
-              Elektron pochtangizga tasqilash xabari yuborildi. Iltimos,
-              emailingizni tasqilang!
-            </div>
-          </div>
-          {/* <div className="modal-footer">
-            <div className="container">
-              <div className="es-modal-login w-100">
-                Sizda allaqachon hisob mavjudmi?
+              <div className="form-group es-form-group">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="email"
+                  placeholder="Email yoki foydalanuvchi nomini kiriting"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </div>
               <button
-                className="btn es-btn-login"
-                onClick={() => dispatch(showAuthSignIn())}
+                onClick={() => dispatch(handleSendCode())}
+                className="btn btn-primary text-center w-100"
               >
-                Kirish
+                Kodni yuborish
               </button>
             </div>
-          </div> */}
+          </div>
         </div>
       </Modal.Body>
     </Modal>
