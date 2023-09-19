@@ -11,11 +11,11 @@ const ArticleCard = ({ key = "", article = {} }) => {
   return (
     <div className="es-article-item" key={key}>
       <div className="es-article-img">
-        <Link to={`/article/${article.id}`}>
-          {article.image === "null" ? (
+        <Link to={`/article/${article?.id}`}>
+          {article?.image === "null" ? (
             <img src={require("../assets/img/article_2.jpg")} alt="article" />
           ) : (
-            <img src={article.image} alt="article" />
+            <img src={article?.image} alt="article" />
           )}
         </Link>
       </div>
@@ -40,17 +40,17 @@ const ArticleCard = ({ key = "", article = {} }) => {
             >
               <img
                 className="img-fluid"
-                src={article.user.user_img}
+                src={article?.user?.user_img}
                 alt="profile"
               />
-              {article.user.full_name}
+              {article?.user?.full_name}
             </Link>
           </div>
           <div className="es-article-content-inner-sec">
             <div className="es-article-info-inner">
               <div className="es-article-r-hour">
                 <img src={Time} alt="time" />{" "}
-                {~~(article.body.readingTimes / 60)} daqiqa o‘qish
+                {~~(article?.body?.readingTimes / 60)} daqiqa o‘qish
               </div>
               <button
                 className="btn es-article-chat-modal"
@@ -72,11 +72,11 @@ const ArticleCard = ({ key = "", article = {} }) => {
                     fill="#969696"
                   />
                 </svg>
-                {article.body.comments}
+                {article?.body?.comments}
               </button>
               <div className="es-article-seen">
                 <img src={Seen} alt="seen" />
-                {article.body.views}
+                {article?.body?.views}
               </div>
             </div>
             <button className="btn es-btn-light es-btn-save">
