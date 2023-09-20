@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "../api/axios";
 import { Link } from "react-router-dom";
 import Vector from "../assets/img/ic_vector.svg";
@@ -8,25 +8,23 @@ import {
   getForYouArticles,
   loadMoreForYouArticles,
 } from "../store/actions/forYouAction";
+import { Tab, Tabs } from "react-bootstrap";
 
 const AuthorizedHome = () => {
+  const [key, setKey] = useState("forYou");
   const dispatch = useDispatch();
-  const { token } = useSelector((state) => state.loginReducer);
   const { articles, limit, currentPage } = useSelector(
     (state) => state.forYouArticleReducer
   );
+  const { userInfo } = useSelector((state) => state.userInfoReducer);
+  const { followTopics } = useSelector((state) => state.followTopicsReducer);
+
   const fetchForYou = async () => {
     try {
       const res = await axios.get(
-        `/posts/foryou?limit=${limit}&page=${currentPage}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        `/posts/foryou?limit=${limit}&page=${currentPage}`
       );
       dispatch(getForYouArticles(res?.data));
-      console.log("for you", res?.data);
     } catch (err) {
       console.log("Unhandled Error in trending articles", err);
     }
@@ -39,6 +37,8 @@ const AuthorizedHome = () => {
   useEffect(() => {
     fetchForYou();
   }, [currentPage]);
+
+  console.log("followTopics", followTopics);
 
   return (
     <main>
@@ -61,16 +61,24 @@ const AuthorizedHome = () => {
                 />
               </svg>
             </Link>
-            <button className="btn es-added-topic">Siz uchun</button>
-            <button className="btn es-added-topic">Dasturlash</button>
-            <button className="btn es-added-topic">Dasturlash</button>
-            <button className="btn es-added-topic">Dasturlash</button>
-            <button className="btn es-added-topic">Dasturlash</button>
-            <button className="btn es-added-topic">Dasturlash</button>
-            <button className="btn es-added-topic">Dasturlash</button>
-            <button className="btn es-added-topic">Dasturlash</button>
-            <button className="btn es-added-topic">Dasturlash</button>
-            <button className="btn es-added-topic">Dasturlash</button>
+            <button
+              onClick={() => setKey("forYou")}
+              className={`btn es-added-topic ${key === "forYou" && "active"}`}
+            >
+              Siz uchun
+            </button>
+            <button
+              onClick={() => setKey("followingTopics")}
+              className={`btn es-added-topic ${
+                key === "followingTopics" && "active"
+              }`}
+            >
+              A'zo bo'linganlar
+            </button>
+            {followTopics &&
+              followTopics.map((topic, idx) => {
+                return <button className="btn es-added-topic">{topic}</button>;
+              })}
           </div>
           <div className="es-section-header">
             <div className="es-section-title">

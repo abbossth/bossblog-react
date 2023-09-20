@@ -16,6 +16,7 @@ import { Link, useLocation } from "react-router-dom";
 const Navbar = () => {
   const dispatch = useDispatch();
   const { loggedIn } = useSelector((state) => state.loginReducer);
+  const { userInfo } = useSelector((state) => state.userInfoReducer);
   const { pathname } = useLocation();
   const isWritePage = pathname === "/write";
 
@@ -119,14 +120,23 @@ const Navbar = () => {
                 <li className="nav-item dropdown">
                   <Dropdown>
                     <Dropdown.Toggle
-                      className="btn es-btn-primary es-profile-dp"
+                      className="es-btn-primary es-profile-dp"
                       type="button"
                       id="profileDropdown"
                       data-toggle="dropdown"
                       aria-haspopup="true"
                       aria-expanded="false"
                     >
-                      ak
+                      {userInfo?.user_img ? (
+                        <img
+                          // className="img-fluid"
+                          width={50}
+                          src={`${userInfo?.user_img}`}
+                          alt="user"
+                        />
+                      ) : (
+                        <span>{userInfo?.full_name?.[0]}</span>
+                      )}
                     </Dropdown.Toggle>
                     <Dropdown.Menu
                       className="dropdown-menu es-dropdown-pr"
@@ -216,7 +226,7 @@ const Navbar = () => {
                         <img className="es-logout-img" src={LogOut} />
                         Chiqish
                         <p className="es-dropdown-logout-email">
-                          khudoyberdieva1304@gmail.com
+                          {userInfo?.email}
                         </p>
                       </Dropdown.Item>
                     </Dropdown.Menu>
@@ -286,7 +296,16 @@ const Navbar = () => {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  ak
+                  {userInfo?.user_img ? (
+                    <img
+                      // className="img-fluid"
+                      width={50}
+                      src={`${userInfo?.user_img}`}
+                      alt="user"
+                    />
+                  ) : (
+                    <span>{userInfo?.full_name?.[0]}</span>
+                  )}
                 </Dropdown.Toggle>
                 <Dropdown.Menu
                   className="dropdown-menu es-dropdown-pr"
@@ -376,7 +395,7 @@ const Navbar = () => {
                     <img className="es-logout-img" src={LogOut} />
                     Chiqish
                     <p className="es-dropdown-logout-email">
-                      khudoyberdieva1304@gmail.com
+                      {userInfo?.email}
                     </p>
                   </Dropdown.Item>
                 </Dropdown.Menu>

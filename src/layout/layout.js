@@ -13,11 +13,14 @@ import { useLocation } from "react-router-dom";
 import { backToTop } from "../plugins/custom";
 import $ from "jquery";
 import Top from "../assets/img/ic_top.svg";
+import { getUserInfo } from "../store/actions/userInfoAction";
+import { getFollowTopics } from "../store/actions/followTopicsAction";
 
 const Layout = ({ children }) => {
+  const { loggedIn, token } = useSelector((state) => state.loginReducer);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
-  const { currentPage, limit, pagination, articles } = useSelector(
+  const { currentPage, limit, pagination } = useSelector(
     (state) => state.articleReducer
   );
   const fetchTrendingTopics = async () => {
@@ -47,9 +50,30 @@ const Layout = ({ children }) => {
     }
   };
 
+  const fetchUserInfo = async () => {
+    try {
+      const res = await axios.get(`/users/me`);
+      console.log("me", res?.data?.data);
+      dispatch(getUserInfo(res?.data?.data));
+    } catch (err) {
+      console.log(`Unhandled Error While Fetching User ${err}`);
+    }
+  };
+
+  const fetchFollowingTopics = async () => {
+    try {
+      const res = await axios.get(`/follow-topic`);
+      console.log("follow-topic", res?.data?.data);
+      dispatch(getFollowTopics(res?.data?.data));
+    } catch (err) {
+      console.log(`Unhandled Error While Fetching Follow Topics ${err}`);
+    }
+  };
+
   useEffect(() => {
     fetchTrendingTopics();
     fetchTrendingArticles();
+    fetchUserInfo();
   }, []);
 
   useEffect(() => {
@@ -61,6 +85,13 @@ const Layout = ({ children }) => {
   useEffect(() => {
     backToTop();
   }, [pathname]);
+
+  useEffect(() => {
+    if (token.length) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      fetchFollowingTopics();
+    }
+  }, [loggedIn, token]);
 
   useEffect(() => {
     const handleScroll = () => {

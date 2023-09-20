@@ -33,6 +33,12 @@ const ActionTypes = {
     SHOW_EMAIL_VERIFICATION: "SHOW_EMAIL_VERIFICATION",
     SHOW_SEND_CODE: "SHOW_SEND_CODE",
   },
+  USER: {
+    GET_USER_INFO: "GET_USER_INFO",
+  },
+  FOLLOW: {
+    GET_FOLLOW_TOPICS: "GET_FOLLOW_TOPICS",
+  },
 };
 
 export default ActionTypes;
