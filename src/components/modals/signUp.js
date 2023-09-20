@@ -13,6 +13,8 @@ import { useState } from "react";
 import { logIn } from "../../store/actions/loginAction";
 
 const SignUp = () => {
+  const [errorData, setErrorData] = useState([]);
+  const paths = errorData.map((errorMessage) => errorMessage.path);
   const dispatch = useDispatch();
   const { authModal } = useSelector((state) => state.modalsReducer);
   const [fullName, setFullName] = useState("");
@@ -41,9 +43,15 @@ const SignUp = () => {
       }
       console.log("signup", res?.data);
     } catch (err) {
-      console.log(`Unhandled Error while Signing Up ${err}`);
+      if (err.response.status === 422) {
+        setErrorData(err?.response?.data?.message);
+      }
+      console.log("err", err);
+      // console.log(`Unhandled Error while Signing Up ${err}`);
     }
   };
+  console.log("ErrorData", errorData);
+  console.log("paths", paths);
   return (
     <Modal
       show={authModal}
@@ -142,7 +150,9 @@ const SignUp = () => {
                 <label for="passwordConfirm">Parolni tasdiqlang</label>
                 <input
                   type="password"
-                  className="form-control is-invalid"
+                  className={`form-control ${
+                    paths.includes("confirmPassword") ? "is-invalid" : ""
+                  }`}
                   id="passwordConfirm"
                   required
                   placeholder="parolni qaytadan kiriting"
