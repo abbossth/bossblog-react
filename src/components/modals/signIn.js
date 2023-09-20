@@ -8,6 +8,8 @@ import axios from "../../api/axios";
 import { logIn } from "../../store/actions/loginAction";
 
 const SignIn = () => {
+  const [errorData, setErrorData] = useState([]);
+  const paths = errorData.map((errorMessage) => errorMessage.path);
   const dispatch = useDispatch();
   const { authModal } = useSelector((state) => state.modalsReducer);
   const [email, setEmail] = useState("");
@@ -34,9 +36,14 @@ const SignIn = () => {
       }
       console.log("signin", res);
     } catch (err) {
-      console.log(`Unhandled Error while Signing In ${err}`);
+      if (err.response.status === 422) {
+        setErrorData(err?.response?.data?.message);
+      }
+      // console.log(`Unhandled Error while Signing In ${err}`);
     }
   };
+  console.log("ErrorData", errorData);
+
   return (
     <Modal
       show={authModal}
@@ -90,18 +97,26 @@ const SignIn = () => {
                 <label for="email">Email</label>
                 <input
                   type="email"
-                  className="form-control"
+                  className={`form-control ${
+                    paths.includes("usernameOrEmail") ? "is-invalid" : ""
+                  }`}
                   id="email"
                   placeholder="Email yoki foydalanuvchi nomini kiriting"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
+                <div id="email" className="invalid-feedback">
+                  <AlertIcon className="me-2" />
+                  Error Alert
+                </div>
               </div>
               <div className="form-group es-form-group">
                 <label for="password">Parol</label>
                 <input
                   type="password"
-                  className="form-control"
+                  className={`form-control ${
+                    paths.includes("password") ? "is-invalid" : ""
+                  }`}
                   id="password"
                   placeholder="Parolni kiriting"
                   value={password}

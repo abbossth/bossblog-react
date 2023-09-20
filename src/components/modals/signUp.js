@@ -22,6 +22,7 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
 
   const hideAuth = () => {
     dispatch(closeAuth());
@@ -50,6 +51,12 @@ const SignUp = () => {
       // console.log(`Unhandled Error while Signing Up ${err}`);
     }
   };
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked)
+  }
+
+
   console.log("ErrorData", errorData);
   console.log("paths", paths);
   return (
@@ -117,34 +124,52 @@ const SignUp = () => {
                 <label for="username">Foydalanuvchi Nomi</label>
                 <input
                   type="text"
-                  className="form-control"
+                  className={`form-control ${
+                    paths.includes("username") ? "is-invalid" : ""
+                  }`}
                   id="username"
                   placeholder="Foydalanuvchi nomi kiriting"
                   onChange={(e) => setUsername(e.target.value)}
                   value={username}
                 />
+                <div id="username" className="invalid-feedback">
+                  <AlertIcon className="me-2" />
+                  Error Alert
+                </div>
               </div>
               <div className="form-group es-form-group">
                 <label for="email">Email</label>
                 <input
                   type="email"
-                  className="form-control"
+                  className={`form-control ${
+                    paths.includes("email") ? "is-invalid" : ""
+                  }`}
                   id="email"
                   placeholder="Email kiriting"
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
                 />
+                <div id="email" className="invalid-feedback">
+                  <AlertIcon className="me-2" />
+                  Error Alert
+                </div>
               </div>
               <div className="form-group es-form-group">
                 <label for="password">Parol yarating</label>
                 <input
                   type="password"
-                  className="form-control"
+                  className={`form-control ${
+                    paths.includes("password") ? "is-invalid" : ""
+                  }`}
                   id="password"
                   placeholder="Parol yarating"
                   onChange={(e) => setPassword(e.target.value)}
                   value={password}
                 />
+                <div id="password" className="invalid-feedback">
+                  <AlertIcon className="me-2" />
+                  Error Alert
+                </div>
               </div>
               <div className="form-group es-form-group">
                 <label for="passwordConfirm">Parolni tasdiqlang</label>
@@ -168,7 +193,8 @@ const SignUp = () => {
                 <input
                   type="checkbox"
                   className="form-check-input"
-                  id="privacyCheck"
+                  checked={isChecked}
+                  onChange={handleCheckboxChange}
                 />
                 <label className="form-check-label" for="privacyCheck">
                   Ro’yhatdan o’tish tugmasini bosish orqali men{" "}
@@ -181,6 +207,7 @@ const SignUp = () => {
               <button
                 onClick={handleSignUp}
                 className="btn btn-primary text-center w-100"
+                disabled={!isChecked}
               >
                 Ro'yhatdan O'tish
               </button>
