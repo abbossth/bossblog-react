@@ -5,6 +5,7 @@ import SignUpAuthOptions from "./signUpAuthOptions";
 import SignIn from "./signIn";
 import SignUp from "./signUp";
 import EmailVerification from "./emailVerification";
+import SendCode from "./sendCode";
 
 const AuthModal = () => {
   const { store } = useSelector((state) => state.modalsReducer);
@@ -15,6 +16,7 @@ const AuthModal = () => {
     [MODAL_TYPES.SIGN_IN]: <SignIn />,
     [MODAL_TYPES.SIGN_UP]: <SignUp />,
     [MODAL_TYPES.EMAIL_VERIFICATION]: <EmailVerification />,
+    [MODAL_TYPES.CODE_VERIFICATION]: <SendCode />,
   };
   console.log(store);
 

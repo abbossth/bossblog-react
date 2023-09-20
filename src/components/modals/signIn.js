@@ -1,6 +1,10 @@
 import { Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { closeAuth, showAuthSignUp, showEmailVerification } from "../../store/actions/modalAction";
+import {
+  closeAuth,
+  showAuthSignUp,
+  showEmailVerification,
+} from "../../store/actions/modalAction";
 import Close from "../../assets/img/ic_close (2).svg";
 import { ReactComponent as AlertIcon } from "../../assets/img/ic_error.svg";
 import { useState } from "react";
@@ -138,7 +142,7 @@ const SignIn = () => {
                     Eslab qolish
                   </label>
                 </div>
-                <button className="btn" onClick={() => dispatch(handleEmailVarification())}>
+                <button className="btn" onClick={handleEmailVarification}>
                   Parolni unutdingizmi?
                 </button>
               </div>

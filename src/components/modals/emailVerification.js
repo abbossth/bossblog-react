@@ -1,9 +1,8 @@
 import { Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { closeAuth } from "../../store/actions/modalAction";
+import { closeAuth, showSendCode } from "../../store/actions/modalAction";
 import Close from "../../assets/img/ic_close (2).svg";
 import { useState } from "react";
-import SendCode from "./sendCode";
 
 const EmailVerification = () => {
   const dispatch = useDispatch();
@@ -14,7 +13,8 @@ const EmailVerification = () => {
   const [email, setEmail] = useState("");
 
   const handleSendCode = () => {
-    dispatch(SendCode());
+    console.log("Send code handled!");
+    dispatch(showSendCode());
   };
 
   return (
@@ -33,7 +33,8 @@ const EmailVerification = () => {
                 <div>
                   <h5 className="modal-title">Elektron pochtani tasdiqlang</h5>
                   <p className="modal-title-desc">
-                  Davom etish uchun elektron pochta manzilingizni tasdiqlashingiz kerak.
+                    Davom etish uchun elektron pochta manzilingizni
+                    tasdiqlashingiz kerak.
                   </p>
                 </div>
               </div>
@@ -64,7 +65,7 @@ const EmailVerification = () => {
                 />
               </div>
               <button
-                onClick={() => dispatch(handleSendCode())}
+                onClick={handleSendCode}
                 className="btn btn-primary text-center w-100"
               >
                 Kodni yuborish

@@ -46,8 +46,8 @@ const modalsReducer = (state = initialState, action) => {
     case ActionTypes.MODALS.SHOW_SEND_CODE:
       return {
         ...state,
-        sendCode: true,
-        store: { modalType: MODAL_TYPES.SHOW_SEND_CODE },
+        authModal: true,
+        store: { modalType: MODAL_TYPES.CODE_VERIFICATION },
       };
     case ActionTypes.MODALS.CLOSE_AUTH:
       return { ...state, authModal: false, store: { modalType: null } };

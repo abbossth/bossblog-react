@@ -3,37 +3,42 @@ import axios from "../api/axios";
 import { Link } from "react-router-dom";
 import Vector from "../assets/img/ic_vector.svg";
 import ArticleCard from "../components/article-card";
-import { forYou } from "../store/actions/forYouAction";
 import { useDispatch, useSelector } from "react-redux";
-import { showCommentModal } from "../store/actions/modalAction";
-import { loadMoreArticles } from "../store/actions/articleAction";
+import {
+  getForYouArticles,
+  loadMoreForYouArticles,
+} from "../store/actions/forYouAction";
 
 const AuthorizedHome = () => {
-  const fetchForYou = async (authToken) => {
+  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.loginReducer);
+  const { articles, limit, currentPage } = useSelector(
+    (state) => state.forYouArticleReducer
+  );
+  const fetchForYou = async () => {
     try {
-      const res = await axios.get('/posts/foryou', { }, {
-        headers: {
-          Authorization: `Bearer ${authToken}`
+      const res = await axios.get(
+        `/posts/foryou?limit=${limit}&page=${currentPage}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      });
-      dispatch(forYou(res?.data?.data));
+      );
+      dispatch(getForYouArticles(res?.data));
+      console.log("for you", res?.data);
     } catch (err) {
-      console.log('Unhandled Error in trending articles', err);
+      console.log("Unhandled Error in trending articles", err);
     }
   };
 
-  const { forYouArticles } = useSelector((state) => state.forYouReducer);
-  const dispatch = useDispatch();
-
   const loadMoreHandler = () => {
-    dispatch(loadMoreArticles());
+    dispatch(loadMoreForYouArticles());
   };
 
   useEffect(() => {
     fetchForYou();
-  }, []);
-
-  console.log("forYouArticles", forYouArticles)
+  }, [currentPage]);
 
   return (
     <main>
@@ -73,7 +78,17 @@ const AuthorizedHome = () => {
               <span>Yangi maqolalar</span>
             </div>
           </div>
-          
+          <div className="es-regular-section">
+            <div className="container">
+              <div className="es-article-list">
+                {articles &&
+                  articles.map((x, idx) => {
+                    return <ArticleCard key={"article-" + idx} article={x} />;
+                  })}
+              </div>
+            </div>
+          </div>
+
           <div className="es-more-article">
             <button
               className="btn es-btn-light es-btn-save"
