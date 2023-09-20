@@ -22,6 +22,7 @@ const MenuModal = () => {
 
   const logOutHandler = () => {
     dispatch(logOut());
+    dispatch(closeMenuModal());
   };
   return (
     <Modal
@@ -42,9 +43,9 @@ const MenuModal = () => {
         <div className="modal-content">
           <div className="container">
             <div className="modal-header">
-              <a href="#">
+              <Link to={"/"}>
                 <img className="es-mob-modal-logo" src={Logo} alt="logo" />
-              </a>
+              </Link>
               <button
                 type="button"
                 className="btn close p-0"
@@ -60,16 +61,16 @@ const MenuModal = () => {
           </div>
           <div className="modal-body">
             <nav className="nav flex-column">
-              <Link className="nav-link es-mm-link" to={"/topics"}>
-                <img src={Search} />
+              <Link className="nav-link es-mm-link" to={"/topics"} onClick={hideMenuModal}>
+                <img src={Search} alt="search" />
                 Mavzularni qidirish
               </Link>
-              <Link className="nav-link es-mm-link" to={"/about"}>
-                <img src={About} />
+              <Link className="nav-link es-mm-link" to={"/about"} onClick={hideMenuModal}>
+                <img src={About} alt="about" />
                 Loyiha haqida
               </Link>
-              <Link className="nav-link es-mm-link" to={"/write-article"}>
-                <img src={Write} />
+              <Link className="nav-link es-mm-link" to={"/write"} onClick={hideMenuModal}>
+                <img src={Write} alt="write" />
                 Yozish
               </Link>
               <Link
@@ -77,7 +78,7 @@ const MenuModal = () => {
                 type="button"
                 onClick={logOutHandler}
               >
-                <img className="es-logout-img" src={LogOut} />
+                <img className="es-logout-img" src={LogOut} alt="logout" />
                 Chiqish
                 <p className="es-dropdown-logout-email">
                   khudoyberdieva1304@gmail.com

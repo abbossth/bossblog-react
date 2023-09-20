@@ -8,6 +8,7 @@ import modalsReducer from "./reducers/modalsReducer";
 import topicsReducer from "./reducers/topicsReducer";
 import userArticlesReducer from "./reducers/userArticlesReducer";
 import topicArticlesReducer from "./reducers/topicArticlesReducer";
+import forYouReducer from "./reducers/forYouReducer";
 
 import {
   persistStore,
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   topicsReducer,
   userArticlesReducer,
   topicArticlesReducer,
+  forYouReducer,
 });
 
 const persistConfig = {

@@ -1,38 +1,39 @@
-import React from "react";
-import Vector from "../assets/img/ic_vector.svg";
-import TwoLine from "../assets/img/ic_two_line.svg";
-import MoreLine from "../assets/img/ic_more_line.svg";
-import Profile from "../assets/img/ic_profile.svg";
-import Time from "../assets/img/ic_time.svg";
-import Seen from "../assets/img/ic_seen.svg";
-import { useDispatch, useSelector } from "react-redux";
-import { loadMoreArticles } from "../store/actions/articleAction";
-import ArticleCard from "../components/article-card";
-import { Nav, Tab } from "react-bootstrap";
-import Add from "../assets/img/ic_add.svg";
+import React, { useEffect } from "react";
+import axios from "../api/axios";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import moment from "moment";
+import Vector from "../assets/img/ic_vector.svg";
+import ArticleCard from "../components/article-card";
+import { forYou } from "../store/actions/forYouAction";
+import { useDispatch, useSelector } from "react-redux";
 import { showCommentModal } from "../store/actions/modalAction";
+import { loadMoreArticles } from "../store/actions/articleAction";
 
 const AuthorizedHome = () => {
-  const [toggle, setToggle] = useState(1);
-  const { articles } = useSelector((state) => state.articleReducer);
+  const fetchForYou = async (authToken) => {
+    try {
+      const res = await axios.get('/posts/foryou', { }, {
+        headers: {
+          Authorization: `Bearer ${authToken}`
+        }
+      });
+      dispatch(forYou(res?.data?.data));
+    } catch (err) {
+      console.log('Unhandled Error in trending articles', err);
+    }
+  };
+
+  const { forYouArticles } = useSelector((state) => state.forYouReducer);
   const dispatch = useDispatch();
+
   const loadMoreHandler = () => {
     dispatch(loadMoreArticles());
   };
 
-  function updateToggle(id) {
-    setToggle(id);
-  }
+  useEffect(() => {
+    fetchForYou();
+  }, []);
 
-  const [active, setActive] = useState("");
-
-  const handleClick = (event) => {
-    setActive(event.target.id);
-    
-  }
+  console.log("forYouArticles", forYouArticles)
 
   return (
     <main>
@@ -71,162 +72,8 @@ const AuthorizedHome = () => {
               <img src={Vector} alt="vector" />
               <span>Yangi maqolalar</span>
             </div>
-            <div className="d-flex">
-              <div className="nav nav-pills es-nav-pills" id="pills-tab">
-                <div
-                  className="nav-item"
-                  role="presentation"
-                  onClick={() => updateToggle(1)}
-                >
-                  <div
-                    key={1}
-                    className={
-                      active === "1" ? `nav-link + active` : "nav-link"
-                    }
-                    id={"1"}
-                    onClick={handleClick}
-                  >
-                    <img src={TwoLine} alt="two" />
-                  </div>
-                </div>
-                <div
-                  className="nav-item"
-                  role="presentation"
-                  onClick={() => updateToggle(2)}
-                >
-                  <div
-                    key={2}
-                    className={
-                      active === "2" ? `nav-link + active` : "nav-link"
-                    }
-                    id={"2"}
-                    onClick={handleClick}
-                  >
-                    <img src={MoreLine} alt="more" />
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
-          <div className="tab-content" id="pills-tabContent">
-            <div
-              className={toggle === 1 ? "show-tab-pane" : "tab-pane"}
-              id="pills-two"
-            >
-              <div className="es-tab-pane-main">
-                <div className="es-article-list">
-                  {articles.map((x, idx) => {
-                    return <ArticleCard key={"topic-" + idx} article={x} />;
-                  })}
-                </div>
-              </div>
-            </div>
-            <div
-              className={toggle === 2 ? "show-tab-pane" : "tab-pane"}
-              id="pills-more"
-            >
-              <div className="es-search-list">
-                {articles.map((x) => (
-                  <div className="es-search-item" key={"topic-" + x.id}>
-                    <div className="es-article-img">
-                      <Link to={`/article/${x.id}`}>
-                        {x.image === "null" ? (
-                          <img
-                            src={require("../assets/img/article_2.jpg")}
-                            alt="article"
-                          />
-                        ) : (
-                          <img src={x.image} alt="article" />
-                        )}
-                      </Link>
-                    </div>
-                    <div className="es-article-content">
-                      <div className="es-article-type">
-                        <Link to={`/topics/${x?.postTopics?.[0]?.id}`}>
-                          {x?.postTopics?.[0]?.name}
-                        </Link>{" "}
-                        <span>{moment(x.createdAt).format("ll")}</span>{" "}
-                      </div>
-                      <Link
-                        to={`/article/${x?.id}`}
-                        className="es-article-title"
-                      >
-                        {x.title}
-                      </Link>
-                      <Link
-                        to={`/article/${x?.id}`}
-                        className="es-article-info"
-                      >
-                        {x.sub_title}
-                      </Link>
-                      <div className="es-article-footer mb-3">
-                        <Link
-                          to={`/profile/${x?.user?.username}`}
-                          className="es-article-writer"
-                        >
-                          <img
-                            className="img-fluid"
-                            src={x.user.user_img}
-                            alt="profile"
-                          />
-                          {x.user.full_name}
-                        </Link>
-                        <div className="es-article-content-inner">
-                          <button
-                            className="btn es-article-chat-modal"
-                            onClick={() => dispatch(showCommentModal())}
-                            data-target="#commentModal"
-                            data-toggle="modal"
-                          >
-                            <svg
-                              width="14"
-                              height="14"
-                              viewBox="0 0 14 14"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                clipRule="evenodd"
-                                d="M12.334 2.99999H11.6673V8.33333C11.6673 8.7 11.3673 9 11.0007 9H3.00065V9.66666C3.00065 10.4 3.60065 11 4.33398 11H11.0007L13.6673 13.6667V4.33333C13.6673 3.59999 13.0673 2.99999 12.334 2.99999ZM10.334 6.33333V1.66666C10.334 0.933328 9.73398 0.333328 9.00065 0.333328H1.66732C0.933984 0.333328 0.333984 0.933328 0.333984 1.66666V10.3333L3.00065 7.66666H9.00065C9.73398 7.66666 10.334 7.06666 10.334 6.33333Z"
-                                fill="#969696"
-                              />
-                            </svg>
-                            {x.body.comments}
-                          </button>
-                          <div className="es-article-seen">
-                            <img src={Seen} alt="seen" />
-                            {x.body.views}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="es-article-footer">
-                        <div className="es-article-r-hour">
-                          {~~(x.body.readingTimes / 60)} daqiqa o‘qish
-                        </div>
-                        <button className="btn es-btn-light es-btn-save">
-                          <svg
-                            width="12"
-                            height="16"
-                            viewBox="0 0 12 16"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              clipRule="evenodd"
-                              d="M10.166 0.5H1.83268C0.916016 0.5 0.166016 1.25 0.166016 2.16667V15.5L5.99935 13L11.8327 15.5V2.16667C11.8327 1.25 11.0827 0.5 10.166 0.5Z"
-                              fill="#969696"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          
           <div className="es-more-article">
             <button
               className="btn es-btn-light es-btn-save"
