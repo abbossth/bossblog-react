@@ -71,27 +71,29 @@ const Layout = ({ children }) => {
   };
 
   useEffect(() => {
+    if (token.length) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      fetchFollowingTopics();
+    }
+  }, [loggedIn, token]);
+
+  useEffect(() => {
     fetchTrendingTopics();
     fetchTrendingArticles();
     fetchUserInfo();
   }, []);
 
   useEffect(() => {
-    if (currentPage === 1 || currentPage !== pagination.page) {
-      fetchArticles();
+    if (!loggedIn) {
+      if (currentPage === 1 || currentPage !== pagination.page) {
+        fetchArticles();
+      }
     }
   }, [currentPage]);
 
   useEffect(() => {
     backToTop();
   }, [pathname]);
-
-  useEffect(() => {
-    if (token.length) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      fetchFollowingTopics();
-    }
-  }, [loggedIn, token]);
 
   useEffect(() => {
     const handleScroll = () => {

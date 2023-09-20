@@ -16,7 +16,7 @@ const AuthorizedHome = () => {
   const { articles, limit, currentPage } = useSelector(
     (state) => state.forYouArticleReducer
   );
-  const { userInfo } = useSelector((state) => state.userInfoReducer);
+  const { token } = useSelector((state) => state.loginReducer);
   const { followTopics } = useSelector((state) => state.followTopicsReducer);
 
   const fetchForYou = async () => {
@@ -35,8 +35,10 @@ const AuthorizedHome = () => {
   };
 
   useEffect(() => {
-    fetchForYou();
-  }, [currentPage]);
+    if (token.length) {
+      fetchForYou();
+    }
+  }, [currentPage, token]);
 
   console.log("followTopics", followTopics);
 

@@ -35,6 +35,9 @@ const SignIn = () => {
     try {
       const res = await axios.post(`/users/auth/signin`, formData);
       if (res?.status === 200) {
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${res?.data.token}`;
         dispatch(logIn(res?.data));
         dispatch(closeAuth());
       }
@@ -43,7 +46,7 @@ const SignIn = () => {
       if (err.response.status === 422) {
         setErrorData(err?.response?.data?.message);
       }
-      // console.log(`Unhandled Error while Signing In ${err}`);
+      console.log(`Unhandled Error while Signing In ${err}`);
     }
   };
   console.log("ErrorData", errorData);
