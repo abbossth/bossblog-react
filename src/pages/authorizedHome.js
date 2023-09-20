@@ -22,7 +22,12 @@ const AuthorizedHome = () => {
   const fetchForYou = async () => {
     try {
       const res = await axios.get(
-        `/posts/foryou?limit=${limit}&page=${currentPage}`
+        `/posts/foryou?limit=${limit}&page=${currentPage}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       dispatch(getForYouArticles(res?.data));
     } catch (err) {
@@ -35,10 +40,8 @@ const AuthorizedHome = () => {
   };
 
   useEffect(() => {
-    if (token.length) {
-      fetchForYou();
-    }
-  }, [currentPage, token]);
+    fetchForYou();
+  }, [currentPage]);
 
   console.log("followTopics", followTopics);
 

@@ -71,16 +71,23 @@ const Layout = ({ children }) => {
   };
 
   useEffect(() => {
-    if (token.length) {
+    if (token.length > 0) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (loggedIn) {
       fetchFollowingTopics();
     }
-  }, [loggedIn, token]);
+  }, [loggedIn]);
 
   useEffect(() => {
     fetchTrendingTopics();
     fetchTrendingArticles();
-    fetchUserInfo();
+    if (loggedIn) {
+      fetchUserInfo();
+    }
   }, []);
 
   useEffect(() => {
