@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const ProfileEdit = () => {
+  const { userInfo } = useSelector((state) => state.userInfoReducer);
+  const [fullName, setFullName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [bio, setBio] = useState("");
+
+  useEffect(() => {
+    setFullName(userInfo?.full_name);
+    setUsername(userInfo?.username);
+    setEmail(userInfo?.email);
+    setBio(userInfo?.description);
+  }, [userInfo]);
+  console.log(userInfo);
   return (
     <main>
       <section className="es-regular-section es-profile-header-section">
@@ -26,10 +40,17 @@ const ProfileEdit = () => {
           <div className="es-profile-header-content mt-5">
             <div className="es-profile-header-left-wrp">
               <div className="es-profile-img">
-                <img src={require("../assets/img/team.jpg")} alt="profile" />
+                <img
+                  src={
+                    userInfo?.user_img
+                      ? userInfo?.user_img
+                      : require("../assets/img/team.jpg")
+                  }
+                  alt="profile"
+                />
               </div>
               <div className="es-profile-owner sm-hide">
-                <h3 className="es-profile-owner-n">Akbarali Khasanov</h3>
+                <h3 className="es-profile-owner-n">{userInfo?.full_name}</h3>
                 <button className="btn es-btn-light">
                   <svg
                     width="16"
@@ -49,7 +70,7 @@ const ProfileEdit = () => {
             </div>
             <div className="es-profile-header-right-wrp">
               <div className="es-profile-owner xl-hide">
-                <h3 className="es-profile-owner-n">Akbarali Khasanov</h3>
+                <h3 className="es-profile-owner-n">{userInfo?.full_name}</h3>
                 <button className="btn es-btn-light">
                   <svg
                     width="16"
@@ -74,58 +95,53 @@ const ProfileEdit = () => {
         <div className="container">
           <div className="row">
             <div className="col-md-6">
-              <div className="form-group es-form-group">
-                <label for="name">Ism</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="name"
-                  placeholder="Akbarali"
-                />
+              <div className="col-md-12">
+                <div className="form-group es-form-group">
+                  <label for="name">Ism Familiya</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="name"
+                    placeholder="Abbosbek"
+                    value={fullName}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="col-md-6">
-              <div className="form-group es-form-group">
-                <label for="surname">Familiya</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="surname"
-                  placeholder="Khasanov"
-                />
+              <div className="col-md-12">
+                <div className="form-group es-form-group">
+                  <label for="username">Foydalanuvchi nomi</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="username"
+                    placeholder="abbossth"
+                    value={username}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="col-12">
-              <div className="form-group es-form-group">
-                <label for="username">Foydalanuvchi nomi</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="username"
-                  placeholder="akbaralikhasanov"
-                />
+              <div className="col-md-12">
+                <div className="form-group es-form-group">
+                  <label for="email">Email address</label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    id="email"
+                    placeholder="bosskodevelopment@gmail.com"
+                    value={email}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="col-12">
-              <div className="form-group es-form-group">
-                <label for="email">Email address</label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  placeholder="akbaralikhasanov2000@gmail.com"
-                />
-              </div>
-            </div>
-            <div className="col-12">
-              <div className="form-group es-form-group">
-                <label for="bio">Bio</label>
-                <textarea
-                  className="form-control"
-                  id="bio"
-                  rows="4"
-                  placeholder="I am student...."
-                ></textarea>
+              <div className="col-12">
+                <div className="form-group es-form-group">
+                  <label for="bio">Bio</label>
+                  <textarea
+                    className="form-control"
+                    id="bio"
+                    rows="4"
+                    placeholder="I am student...."
+                    value={bio}
+                  ></textarea>
+                </div>
               </div>
             </div>
           </div>
