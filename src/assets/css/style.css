@@ -155,6 +155,15 @@ button:focus,
  margin-bottom: 80px;
 }
 
+.es-regular-section .codex-editor__redactor {
+  padding-bottom: 50px!important;
+}
+
+.es-regular-section .ce-toolbar__content, .es-regular-section .ce-block__content {
+  width: 100%;
+  max-width: 1440px;
+}
+
 .es-section-header {
  display: flex;
  justify-content: space-between;
