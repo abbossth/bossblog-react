@@ -6,6 +6,7 @@ import IconDown from "../assets/img/ic_down_blue_solid.svg";
 import Appstore from "../assets/img/ic_appstore_white.svg";
 import GooglePlay from "../assets/img/ic_googleplay_white.svg";
 import MobileApp from "../assets/img/app_img_sm.svg";
+import { Link } from "react-router-dom";
 
 const About = () => {
   function SamplePrevArrow(props) {
@@ -81,10 +82,10 @@ const About = () => {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb">
                 <li className="breadcrumb-item">
-                  <a href="#">Home</a>
+                  <Link to={"/"}>Asosiy</Link>
                 </li>
                 <li className="breadcrumb-item active" aria-current="page">
-                  About Us
+                  Loyiha haqida
                 </li>
               </ol>
             </nav>
@@ -249,7 +250,7 @@ const About = () => {
         <div className="container">
           <div className="es-article-text">
             Yarim tunda ular yangi yilni kutib olish uchun O'zbekiston
-            madhiyasini kuylaydilar va bayramni davom ettiradilar. bundan
+            madhiyasini kuylaydilar va bayramni davom ettiradilar. Bundan
             tashqari, o'zbeklar uchun eng mashhur bayram Navro'z bo'ladi va u
             eng tarixiy biri hisoblanadi. Rangli an'anaviy liboslar va
             dasturxondagi turli xil taomlar bayramning asosiy namunasini oladi.

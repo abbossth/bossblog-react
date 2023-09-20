@@ -922,6 +922,7 @@ button:focus,
 .es-map-container .es-btn-save:hover {
  background-color: var(--main-blue-color);
  color: var(--main-light-color);
+ border-color: var(--main-blue-color);
 }
 
 .es-employee {
