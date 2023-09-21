@@ -285,6 +285,16 @@ const Navbar = () => {
                 </defs>
               </svg>
             </Link>
+            {!loggedIn && (
+                <Link className="nav-link">
+                  <button
+                    className="nav-link btn es-btn-primary ms-4"
+                    onClick={() => dispatch(showAuthSignInOptions())}
+                  >
+                    Kirish
+                  </button>
+                </Link>
+              )}
             {loggedIn && (
               <Dropdown>
                 <Dropdown.Toggle
