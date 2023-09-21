@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "../api/axios";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Vector from "../assets/img/ic_vector.svg";
 import ArticleCard from "../components/article-card";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,16 +8,39 @@ import {
   getForYouArticles,
   loadMoreForYouArticles,
 } from "../store/actions/forYouAction";
-import { Tab, Tabs } from "react-bootstrap";
+import Topic from "./topic";
 
 const AuthorizedHome = () => {
   const [key, setKey] = useState("forYou");
+  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
   const { articles, limit, currentPage } = useSelector(
     (state) => state.forYouArticleReducer
   );
   const { token } = useSelector((state) => state.loginReducer);
   const { followTopics } = useSelector((state) => state.followTopicsReducer);
+
+  const QUERY_TYPES = {
+    TAB: "TAB",
+    TOPIC: "TOPIC",
+  };
+
+  const setQuery = (value, type) => {
+    if (type === QUERY_TYPES.TAB) {
+      setSearchParams({ tab: value });
+    }
+    if (type === QUERY_TYPES.TOPIC) {
+      setSearchParams({ topic: value });
+    }
+  };
+
+  const tab = searchParams.get("tab");
+  const topicId = searchParams.get("topic");
+  const VALUE = tab
+    ? { type: QUERY_TYPES.TAB, tab }
+    : topicId
+    ? { type: QUERY_TYPES.TOPIC, id: topicId }
+    : { type: QUERY_TYPES.TAB, tab: null };
 
   const fetchForYou = async () => {
     try {
@@ -35,16 +58,55 @@ const AuthorizedHome = () => {
     }
   };
 
+  const fetchPostFollows = async () => {
+    try {
+      const res = await axios.get(
+        `/posts/follows?limit=${limit}&page=${currentPage}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("post follows", res);
+      // dispatch(getForYouArticles(res?.data));
+    } catch (err) {
+      console.log("Unhandled Error in trending articles", err);
+    }
+  };
+
+  const fetchTopicPosts = async (id) => {
+    try {
+      const res = await axios.get(`/topics/posts/${id}`);
+      console.log("Topic Articles", res);
+      // dispatch(getTopicArticles(res?.data));
+    } catch (err) {
+      console.log(
+        `Unhandled Error while Fetching Topic POSTs with ID: ${topicId}. Error: ${err}`
+      );
+    }
+  };
+
   const loadMoreHandler = () => {
     dispatch(loadMoreForYouArticles());
   };
 
   useEffect(() => {
-    fetchForYou();
-  }, [currentPage]);
-
-  console.log("followTopics", followTopics);
-
+    if (VALUE.type === QUERY_TYPES.TAB) {
+      if (VALUE.tab === "following") {
+        console.log("Following posts!");
+        fetchPostFollows();
+      }
+      if (VALUE.tab === null) {
+        console.log("For you posts!");
+        fetchForYou();
+      }
+    }
+    if (VALUE.type === QUERY_TYPES.TOPIC) {
+      console.log("Topic posts", VALUE.id);
+      fetchTopicPosts(VALUE.id);
+    }
+  }, [VALUE, currentPage]);
   return (
     <main>
       <section className="es-regular-section">
@@ -67,15 +129,15 @@ const AuthorizedHome = () => {
               </svg>
             </Link>
             <button
-              onClick={() => setKey("forYou")}
-              className={`btn es-added-topic ${key === "forYou" && "active"}`}
+              onClick={() => setQuery("", QUERY_TYPES.TAB)}
+              className={`btn es-added-topic ${!tab && !topicId && "active"}`}
             >
               Siz uchun
             </button>
             <button
-              onClick={() => setKey("followingTopics")}
+              onClick={() => setQuery("following", QUERY_TYPES.TAB)}
               className={`btn es-added-topic ${
-                key === "followingTopics" && "active"
+                tab === "following" && "active"
               }`}
             >
               A'zo bo'linganlar
@@ -85,9 +147,9 @@ const AuthorizedHome = () => {
                 return (
                   <button
                     key={idx}
-                    onClick={() => setKey(topic?.id)}
+                    onClick={() => setQuery(topic.id, QUERY_TYPES.TOPIC)}
                     className={`btn es-added-topic ${
-                      key === topic?.id && "active"
+                      topicId === topic.id && "active"
                     }`}
                   >
                     {topic?.name}
