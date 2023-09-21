@@ -83,18 +83,25 @@ const AuthorizedHome = () => {
             {followTopics &&
               followTopics.map((topic, idx) => {
                 return (
-                  <button className="btn es-added-topic" key={idx}>
+                  <button
+                    key={idx}
+                    onClick={() => setKey(topic?.id)}
+                    className={`btn es-added-topic ${
+                      key === topic?.id && "active"
+                    }`}
+                  >
                     {topic?.name}
                   </button>
                 );
               })}
           </div>
-          <div className="es-section-header">
+          {/* <div className="es-section-header">
             <div className="es-section-title">
               <img src={Vector} alt="vector" />
               <span>Yangi maqolalar</span>
             </div>
-          </div>
+          </div> */}
+          {/* <ArticlesContainer articles={articles}/> */}
           <div className="es-regular-section">
             <div className="container">
               <div className="es-article-list">
