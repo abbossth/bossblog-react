@@ -22,24 +22,8 @@ export const EDITOR_JS_TOOLS = {
     class: Embed,
     inlineToolbar: true,
   },
-  table: {
-    class: Table,
-    inlineToolbar: true,
-  },
-  list: {
-    class: List,
-    inlineToolbar: true,
-  },
-  warning: {
-    class: Warning,
-    inlineToolbar: true,
-  },
-  code: {
-    class: Code,
-    inlineToolbar: true,
-  },
-  linkTool: {
-    class: LinkTool,
+  header: {
+    class: Header,
     inlineToolbar: true,
   },
   image: {
@@ -66,12 +50,32 @@ export const EDITOR_JS_TOOLS = {
       },
     },
   },
-  raw: {
-    class: Raw,
+  delimiter: {
+    class: Delimiter,
     inlineToolbar: true,
   },
-  header: {
-    class: Header,
+  table: {
+    class: Table,
+    inlineToolbar: true,
+  },
+  list: {
+    class: List,
+    inlineToolbar: true,
+  },
+  warning: {
+    class: Warning,
+    inlineToolbar: true,
+  },
+  code: {
+    class: Code,
+    inlineToolbar: true,
+  },
+  linkTool: {
+    class: LinkTool,
+    inlineToolbar: true,
+  },
+  raw: {
+    class: Raw,
     inlineToolbar: true,
   },
   quote: {
@@ -84,10 +88,6 @@ export const EDITOR_JS_TOOLS = {
   },
   checklist: {
     class: CheckList,
-    inlineToolbar: true,
-  },
-  delimiter: {
-    class: Delimiter,
     inlineToolbar: true,
   },
   inlineCode: {
