@@ -82,7 +82,11 @@ const AuthorizedHome = () => {
             </button>
             {followTopics &&
               followTopics.map((topic, idx) => {
-                return <button className="btn es-added-topic">{topic}</button>;
+                return (
+                  <button className="btn es-added-topic" key={idx}>
+                    {topic?.name}
+                  </button>
+                );
               })}
           </div>
           <div className="es-section-header">
