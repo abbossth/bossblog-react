@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTrendingTopics } from "../store/actions/trendingTopicsAction";
 import { getTrendingArticles } from "../store/actions/trendingArticlesAction";
 import { getArticles } from "../store/actions/articleAction";
-import MenuModal from "../components/modals/menuModal";
 import { useLocation } from "react-router-dom";
 import { backToTop } from "../plugins/custom";
 import $ from "jquery";
@@ -144,7 +143,6 @@ const Layout = ({ children }) => {
       <Navbar />
       {children}
       <AuthModal />
-      <MenuModal />
       <Comment />
       <Footer />
       <button id="back-top" className="btn">

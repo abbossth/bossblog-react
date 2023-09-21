@@ -163,7 +163,10 @@
  }
 
  .es-dropdown-pr {
-   inset: -2px auto auto -130px!important;
+  width: 50vw;
+  position: absolute;
+   inset: 0px auto auto 0px;
+   transform: translate3d(488px, 52px, 0px);
  }
 
  .es-menu-modal {
@@ -784,5 +787,8 @@
       text-align: start;
       padding-left: 0;
     }
+    .es-dropdown-pr {
+      width: 70vw;
+     }
 
 }
