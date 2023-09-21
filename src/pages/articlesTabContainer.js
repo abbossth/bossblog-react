@@ -3,16 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import axios from "../api/axios";
 import ArticleCard from "../components/article-card";
+import { QUERY_TYPES } from "../utils/utils";
 import {
   getForYouArticles,
   resetCurrentPage,
 } from "../store/actions/forYouAction";
-import { getTopicArticles } from "../store/actions/topicArticlesAction";
-import { QUERY_TYPES } from "../utils/utils";
 
 const ArticlesTabContainer = () => {
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { limit, currentPage, articles, pagination } = useSelector(
+    (state) => state.forYouArticleReducer
+  );
+  const { token } = useSelector((state) => state.loginReducer);
   const tab = searchParams.get("tab");
   const topicId = searchParams.get("topic");
   const VALUE = useMemo(() => {
@@ -22,10 +25,6 @@ const ArticlesTabContainer = () => {
       ? { type: QUERY_TYPES.TOPIC, id: topicId }
       : { type: QUERY_TYPES.TAB, tab };
   }, [tab, topicId]);
-  const { limit, currentPage, articles } = useSelector(
-    (state) => state.forYouArticleReducer
-  );
-  const { token } = useSelector((state) => state.loginReducer);
   const fetchForYou = useCallback(async () => {
     try {
       const res = await axios.get(
@@ -52,8 +51,7 @@ const ArticlesTabContainer = () => {
           },
         }
       );
-      console.log("post follows", res);
-      // dispatch(getForYouArticles(res?.data));
+      dispatch(getForYouArticles(res?.data));
     } catch (err) {
       console.log("Unhandled Error in trending articles", err);
     }
@@ -64,7 +62,6 @@ const ArticlesTabContainer = () => {
       const res = await axios.get(
         `/topics/posts/${id}?limit=${limit}&page=${currentPage}`
       );
-      console.log("Topic Articles", res);
       dispatch(getForYouArticles(res?.data));
     } catch (err) {
       console.log(
@@ -93,7 +90,15 @@ const ArticlesTabContainer = () => {
 
   useEffect(() => {
     dispatch(resetCurrentPage());
+    console.log(pagination);
   }, [VALUE]);
+
+  //   useEffect(() => {
+  //     if (currentPage === 1 || currentPage !== pagination.page) {
+  //       fetchArticles();
+  //     }
+  //   }, [currentPage]);
+
   return (
     <div className="es-article-list">
       {articles &&

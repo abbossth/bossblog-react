@@ -29,7 +29,7 @@ const forYouArticleReducer = (state = initialState, action) => {
       }
       return state;
     case ActionTypes.ARTICLE.LOAD_MORE_FOR_YOU_ARTICLES:
-      if (state.currentPage !== state.pagination.totalPages) {
+      if (state?.currentPage !== state?.pagination?.totalPages) {
         return {
           ...state,
           currentPage: state.currentPage + 1,

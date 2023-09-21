@@ -3,16 +3,12 @@ import Vector from "../assets/img/ic_vector.svg";
 import VectorS from "../assets/img/ic_vector.svg";
 import TwoLine from "../assets/img/ic_two_line.svg";
 import MoreLine from "../assets/img/ic_more_line.svg";
-import Profile from "../assets/img/ic_profile.svg";
-import Time from "../assets/img/ic_time.svg";
 import Seen from "../assets/img/ic_seen.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { loadMoreArticles } from "../store/actions/articleAction";
 import moment from "moment";
-import { Nav, Tab } from "react-bootstrap";
 import {
-  showAuthSignUp,
   showAuthSignUpOptions,
   showCommentModal,
 } from "../store/actions/modalAction";
@@ -42,11 +38,8 @@ const Home = () => {
 
   const handleClick = (event) => {
     setActive(event.target.id);
-  }
+  };
 
-  // console.log("articles", articles);
-  // console.log("trending topics", trendingTopics);
-  // console.log("trending articles", trendingArticles);
   return (
     <main>
       <section className="es-regular-section es-main-section">
@@ -142,9 +135,12 @@ const Home = () => {
                 >
                   <div
                     key={1}
-                    className={active === "1" ? `nav-link + active` : "nav-link"}
+                    className={
+                      active === "1" ? `nav-link + active` : "nav-link"
+                    }
                     id={"1"}
-                    onClick={handleClick}>
+                    onClick={handleClick}
+                  >
                     <img src={TwoLine} alt="two" />
                   </div>
                 </div>
@@ -155,9 +151,12 @@ const Home = () => {
                 >
                   <div
                     key={2}
-                    className={active === "2" ? `nav-link + active` : "nav-link"}
+                    className={
+                      active === "2" ? `nav-link + active` : "nav-link"
+                    }
                     id={"2"}
-                    onClick={handleClick}>
+                    onClick={handleClick}
+                  >
                     <img src={MoreLine} alt="more" />
                   </div>
                 </div>
@@ -258,7 +257,7 @@ const Home = () => {
                       </div>
                       <div className="es-article-footer">
                         <div className="es-article-r-hour">
-                        {~~(x.body.readingTimes / 60)} daqiqa o‘qish
+                          {~~(x.body.readingTimes / 60)} daqiqa o‘qish
                         </div>
                         <button className="btn es-btn-light es-btn-save">
                           <svg
