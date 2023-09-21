@@ -286,15 +286,15 @@ const Navbar = () => {
               </svg>
             </Link>
             {!loggedIn && (
-                <Link className="nav-link">
-                  <button
-                    className="nav-link btn es-btn-primary ms-4"
-                    onClick={() => dispatch(showAuthSignInOptions())}
-                  >
-                    Kirish
-                  </button>
-                </Link>
-              )}
+              <Link className="nav-link">
+                <button
+                  className="nav-link btn es-btn-primary ms-4"
+                  onClick={() => dispatch(showAuthSignInOptions())}
+                >
+                  Kirish
+                </button>
+              </Link>
+            )}
             {loggedIn && (
               <Dropdown>
                 <Dropdown.Toggle
@@ -321,8 +321,9 @@ const Navbar = () => {
                   aria-labelledby="profileDropdown"
                 >
                   <Dropdown.Item className="dropdown-item">
-                    <Link to={"/profile-edit"}>
-                      <svg className="es-logout-img"
+                    <Link to={"/write"}>
+                      <svg
+                        className="es-logout-img"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512"
                       >

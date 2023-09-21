@@ -69,7 +69,7 @@ const Article = () => {
                   />
                 )}
                 {!article?.user?.user_img && <ProfilePhoto className="me-2" />}
-                <span>{article?.user?.username}</span>
+                <span>{article?.user?.full_name}</span>
               </Link>
               <button className="btn es-btn-follow">Obuna bo‘lish</button>
             </div>
