@@ -36,6 +36,11 @@ const forYouArticleReducer = (state = initialState, action) => {
         };
       }
       return state;
+    case ActionTypes.ARTICLE.RESET_CURRENT_PAGE:
+      return {
+        ...state,
+        currentPage: 1,
+      };
     default:
       return state;
   }

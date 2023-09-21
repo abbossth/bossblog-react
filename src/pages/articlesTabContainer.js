@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import axios from "../api/axios";
 import ArticleCard from "../components/article-card";
-import { getForYouArticles } from "../store/actions/forYouAction";
+import {
+  getForYouArticles,
+  resetCurrentPage,
+} from "../store/actions/forYouAction";
 import { getTopicArticles } from "../store/actions/topicArticlesAction";
 import { QUERY_TYPES } from "../utils/utils";
 
@@ -33,8 +36,7 @@ const ArticlesTabContainer = () => {
           },
         }
       );
-      // console.log("For youuu pst", res?.data);
-      //   dispatch(getForYouArticles(res?.data));
+      dispatch(getForYouArticles(res?.data));
     } catch (err) {
       console.log("Unhandled Error in trending articles", err);
     }
@@ -59,9 +61,11 @@ const ArticlesTabContainer = () => {
 
   const fetchTopicPosts = async (id) => {
     try {
-      const res = await axios.get(`/topics/posts/${id}`);
+      const res = await axios.get(
+        `/topics/posts/${id}?limit=${limit}&page=${currentPage}`
+      );
       console.log("Topic Articles", res);
-      dispatch(getTopicArticles(res?.data));
+      dispatch(getForYouArticles(res?.data));
     } catch (err) {
       console.log(
         `Unhandled Error while Fetching Topic POSTs with ID: ${topicId}. Error: ${err}`
@@ -72,23 +76,24 @@ const ArticlesTabContainer = () => {
   useEffect(() => {
     if (VALUE.type === QUERY_TYPES.TAB) {
       if (VALUE.tab === "following") {
-        console.log("Following posts!");
         fetchPostFollows();
       }
       if (!VALUE.tab) {
         fetchForYou();
-        console.log("For you posts!");
       } else {
         return;
       }
     } else if (VALUE.type === QUERY_TYPES.TOPIC) {
-      console.log("Topic posts", VALUE.id);
       fetchTopicPosts(VALUE.id);
     } else {
       console.log("ELSE", VALUE);
     }
     console.log(VALUE);
   }, [VALUE, currentPage]);
+
+  useEffect(() => {
+    dispatch(resetCurrentPage());
+  }, [VALUE]);
   return (
     <div className="es-article-list">
       {articles &&
