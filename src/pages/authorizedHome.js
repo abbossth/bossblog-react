@@ -1,29 +1,15 @@
-import React, { useEffect, useState } from "react";
-import axios from "../api/axios";
 import { Link, useSearchParams } from "react-router-dom";
-import Vector from "../assets/img/ic_vector.svg";
-import ArticleCard from "../components/article-card";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getForYouArticles,
-  loadMoreForYouArticles,
-} from "../store/actions/forYouAction";
-import Topic from "./topic";
+import { loadMoreForYouArticles } from "../store/actions/forYouAction";
+import ArticlesTabContainer from "./articlesTabContainer";
+import { QUERY_TYPES } from "../utils/utils";
 
 const AuthorizedHome = () => {
-  const [key, setKey] = useState("forYou");
-  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
-  const { articles, limit, currentPage } = useSelector(
-    (state) => state.forYouArticleReducer
-  );
-  const { token } = useSelector((state) => state.loginReducer);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tab = searchParams.get("tab");
+  const topicId = searchParams.get("topic");
   const { followTopics } = useSelector((state) => state.followTopicsReducer);
-
-  const QUERY_TYPES = {
-    TAB: "TAB",
-    TOPIC: "TOPIC",
-  };
 
   const setQuery = (value, type) => {
     if (type === QUERY_TYPES.TAB) {
@@ -32,81 +18,13 @@ const AuthorizedHome = () => {
     if (type === QUERY_TYPES.TOPIC) {
       setSearchParams({ topic: value });
     }
-  };
-
-  const tab = searchParams.get("tab");
-  const topicId = searchParams.get("topic");
-  const VALUE = tab
-    ? { type: QUERY_TYPES.TAB, tab }
-    : topicId
-    ? { type: QUERY_TYPES.TOPIC, id: topicId }
-    : { type: QUERY_TYPES.TAB, tab: null };
-
-  const fetchForYou = async () => {
-    try {
-      const res = await axios.get(
-        `/posts/foryou?limit=${limit}&page=${currentPage}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      dispatch(getForYouArticles(res?.data));
-    } catch (err) {
-      console.log("Unhandled Error in trending articles", err);
-    }
-  };
-
-  const fetchPostFollows = async () => {
-    try {
-      const res = await axios.get(
-        `/posts/follows?limit=${limit}&page=${currentPage}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log("post follows", res);
-      // dispatch(getForYouArticles(res?.data));
-    } catch (err) {
-      console.log("Unhandled Error in trending articles", err);
-    }
-  };
-
-  const fetchTopicPosts = async (id) => {
-    try {
-      const res = await axios.get(`/topics/posts/${id}`);
-      console.log("Topic Articles", res);
-      // dispatch(getTopicArticles(res?.data));
-    } catch (err) {
-      console.log(
-        `Unhandled Error while Fetching Topic POSTs with ID: ${topicId}. Error: ${err}`
-      );
-    }
+    if (!type) setSearchParams({});
   };
 
   const loadMoreHandler = () => {
     dispatch(loadMoreForYouArticles());
   };
 
-  useEffect(() => {
-    if (VALUE.type === QUERY_TYPES.TAB) {
-      if (VALUE.tab === "following") {
-        console.log("Following posts!");
-        fetchPostFollows();
-      }
-      if (VALUE.tab === null) {
-        console.log("For you posts!");
-        fetchForYou();
-      }
-    }
-    if (VALUE.type === QUERY_TYPES.TOPIC) {
-      console.log("Topic posts", VALUE.id);
-      fetchTopicPosts(VALUE.id);
-    }
-  }, [VALUE, currentPage]);
   return (
     <main>
       <section className="es-regular-section">
@@ -129,7 +47,7 @@ const AuthorizedHome = () => {
               </svg>
             </Link>
             <button
-              onClick={() => setQuery("", QUERY_TYPES.TAB)}
+              onClick={() => setQuery("")}
               className={`btn es-added-topic ${!tab && !topicId && "active"}`}
             >
               Siz uchun
@@ -166,12 +84,7 @@ const AuthorizedHome = () => {
           {/* <ArticlesContainer articles={articles}/> */}
           <div className="es-regular-section">
             <div className="container">
-              <div className="es-article-list">
-                {articles &&
-                  articles.map((x, idx) => {
-                    return <ArticleCard key={"article-" + idx} article={x} />;
-                  })}
-              </div>
+              <ArticlesTabContainer />
             </div>
           </div>
 

@@ -12,3 +12,9 @@ export const loadMoreForYouArticles = () => {
     type: ActionTypes.ARTICLE.LOAD_MORE_FOR_YOU_ARTICLES,
   };
 };
+
+export const resetCurrentPage = () => {
+  return {
+    type: ActionTypes.ARTICLE.RESET_CURRENT_PAGE,
+  };
+};
