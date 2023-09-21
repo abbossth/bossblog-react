@@ -221,6 +221,11 @@
    .es-mobile-search-link {
       display: none;
    }
+   .es-dropdown-pr .dropdown-item:first-child {
+      border-bottom: 1px solid #E8E8E8;
+      padding-bottom: 18px;
+      margin-bottom: 18px;
+   }
 }
 
 @media (max-width: 600px) {
@@ -793,8 +798,10 @@
     .es-dropdown-pr {
       width: 70vw;
      }
-   .es-mobile-signin-btn {
-
-   }
+     .es-dropdown-pr .dropdown-item:first-child {
+      border-bottom: 1px solid #E8E8E8;
+      padding-bottom: 18px;
+      margin-bottom: 18px;
+    }
 
 }
