@@ -1,7 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Close from "../assets/img/ic_close.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { changeTitleAndSubtitle } from "../store/actions/writtenDraftAction";
 
 const WriteArticleForm = () => {
+  const dispatch = useDispatch();
+  const { title, image, sub_title } = useSelector(
+    (state) => state.writtenDraftReducer
+  );
+  const { userInfo } = useSelector((state) => state.userInfoReducer);
+  const [articleTitle, setArticleTitle] = useState("");
+  const [articleSubtitle, setArticleSubtitle] = useState("");
+  const [articleImage, setArticleImage] = useState("");
+
+  const handleTitleChange = (e) => {
+    setArticleTitle(e.target.value);
+  };
+
+  const handleSubtitleChange = (e) => {
+    setArticleSubtitle(e.target.value);
+  };
+
+  useEffect(() => {
+    setArticleTitle(title);
+    setArticleSubtitle(sub_title);
+    setArticleImage(image);
+  }, [title, image, sub_title]);
+
+  useEffect(() => {
+    if (articleSubtitle !== "" || articleTitle !== "") {
+      if (articleTitle !== title || articleSubtitle !== sub_title)
+        dispatch(changeTitleAndSubtitle(articleTitle, articleSubtitle));
+    }
+    console.log(title, sub_title);
+  }, [articleTitle, articleSubtitle]);
   return (
     <main>
       <section className="es-regular-section es-article-form">
@@ -13,19 +45,36 @@ const WriteArticleForm = () => {
                 <div className="es-article-img-wrp">
                   <img
                     className="img-fluid"
-                    src={require("../assets/img/banner_profile.jpg")}
+                    src={
+                      articleImage
+                        ? `${articleImage}`
+                        : require("../assets/img/banner_profile.jpg")
+                    }
                     alt="article"
                   />
                 </div>
               </div>
               <div className="form-group es-ar-form">
-                <label for="es-article-select">Faqat menman</label>
+                {/* <label for="es-article-select" className="es-article-select">
+                  Sarlavha
+                </label> */}
                 <input
                   type="email"
-                  className="form-control"
+                  className="form-control es-ar-title"
                   id="es-article-select"
                   aria-describedby="es-about-select"
-                  placeholder="Faqat menman"
+                  placeholder="Sarlavhani kiriting..."
+                  value={articleTitle}
+                  onChange={handleTitleChange}
+                />
+                <input
+                  type="email"
+                  className="form-control es-ar-subtitle"
+                  id="es-article-select"
+                  aria-describedby="es-about-select"
+                  placeholder="Tavsifni kiriting..."
+                  value={articleSubtitle}
+                  onChange={handleSubtitleChange}
                 />
                 <small id="es-about-select" className="form-text">
                   Eslatma: Bu yerdagi oʻzgarishlar sizning hikoyangizning
@@ -37,7 +86,7 @@ const WriteArticleForm = () => {
             </div>
             <div className="col-xl-5 col-md-12 col-sm-12">
               <div className="es-article-writer-info">
-                Nashriyot: <span> Akbarali Xasanov</span>
+                Nashriyot: <span> {userInfo && userInfo.full_name}</span>
               </div>
               <div className="input-group es-af-input-group">
                 <small

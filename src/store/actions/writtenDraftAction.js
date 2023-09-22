@@ -6,3 +6,19 @@ export const getWrittenDraft = (arr) => {
     payload: arr,
   };
 };
+
+export const setTitleAndSubtitle = () => {
+  return {
+    type: ActionTypes.WRITE.SET_TITLE_AND_SUBTITLE,
+  };
+};
+
+export const changeTitleAndSubtitle = (title, sub_title) => {
+  return {
+    type: ActionTypes.WRITE.CHANGE_TITLE_AND_SUBTITLE,
+    payload: {
+      title,
+      sub_title,
+    },
+  };
+};

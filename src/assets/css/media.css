@@ -137,6 +137,11 @@
  .es-main-navbar .navbar-nav {
   flex-direction: row;
  }
+
+ .es-main-navbar .es-mobile-container {
+   max-width: 800px;
+ }
+
  .es-main-section-title {
   font-size: 48px;
   line-height: 57px;
@@ -181,7 +186,6 @@
   margin-bottom: 100px;
  }
  .es-article-img-wrp img {
-  height: 284px;
   min-width: 100%;
  }
  .es-ar-form {
@@ -682,7 +686,6 @@
   margin-bottom: 30px;
  }
  .es-article-img-wrp img {
-  height: 284px;
   max-width: 100%;
  }
  .es-ar-form label {
