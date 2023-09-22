@@ -18,9 +18,7 @@ const WritePanel = () => {
       holder: "editorjs-write",
       tools: EDITOR_JS_TOOLS,
       autofocus: true,
-      data: {
-        blocks: initialBlocks,
-      },
+      data: draft,
       placeholder: "Shu yerga yozing...",
       onReady: () => {
         console.log("Editor.js is ready...");
