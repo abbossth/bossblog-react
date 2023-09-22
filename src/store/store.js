@@ -54,7 +54,6 @@ const persistConfig = {
     "forYouArticleReducer",
     "userInfoReducer",
     "followTopicsReducer",
-    "writtenDraftReducer",
   ],
   stateReconciler: autoMergeLevel2, // optional state reconciler
 };
