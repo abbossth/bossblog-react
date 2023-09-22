@@ -38,6 +38,9 @@ const ActionTypes = {
   FOLLOW: {
     GET_FOLLOW_TOPICS: "GET_FOLLOW_TOPICS",
   },
+  WRITE: {
+    GET_WRITTEN_DRAFT: "GET_WRITTEN_DRAFT",
+  },
 };
 
 export default ActionTypes;

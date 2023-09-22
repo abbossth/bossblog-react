@@ -11,3 +11,21 @@ export const QUERY_TYPES = {
   TAB: "TAB",
   TOPIC: "TOPIC",
 };
+
+export const initialBlocks = [
+  {
+    id: "default-1",
+    type: "header",
+    data: {
+      text: "Sarlavha...",
+      level: 2,
+    },
+  },
+  {
+    id: "default-2",
+    type: "paragraph",
+    data: {
+      text: "Shu yerga yozing...",
+    },
+  },
+];
