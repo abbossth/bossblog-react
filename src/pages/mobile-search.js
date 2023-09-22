@@ -1,33 +1,27 @@
-import axios from "axios";
+import axios from "../api/axios";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import SearchIcon from "../assets/img/ic_search.svg";
+import debounce from "lodash/debounce";
 
 const MobileSearch = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(null);
+  const search = debounce(async () => {
+    try {
+      const res = await axios.get(`/posts/search?search=${searchTerm}`);
+      setSearchResults(res?.data?.data);
+      setError(null);
+    } catch (error) {
+      setError(error.response.statusText);
+      console.log("error", error?.response?.statusText);
+    }
+  }, 500);
 
   useEffect(() => {
-    const search = async () => {
-      try {
-        const res = await axios.get(
-          `https://api.bossblog.uz/api/v1/posts/search?search=${searchTerm}`
-        );
-        setSearchResults(res?.data?.data.slice(0, 5));
-        setError(null);
-      } catch (error) {
-        setError(error.response.statusText);
-        console.log("error", error?.response?.statusText);
-      }
-    };
-
-    if (searchTerm !== "") {
-      search();
-    } else {
-      setSearchResults([]);
-    }
+    search();
   }, [searchTerm]);
 
   const handleInputChange = (e) => {
