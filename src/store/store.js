@@ -12,6 +12,7 @@ import forYouArticleReducer from "./reducers/forYouReducer";
 import userInfoReducer from "./reducers/userInfoReducer";
 import followTopicsReducer from "./reducers/followTopicsReducer";
 import writtenDraftReducer from "./reducers/writtenDraftReducer";
+import savedArticleReducer from "./reducers/savedArticleReducer";
 
 import {
   persistStore,
@@ -38,6 +39,7 @@ const rootReducer = combineReducers({
   userInfoReducer,
   followTopicsReducer,
   writtenDraftReducer,
+  savedArticleReducer,
 });
 
 const persistConfig = {
@@ -54,6 +56,7 @@ const persistConfig = {
     "forYouArticleReducer",
     "userInfoReducer",
     "followTopicsReducer",
+    "savedArticleReducer",
   ],
   stateReconciler: autoMergeLevel2, // optional state reconciler
 };

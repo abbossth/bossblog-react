@@ -1,17 +1,36 @@
-import React, { useState } from "react";
-import Time from "../assets/img/ic_time.svg";
-import Seen from "../assets/img/ic_seen.svg";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import axios from "../api/axios";
 import ArticleCard from "../components/article-card";
+import { getSavedArticles } from "../store/actions/savedArticleAction";
 
 const Saved = () => {
-  const [toggle, setToggle] = useState(1);
+  const fetchSavedArticles = async () => {
+    try {
+      const res = await axios.get(`/saved-posts?page=${currentPage}&limit=${limit}`);
+      dispatch(getSavedArticles(res?.data));
+    } catch (err) {
+      console.log(`Unhandled Error in fetching articles ${err}`);
+    }
+  };
 
-  function updateToggle(id) {
+  useEffect(() => {
+    if (currentPage === 1 || currentPage !== pagination.page) {
+      fetchSavedArticles();
+    }
+  }, [currentPage]);
+
+  const { currentPage, limit, pagination } = useSelector((state) => state.articleReducer);
+  const { articles } = useSelector((state) => state.getSavedArticles);
+  const [toggle, setToggle] = useState(1);
+  const [active, setActive] = useState("");
+  const dispatch = useDispatch();
+
+
+  const updateToggle = (id) => {
     setToggle(id);
   }
-
-  const [active, setActive] = useState("");
 
   const handleClick = (event) => {
     setActive(event.target.id);
@@ -68,6 +87,7 @@ const Saved = () => {
               id="pills-saved"
             >
               <div className="es-article-list">
+
                 <ArticleCard />
               </div>
             </div>
