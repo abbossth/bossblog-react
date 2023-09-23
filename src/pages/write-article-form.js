@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import Close from "../assets/img/ic_close.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { changeTitleAndSubtitle } from "../store/actions/writtenDraftAction";
+import { useNavigate } from "react-router-dom";
+import {
+  changeTitleAndSubtitle,
+  resetDraft,
+} from "../store/actions/writtenDraftAction";
 import Select from "react-select";
 import axios from "../api/axios";
 
 const WriteArticleForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [topic, setTopic] = useState([]);
   const [topicOptions, setTopicOptions] = useState([]);
-  const dispatch = useDispatch();
   const { title, image, sub_title, post_id } = useSelector(
     (state) => state.writtenDraftReducer
   );
@@ -41,6 +45,36 @@ const WriteArticleForm = () => {
       console.log("Post Topics added", res);
     } catch (err) {
       console.log(`Unhandled Error while posting post topics ${err}`);
+    }
+  };
+
+  const publishPost = async () => {
+    try {
+      const res = await axios.patch(`/posts/${post_id}`, {
+        status: "published",
+      });
+      console.log("Published: ", res);
+      dispatch(resetDraft());
+      navigate("/", { replace: true });
+    } catch (err) {
+      console.log(`Unhandled Error while publishing post ${err}`);
+    }
+  };
+
+  const handlePublishPost = () => {
+    if (
+      window.confirm("Siz haqiqatdan ham maqolani chop etishni xohlaysizmi?")
+    ) {
+      publishPost();
+    }
+  };
+
+  const handleSaveDraft = () => {
+    if (
+      window.confirm("Siz haqiqatdan ham qoralamani saqlashni xohlaysizmi?")
+    ) {
+      dispatch(resetDraft());
+      navigate("/", { replace: true });
     }
   };
 
@@ -159,10 +193,16 @@ const WriteArticleForm = () => {
                 </div>
               </div>
               <div className="es-article-form-btn">
-                <button className="btn es-btn-save es-btn-ar-form">
+                <button
+                  onClick={handleSaveDraft}
+                  className="btn es-btn-save es-btn-ar-form"
+                >
                   Saqlash
                 </button>
-                <button className="btn es-profile-save es-btn-ar-form ">
+                <button
+                  className="btn es-profile-save es-btn-ar-form"
+                  onClick={handlePublishPost}
+                >
                   Chop etish
                 </button>
               </div>

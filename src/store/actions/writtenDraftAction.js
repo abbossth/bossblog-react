@@ -29,3 +29,9 @@ export const changeTitleAndSubtitle = (title, sub_title) => {
     },
   };
 };
+
+export const resetDraft = () => {
+  return {
+    type: ActionTypes.WRITE.RESET_DRAFT,
+  };
+};

@@ -47,6 +47,10 @@ const writtenDraftReducer = (state = initialState, action) => {
         title: action.payload.title,
         sub_title: action.payload.sub_title,
       };
+    case ActionTypes.WRITE.RESET_DRAFT:
+      return {
+        ...initialState,
+      };
     default:
       return state;
   }
