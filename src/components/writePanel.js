@@ -2,15 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import EditorJS from "@editorjs/editorjs";
 import { EDITOR_JS_TOOLS } from "../plugins/editor";
 import { isNull } from "lodash";
-import { initialBlocks } from "../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { getWrittenDraft } from "../store/actions/writtenDraftAction";
 
 const WritePanel = () => {
   const dispatch = useDispatch();
-  const { draft } = useSelector((state) => state.writtenDraftReducer);
-  document.getElementsByClassName("ce-header").dataPlaceholder =
-    "Type name here..";
+  const { body } = useSelector((state) => state.writtenDraftReducer);
   const ejInstance = useRef(null);
   let [editorForSaving] = useState(null);
   const initEditor = () => {
@@ -18,7 +15,7 @@ const WritePanel = () => {
       holder: "editorjs-write",
       tools: EDITOR_JS_TOOLS,
       autofocus: true,
-      data: draft,
+      data: body,
       placeholder: "Shu yerga yozing...",
       onReady: () => {
         console.log("Editor.js is ready...");
@@ -54,18 +51,9 @@ const WritePanel = () => {
     }
   };
 
-  useEffect(() => {
-    console.log("Draft", draft);
-  }, [draft]);
-
   return (
     <div className="w-100">
       <div id="editorjs-write" onMouseOver={() => {}}></div>
-      {/* <div>
-        <button className="btn btn-success" type="button" onClick={getData}>
-          Chop etish
-        </button>
-      </div> */}
     </div>
   );
 };

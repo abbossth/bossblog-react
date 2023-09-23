@@ -1,7 +1,114 @@
-import React from "react";
-import Close from "../assets/img/ic_close.svg";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+  changeTitleAndSubtitle,
+  resetDraft,
+} from "../store/actions/writtenDraftAction";
+import Select from "react-select";
+import axios from "../api/axios";
 
 const WriteArticleForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [topic, setTopic] = useState([]);
+  const [topicOptions, setTopicOptions] = useState([]);
+  const { title, image, sub_title, post_id } = useSelector(
+    (state) => state.writtenDraftReducer
+  );
+  const { userInfo } = useSelector((state) => state.userInfoReducer);
+  const [articleTitle, setArticleTitle] = useState("");
+  const [articleSubtitle, setArticleSubtitle] = useState("");
+  const [articleImage, setArticleImage] = useState("");
+  const { topics } = useSelector((state) => state.topicsReducer);
+
+  const handleTitleChange = (e) => {
+    setArticleTitle(e.target.value);
+  };
+
+  const handleSubtitleChange = (e) => {
+    setArticleSubtitle(e.target.value);
+  };
+
+  const handleTopicChange = (e) => {
+    let topics = [];
+    e.forEach((s) => topics.push(s.value));
+    setTopic(topics);
+  };
+
+  const postPostTopics = async () => {
+    try {
+      const res = await axios.post(`/post-topic`, {
+        post_id,
+        topics: topic,
+      });
+      console.log("Post Topics added", res);
+    } catch (err) {
+      console.log(`Unhandled Error while posting post topics ${err}`);
+    }
+  };
+
+  const publishPost = async () => {
+    try {
+      const res = await axios.patch(`/posts/${post_id}`, {
+        status: "published",
+      });
+      console.log("Published: ", res);
+      dispatch(resetDraft());
+      navigate("/", { replace: true });
+    } catch (err) {
+      console.log(`Unhandled Error while publishing post ${err}`);
+    }
+  };
+
+  const handlePublishPost = () => {
+    if (
+      window.confirm("Siz haqiqatdan ham maqolani chop etishni xohlaysizmi?")
+    ) {
+      publishPost();
+    }
+  };
+
+  const handleSaveDraft = () => {
+    if (
+      window.confirm("Siz haqiqatdan ham qoralamani saqlashni xohlaysizmi?")
+    ) {
+      dispatch(resetDraft());
+      navigate("/", { replace: true });
+    }
+  };
+
+  useEffect(() => {
+    if (post_id) {
+      postPostTopics();
+    }
+  }, [topic, post_id]);
+
+  useEffect(() => {
+    let ts = [];
+    topics.forEach((s) => {
+      return ts.push({
+        ...s,
+        value: s.id,
+        label: s.name,
+      });
+    });
+    setTopicOptions(ts);
+  }, [topics]);
+
+  useEffect(() => {
+    setArticleTitle(title);
+    setArticleSubtitle(sub_title);
+    setArticleImage(image);
+  }, [title, image, sub_title]);
+
+  useEffect(() => {
+    if (articleSubtitle !== "" || articleTitle !== "") {
+      if (articleTitle !== title || articleSubtitle !== sub_title)
+        dispatch(changeTitleAndSubtitle(articleTitle, articleSubtitle));
+    }
+  }, [articleTitle, articleSubtitle]);
+
   return (
     <main>
       <section className="es-regular-section es-article-form">
@@ -13,19 +120,36 @@ const WriteArticleForm = () => {
                 <div className="es-article-img-wrp">
                   <img
                     className="img-fluid"
-                    src={require("../assets/img/banner_profile.jpg")}
+                    src={
+                      articleImage
+                        ? `${articleImage}`
+                        : require("../assets/img/banner_profile.jpg")
+                    }
                     alt="article"
                   />
                 </div>
               </div>
               <div className="form-group es-ar-form">
-                <label for="es-article-select">Faqat menman</label>
+                {/* <label for="es-article-select" className="es-article-select">
+                  Sarlavha
+                </label> */}
                 <input
                   type="email"
-                  className="form-control"
+                  className="form-control es-ar-title"
                   id="es-article-select"
                   aria-describedby="es-about-select"
-                  placeholder="Faqat menman"
+                  placeholder="Sarlavhani kiriting..."
+                  value={articleTitle}
+                  onChange={handleTitleChange}
+                />
+                <input
+                  type="email"
+                  className="form-control es-ar-subtitle"
+                  id="es-article-select"
+                  aria-describedby="es-about-select"
+                  placeholder="Tavsifni kiriting..."
+                  value={articleSubtitle}
+                  onChange={handleSubtitleChange}
                 />
                 <small id="es-about-select" className="form-text">
                   Eslatma: Bu yerdagi oʻzgarishlar sizning hikoyangizning
@@ -37,7 +161,7 @@ const WriteArticleForm = () => {
             </div>
             <div className="col-xl-5 col-md-12 col-sm-12">
               <div className="es-article-writer-info">
-                Nashriyot: <span> Akbarali Xasanov</span>
+                Nashriyot: <span> {userInfo && userInfo.full_name}</span>
               </div>
               <div className="input-group es-af-input-group">
                 <small
@@ -45,44 +169,40 @@ const WriteArticleForm = () => {
                   className="form-text es-about-ar-key"
                 >
                   {" "}
-                  Mavzularni qo'shing yoki o'zgartiring (5 tagacha) o'quvchilar
+                  Mavzularni qo'shing yoki o'zgartiring (3 tagacha) o'quvchilar
                   hikoyangiz nima haqida ekanligini bilishlari uchun
                 </small>
                 <div>
-                  <label for="articleImage">Kalit so’zlar</label>
+                  <label for="articleImage" className="fw-bold mb-1">
+                    Mavzu tanlang <span className="text-danger">*</span>
+                  </label>
                 </div>
                 <div className="d-flex">
-                  <div className="input-group-prepend">
-                    <div className="input-group-text">
-                      Label <img src={Close} alt="close" />
-                    </div>
-                  </div>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="es-about-ar-key"
+                  <Select
+                    defaultValue={[topicOptions[0]]}
+                    isMulti
+                    options={topicOptions}
+                    className="basic-multi-select w-100"
+                    classNamePrefix="select"
+                    onChange={handleTopicChange}
+                    isOptionDisabled={() => topic.length >= 3}
+                    onBlur={(e) => {
+                      if (topic === null) return setTopic([]);
+                    }}
                   />
                 </div>
               </div>
               <div className="es-article-form-btn">
-                <button className="btn es-btn-save es-btn-ar-form">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M12.7872 0.991667C12.4706 0.675 12.0456 0.5 11.6039 0.5H2.29557C1.37057 0.5 0.628906 1.25 0.628906 2.16667V13.8333C0.628906 14.75 1.37891 15.5 2.29557 15.5H13.9622C14.8789 15.5 15.6289 14.75 15.6289 13.8333V4.525C15.6289 4.08333 15.4539 3.65833 15.1372 3.35L12.7872 0.991667ZM8.12891 13.8333C6.74557 13.8333 5.62891 12.7167 5.62891 11.3333C5.62891 9.95 6.74557 8.83333 8.12891 8.83333C9.51224 8.83333 10.6289 9.95 10.6289 11.3333C10.6289 12.7167 9.51224 13.8333 8.12891 13.8333ZM8.96224 5.5H3.96224C3.04557 5.5 2.29557 4.75 2.29557 3.83333C2.29557 2.91667 3.04557 2.16667 3.96224 2.16667H8.96224C9.87891 2.16667 10.6289 2.91667 10.6289 3.83333C10.6289 4.75 9.87891 5.5 8.96224 5.5Z"
-                      fill="#969696"
-                    />
-                  </svg>
+                <button
+                  onClick={handleSaveDraft}
+                  className="btn es-btn-save es-btn-ar-form"
+                >
                   Saqlash
                 </button>
-                <button className="btn es-profile-save es-btn-ar-form ">
+                <button
+                  className="btn es-profile-save es-btn-ar-form"
+                  onClick={handlePublishPost}
+                >
                   Chop etish
                 </button>
               </div>

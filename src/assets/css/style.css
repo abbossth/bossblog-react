@@ -1618,6 +1618,10 @@ button:focus,
   padding: 100px 0;
 }
 
+.es-article-form-btn .es-btn-save {
+  margin-right: 1rem;
+}
+
 .es-ar-form {
   max-width: 552px;
 }
@@ -1629,17 +1633,29 @@ button:focus,
 }
 
 .es-article-img-wrp img {
-  height: 284px;
   max-width: 552px;
   object-fit: cover;
 }
 
 .es-ar-form input {
   padding: 12px 15px 12px 0;
-  margin-bottom: 25px;
+  /* margin-bottom: 5px; */
   border-right: none;
   border-left: none;
   border-radius: 0;
+  overflow-wrap: "break-word";
+  width: 100%;
+}
+
+.es-ar-title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.es-ar-subtitle {
+  font-size: 16px;
+  margin-bottom: 2rem;
+  /* height: min-content!important; */
 }
 
 #es-about-select {

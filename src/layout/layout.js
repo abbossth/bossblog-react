@@ -14,6 +14,7 @@ import $ from "jquery";
 import Top from "../assets/img/ic_top.svg";
 import { getUserInfo } from "../store/actions/userInfoAction";
 import { getFollowTopics } from "../store/actions/followTopicsAction";
+import { getTopics } from "../store/actions/topicsAction";
 
 const Layout = ({ children }) => {
   const { loggedIn, token } = useSelector((state) => state.loginReducer);
@@ -69,6 +70,15 @@ const Layout = ({ children }) => {
     }
   };
 
+  const fetchTopics = async () => {
+    try {
+      const res = await axios.get(`/topics`);
+      dispatch(getTopics(res?.data?.data));
+    } catch (err) {
+      console.log(`Unhandled Error While Fetching Topics ${err}`);
+    }
+  };
+
   useEffect(() => {
     if (token.length > 0) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -82,6 +92,7 @@ const Layout = ({ children }) => {
   }, [loggedIn]);
 
   useEffect(() => {
+    fetchTopics();
     fetchTrendingTopics();
     fetchTrendingArticles();
     if (loggedIn) {

@@ -10,17 +10,51 @@ import {
 } from "../store/actions/modalAction";
 import { logIn, logOut } from "../store/actions/loginAction";
 import Dropdown from "react-bootstrap/Dropdown";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  setPostId,
+  setTitleAndSubtitle,
+} from "../store/actions/writtenDraftAction";
+import axios from "../api/axios";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const { loggedIn } = useSelector((state) => state.loginReducer);
   const { userInfo } = useSelector((state) => state.userInfoReducer);
+  const navigate = useNavigate();
+  const { title, sub_title, image, status, body, post_id } = useSelector(
+    (state) => state.writtenDraftReducer
+  );
   const { pathname } = useLocation();
   const isWritePage = pathname === "/write";
 
   const logOutHandler = () => {
     dispatch(logOut());
+  };
+
+  const publishDraft = async () => {
+    try {
+      const res = await axios.post(`/posts`, {
+        title,
+        sub_title,
+        image,
+        status,
+        body,
+      });
+      dispatch(setPostId(res?.data?.data?.id));
+      navigate("/write-form", { replace: true });
+    } catch (err) {
+      console.log(`Unhandled Error while publishing draft ${err}`);
+    }
+  };
+
+  const handlePublishDraft = () => {
+    if (title && sub_title && image) {
+      if (post_id) {
+        return navigate("/write-form", { replace: true });
+      }
+      publishDraft();
+    }
   };
 
   return (
@@ -47,37 +81,17 @@ const Navbar = () => {
                   aria-label="Search"
                 ></input>
               </form>
-              {/* <div id="unique-id">
-            <div className="popover-body">
-              <div className="es-search-results">
-                <div className="es-search-result">
-                  <a href="#">
-                    <img src={require("../assets/img/ic_newspaper.svg")} alt="newspaper" />ChatGPT-dan UI/UX dizayneri sifatida qanda y
-                    foydalanaman
-                  </a>
-                </div>
-                <div className="es-search-result">
-                  <a href="#">
-                    <img src={require("../assets/img/ic_newspaper.svg")} alt="newspaper" />ChatGPT-dan UI/UX dizayneri sifatida qanda y
-                    foydalanaman
-                  </a>
-                </div>
-                <div className="es-search-result">
-                  <a href="#">
-                    <img src={require("../assets/img/ic_newspaper.svg")} alt="newspaper" />ChatGPT-dan UI/UX dizayneri sifatida qanda y
-                    foydalanaman
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div> */}
             </li>
           </ul>
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
                 {isWritePage && (
-                  <button class="btn btn-success" type="button">
+                  <button
+                    onClick={handlePublishDraft}
+                    class="btn btn-success"
+                    type="button"
+                  >
                     Chop etish
                   </button>
                 )}
@@ -222,6 +236,17 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="es-mobile-nav">
+            {isWritePage && (
+              <div className="d-flex align-items-center me-3">
+                <button
+                  onClick={handlePublishDraft}
+                  class="btn btn-success btn-sm rounded"
+                  type="button"
+                >
+                  Chop etish
+                </button>
+              </div>
+            )}
             <Link
               className="nav-link es-mobile-search-link"
               to={"/mobile-search"}
