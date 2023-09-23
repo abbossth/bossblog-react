@@ -80,6 +80,8 @@ const UserArticles = () => {
     }
     console.log(queryTab);
   }, [queryTab]);
+
+  console.log("articlesss", articles)
   return (
     <main>
       <section className="es-article-header es-regular-section">

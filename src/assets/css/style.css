@@ -373,7 +373,6 @@ button:focus,
 
 .es-article-type span {
  color: var(--main-grey-color);
- margin-left: 12px;
 }
 
 .es-article-title {
@@ -1855,6 +1854,8 @@ button:focus,
   text-transform: uppercase;
   margin-bottom: 24px;
   font-weight: 600;
+  display: inline-block;
+  margin-right: 10px;
 }
 
 .es-article-writer img {
@@ -2103,4 +2104,33 @@ button:focus,
 .es-search-result-footer .es-article-type {
   margin: auto 0;
   color: var(--main-grey-color);
+}
+
+.es-article-content-inner {
+  display: flex;
+  justify-content: space-between;
+}
+
+.es-article-content-inner .es-ellipse-btn {
+  background-color: inherit !important;
+  border: none;
+  padding: 0;
+}
+
+.es-ellipse-dd .es-ellipse-btn img {
+  width: 30px !important;
+  height: 30px !important;
+  margin-right: 0;
+}
+
+.es-ellipse-item:first-child {
+  color: #00BA34;
+  display: flex;
+  align-items: center;
+}
+
+.es-ellipse-item:last-child {
+  color: #E92C2Ced;
+  display: flex;
+  align-items: center;
 }
