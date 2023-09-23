@@ -15,6 +15,8 @@ export const QUERY_TYPES = {
   TAB: "TAB",
   TOPIC: "TOPIC",
   RECENT_POSTS: "recentPosts",
+  DRAFT_POSTS: "draftPosts",
+  MODERATION_POSTS: "moderationPosts",
 };
 
 export const initialBlocks = [
