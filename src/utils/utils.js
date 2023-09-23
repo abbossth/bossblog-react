@@ -14,6 +14,7 @@ export const MODAL_TYPES = {
 export const QUERY_TYPES = {
   TAB: "TAB",
   TOPIC: "TOPIC",
+  RECENT_POSTS: "recentPosts",
 };
 
 export const initialBlocks = [

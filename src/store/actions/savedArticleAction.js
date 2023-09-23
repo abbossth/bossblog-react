@@ -3,7 +3,10 @@ import ActionTypes from "../action-types/actionTypes";
 export const getSavedArticles = (arr) => {
   return {
     type: ActionTypes.ARTICLE.GET_SAVED_ARTICLES,
-    payload: arr,
+    payload: {
+      posts: arr?.posts,
+      pagination: arr?.pagination,
+    },
   };
 };
 
