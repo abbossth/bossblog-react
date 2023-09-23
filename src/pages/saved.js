@@ -1,31 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import axios from "../api/axios";
+import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import ArticleCard from "../components/article-card";
-import { getSavedArticles } from "../store/actions/savedArticleAction";
+import { useDispatch, useSelector } from "react-redux";
+import savedArticleReducer from "../store/reducers/savedArticleReducer";
 
 const Saved = () => {
+  const { articles } = useSelector((state) => state.savedArticleReducer);
+  const [active, setActive] = useState("");
+  const [toggle, setToggle] = useState(1);
+  const dispatch = useDispatch();
+
   const fetchSavedArticles = async () => {
     try {
-      const res = await axios.get(`/saved-posts?page=${currentPage}&limit=${limit}`);
-      dispatch(getSavedArticles(res?.data));
+      const res = await axios.get(`/saved-posts`);
+      dispatch(savedArticleReducer(res?.data));
     } catch (err) {
       console.log(`Unhandled Error in fetching articles ${err}`);
     }
   };
 
   useEffect(() => {
-    if (currentPage === 1 || currentPage !== pagination.page) {
-      fetchSavedArticles();
-    }
-  }, [currentPage]);
-
-  const { currentPage, limit, pagination } = useSelector((state) => state.articleReducer);
-  const { articles } = useSelector((state) => state.getSavedArticles);
-  const [toggle, setToggle] = useState(1);
-  const [active, setActive] = useState("");
-  const dispatch = useDispatch();
+    fetchSavedArticles();
+  }, []);
 
 
   const updateToggle = (id) => {
@@ -35,6 +32,8 @@ const Saved = () => {
   const handleClick = (event) => {
     setActive(event.target.id);
   }
+
+  console.log("articles", articles)
 
   return (
     <main>
@@ -87,8 +86,9 @@ const Saved = () => {
               id="pills-saved"
             >
               <div className="es-article-list">
-
-                <ArticleCard />
+                {articles.map((x) => (
+                  <ArticleCard key={"saved-topic-id-" + x.id} />
+                ))}
               </div>
             </div>
             <div
