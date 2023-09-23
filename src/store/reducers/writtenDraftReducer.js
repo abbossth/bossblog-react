@@ -10,6 +10,7 @@ const initialState = {
   image: "",
   postTopics: [],
   status: WRITE_ARTICLE_STATUS.DRAFT,
+  post_id: null,
 };
 
 const writtenDraftReducer = (state = initialState, action) => {
@@ -20,6 +21,11 @@ const writtenDraftReducer = (state = initialState, action) => {
       return {
         ...state,
         body: action.payload,
+        title: state.body.blocks.filter((b) => b.type === "header")?.[0]?.data
+          ?.text,
+        sub_title: state.body.blocks.filter((b) => b.type === "paragraph")?.[0]
+          ?.data?.text,
+        image: img ? img : null,
       };
     case ActionTypes.WRITE.SET_TITLE_AND_SUBTITLE:
       return {
@@ -29,6 +35,11 @@ const writtenDraftReducer = (state = initialState, action) => {
         sub_title: state.body.blocks.filter((b) => b.type === "paragraph")?.[0]
           ?.data?.text,
         image: img ? img : null,
+      };
+    case ActionTypes.WRITE.SET_POST_ID:
+      return {
+        ...state,
+        post_id: action.payload,
       };
     case ActionTypes.WRITE.CHANGE_TITLE_AND_SUBTITLE:
       return {

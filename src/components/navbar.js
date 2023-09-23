@@ -11,14 +11,18 @@ import {
 import { logIn, logOut } from "../store/actions/loginAction";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { setTitleAndSubtitle } from "../store/actions/writtenDraftAction";
+import {
+  setPostId,
+  setTitleAndSubtitle,
+} from "../store/actions/writtenDraftAction";
+import axios from "../api/axios";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const { loggedIn } = useSelector((state) => state.loginReducer);
   const { userInfo } = useSelector((state) => state.userInfoReducer);
   const navigate = useNavigate();
-  const { title, sub_title } = useSelector(
+  const { title, sub_title, image, status, body, post_id } = useSelector(
     (state) => state.writtenDraftReducer
   );
   const { pathname } = useLocation();
@@ -28,13 +32,28 @@ const Navbar = () => {
     dispatch(logOut());
   };
 
+  const publishDraft = async () => {
+    try {
+      const res = await axios.post(`/posts`, {
+        title,
+        sub_title,
+        image,
+        status,
+        body,
+      });
+      dispatch(setPostId(res?.data?.data?.id));
+      navigate("/write-form", { replace: true });
+    } catch (err) {
+      console.log(`Unhandled Error while publishing draft ${err}`);
+    }
+  };
+
   const handlePublishDraft = () => {
-    console.log("Publish!");
-    dispatch(setTitleAndSubtitle());
-    if (title && sub_title) {
-      setTimeout(() => {
-        navigate("/write-form", { replace: true });
-      }, 300);
+    if (title && sub_title && image) {
+      if (post_id) {
+        return navigate("/write-form", { replace: true });
+      }
+      publishDraft();
     }
   };
 

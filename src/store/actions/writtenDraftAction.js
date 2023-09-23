@@ -13,6 +13,13 @@ export const setTitleAndSubtitle = () => {
   };
 };
 
+export const setPostId = (data) => {
+  return {
+    type: ActionTypes.WRITE.SET_POST_ID,
+    payload: data,
+  };
+};
+
 export const changeTitleAndSubtitle = (title, sub_title) => {
   return {
     type: ActionTypes.WRITE.CHANGE_TITLE_AND_SUBTITLE,

@@ -1618,6 +1618,10 @@ button:focus,
   padding: 100px 0;
 }
 
+.es-article-form-btn .es-btn-save {
+  margin-right: 1rem;
+}
+
 .es-ar-form {
   max-width: 552px;
 }

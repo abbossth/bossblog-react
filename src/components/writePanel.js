@@ -54,11 +54,6 @@ const WritePanel = () => {
   return (
     <div className="w-100">
       <div id="editorjs-write" onMouseOver={() => {}}></div>
-      {/* <div>
-        <button className="btn btn-success" type="button" onClick={getData}>
-          Chop etish
-        </button>
-      </div> */}
     </div>
   );
 };
