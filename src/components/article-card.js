@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Time from "../assets/img/ic_time.svg";
 import Seen from "../assets/img/ic_seen.svg";
 import moment from "moment/moment";
@@ -7,11 +7,36 @@ import { useDispatch } from "react-redux";
 import { showCommentModal } from "../store/actions/modalAction";
 import Ellipse from "../assets/img/ic_ellipse.svg";
 import Dropdown from "react-bootstrap/Dropdown";
+import axios from "../api/axios";
+import { getSavedArticles } from "../store/actions/savedArticleAction";
 
 const ArticleCard = ({ key = "", article = {} }) => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const isUserArticle = pathname === "/user-articles";
+
+
+  const handleDelete = async (id) => {
+    try {
+      const res = await axios.delete(`posts/${id}`);
+      dispatch(
+        getSavedArticles({
+          posts: res?.data?.data,
+          pagination: {
+            page: "1",
+            totalPages: 1,
+            totalCount: res?.data?.data?.length,
+          },
+        })
+      );
+    } catch (err) {
+      console.log(`Unhandled Error While Fetching Topics ${err}`);
+    }
+  }
+
+  useEffect(() => {
+      handleDelete();
+  }, [article]);
 
   return (
     <div className="es-article-item" key={key}>
@@ -73,7 +98,7 @@ const ArticleCard = ({ key = "", article = {} }) => {
                     </svg>
                     Tahrirlash
                   </a>
-                  <a class="dropdown-item es-ellipse-item" href="#">
+                  <button class="btn dropdown-item es-ellipse-item" onClick={() => dispatch(handleDelete(article.id))}>
                     <svg
                       width="16"
                       height="16"
@@ -96,7 +121,7 @@ const ArticleCard = ({ key = "", article = {} }) => {
                       />
                     </svg>
                     O‘chirish
-                  </a>
+                  </button>
                 </Dropdown.Menu>
               </Dropdown>
             </div>
@@ -173,5 +198,7 @@ const ArticleCard = ({ key = "", article = {} }) => {
     </div>
   );
 };
+
+
 
 export default ArticleCard;
