@@ -16,17 +16,7 @@ const UserArticles = () => {
   const fetchMyArticles = async () => {
     try {
       const res = await axios.get(`/users/meposts`);
-      dispatch(
-        getSavedArticles({
-          posts: res?.data?.data,
-          pagination: {
-            page: "1",
-            totalPages: 1,
-            totalCount: res?.data?.data?.length,
-          },
-        })
-      );
-      console.log(res?.data?.data);
+      dispatch(getSavedArticles(res?.data));
     } catch (err) {
       console.log(`Unhandled Error in fetching articles ${err}`);
     }
@@ -34,10 +24,8 @@ const UserArticles = () => {
 
   const fetchDraftArticles = async () => {
     try {
-      const res = await axios.get(``);
-      dispatch(
-        getSavedArticles(res?.data?.data)
-      );
+      const res = await axios.get(`/users/meposts?q=draft`);
+      dispatch(getSavedArticles(res?.data));
     } catch (err) {
       console.log(`Unhandled Error in fetching articles ${err}`);
     }
@@ -45,10 +33,8 @@ const UserArticles = () => {
 
   const fetchModerationArticles = async () => {
     try {
-      const res = await axios.get(``);
-      dispatch(
-        getSavedArticles(res?.data?.data)
-      );
+      const res = await axios.get(`/users/meposts?q=deleted`);
+      dispatch(getSavedArticles(res?.data?.data));
     } catch (err) {
       console.log(`Unhandled Error in fetching articles ${err}`);
     }
@@ -81,7 +67,7 @@ const UserArticles = () => {
     console.log(queryTab);
   }, [queryTab]);
 
-  console.log("articlesss", articles)
+  console.log("articlesss", articles);
   return (
     <main>
       <section className="es-article-header es-regular-section">
@@ -103,18 +89,11 @@ const UserArticles = () => {
       </section>
       <section className="es-regular-section">
         <div className="container">
-          <ul
-            className="nav nav-pills es-saved-last-tab"
-            id="pills-tab"
-          >
+          <ul className="nav nav-pills es-saved-last-tab" id="pills-tab">
             <li className="nav-item" role="presentation">
               <div
-              className={
-                queryTab === null
-                  ? `nav-link active`
-                  : "nav-link"
-                }
-              onClick={() => setQuery()}
+                className={queryTab === null ? `nav-link active` : "nav-link"}
+                onClick={() => setQuery()}
               >
                 Chop etilganlar
               </div>
@@ -145,16 +124,13 @@ const UserArticles = () => {
             </li>
           </ul>
           <div className="tab-content" id="pills-tabContent">
-            <div
-              className="tab-pane fade show active"
-              id="pills-published"
-            >
+            <div className="tab-pane fade show active" id="pills-published">
               <div className="es-article-list">
                 {articles &&
                   articles.map((x) => (
                     <ArticleCard key={"saved-topic-id-" + x.id} article={x} />
                   ))}
-                {!articles.length && (
+                {!articles?.length && (
                   <p className="text-danger">
                     Saqlangan maqolalar topilmadi...
                   </p>

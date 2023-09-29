@@ -2118,19 +2118,19 @@ button:focus,
 }
 
 .es-ellipse-dd .es-ellipse-btn img {
-  width: 30px !important;
-  height: 30px !important;
+  width: 20px !important;
+  height: 20px !important;
   margin-right: 0;
 }
 
 .es-ellipse-item:first-child {
-  color: #00BA34;
+  color: #222;
   display: flex;
   align-items: center;
 }
 
 .es-ellipse-item:last-child {
-  color: #E92C2Ced;
+  color: #222;
   display: flex;
   align-items: center;
 }

@@ -15,17 +15,8 @@ const Saved = () => {
   const fetchSavedArticles = async () => {
     try {
       const res = await axios.get(`/saved-posts/giveMine`);
-      dispatch(
-        getSavedArticles({
-          posts: res?.data?.data,
-          pagination: {
-            page: "1",
-            totalPages: 1,
-            totalCount: res?.data?.data?.length,
-          },
-        })
-      );
-      console.log(res?.data?.data);
+      dispatch(getSavedArticles(res?.data));
+      console.log(res?.data);
     } catch (err) {
       console.log(`Unhandled Error in fetching articles ${err}`);
     }
@@ -34,17 +25,8 @@ const Saved = () => {
   const fetchRecentArticles = async () => {
     try {
       const res = await axios.get(`/users/recentPosts`);
-      dispatch(
-        getSavedArticles({
-          posts: res?.data?.data,
-          pagination: {
-            page: "1",
-            totalPages: 1,
-            totalCount: res?.data?.data?.length,
-          },
-        })
-      );
-      // console.log(res);
+      dispatch(getSavedArticles(res?.data));
+      console.log(res?.data);
     } catch (err) {
       console.log(`Unhandled Error in fetching articles ${err}`);
     }
@@ -138,7 +120,7 @@ const Saved = () => {
                   articles.map((x) => (
                     <ArticleCard key={"saved-topic-id-" + x.id} article={x} />
                   ))}
-                {!articles.length && (
+                {!articles?.length && (
                   <p className="text-danger">
                     Saqlangan maqolalar topilmadi...
                   </p>

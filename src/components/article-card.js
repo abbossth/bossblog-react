@@ -15,7 +15,6 @@ const ArticleCard = ({ key = "", article = {} }) => {
   const { pathname } = useLocation();
   const isUserArticle = pathname === "/user-articles";
 
-
   const handleDelete = async (id) => {
     try {
       const res = await axios.delete(`posts/${id}`);
@@ -32,11 +31,11 @@ const ArticleCard = ({ key = "", article = {} }) => {
     } catch (err) {
       console.log(`Unhandled Error While Fetching Topics ${err}`);
     }
-  }
+  };
 
-  useEffect(() => {
-      handleDelete();
-  }, [article]);
+  // useEffect(() => {
+  //     handleDelete();
+  // }, [article]);
 
   return (
     <div className="es-article-item" key={key}>
@@ -53,11 +52,11 @@ const ArticleCard = ({ key = "", article = {} }) => {
         <div className="es-article-content-inner">
           <div>
             <div className="es-article-type">
-              {!isUserArticle && (
+              {
                 <Link to={`/topics/${article?.postTopics?.[0]?.id}`}>
                   {article?.postTopics?.[0]?.name}
                 </Link>
-              )}
+              }
               <span>{moment(article.createdAt).format("ll")}</span>{" "}
             </div>
             <Link to={`/article/${article?.id}`} className="es-article-title">
@@ -67,7 +66,7 @@ const ArticleCard = ({ key = "", article = {} }) => {
               {article.sub_title}
             </Link>
           </div>
-          {isUserArticle && (
+          {
             <div>
               <Dropdown className="dropdown es-ellipse-dd">
                 <Dropdown.Toggle className="btn es-ellipse-btn">
@@ -86,7 +85,7 @@ const ArticleCard = ({ key = "", article = {} }) => {
                         fill-rule="evenodd"
                         clip-rule="evenodd"
                         d="M2 11.64V13.6667C2 13.8534 2.14667 14 2.33333 14H4.36C4.44667 14 4.53333 13.9667 4.59333 13.9L11.8733 6.62669L9.37333 4.12669L2.1 11.4C2.03333 11.4667 2 11.5467 2 11.64ZM13.8067 4.69335C14.0667 4.43335 14.0667 4.01335 13.8067 3.75335L12.2467 2.19335C11.9867 1.93335 11.5667 1.93335 11.3067 2.19335L10.0867 3.41335L12.5867 5.91335L13.8067 4.69335Z"
-                        fill="#00BA34"
+                        fill="#444"
                       />
                       <path
                         fill-rule="evenodd"
@@ -98,7 +97,10 @@ const ArticleCard = ({ key = "", article = {} }) => {
                     </svg>
                     Tahrirlash
                   </a>
-                  <button class="btn dropdown-item es-ellipse-item" onClick={() => dispatch(handleDelete(article.id))}>
+                  <button
+                    class="btn dropdown-item es-ellipse-item"
+                    onClick={() => dispatch(handleDelete(article.id))}
+                  >
                     <svg
                       width="16"
                       height="16"
@@ -110,7 +112,7 @@ const ArticleCard = ({ key = "", article = {} }) => {
                         fill-rule="evenodd"
                         clip-rule="evenodd"
                         d="M3.9987 12.6667C3.9987 13.4 4.5987 14 5.33203 14H10.6654C11.3987 14 11.9987 13.4 11.9987 12.6667V6C11.9987 5.26667 11.3987 4.66667 10.6654 4.66667H5.33203C4.5987 4.66667 3.9987 5.26667 3.9987 6V12.6667ZM5.9987 6H9.9987C10.3654 6 10.6654 6.3 10.6654 6.66667V12C10.6654 12.3667 10.3654 12.6667 9.9987 12.6667H5.9987C5.63203 12.6667 5.33203 12.3667 5.33203 12V6.66667C5.33203 6.3 5.63203 6 5.9987 6ZM10.332 2.66667L9.8587 2.19333C9.7387 2.07333 9.56536 2 9.39203 2H6.60536C6.43203 2 6.2587 2.07333 6.1387 2.19333L5.66536 2.66667H3.9987C3.63203 2.66667 3.33203 2.96667 3.33203 3.33333C3.33203 3.7 3.63203 4 3.9987 4H11.9987C12.3654 4 12.6654 3.7 12.6654 3.33333C12.6654 2.96667 12.3654 2.66667 11.9987 2.66667H10.332Z"
-                        fill="#E92C2C"
+                        fill="#444"
                       />
                       <path
                         fill-rule="evenodd"
@@ -125,7 +127,7 @@ const ArticleCard = ({ key = "", article = {} }) => {
                 </Dropdown.Menu>
               </Dropdown>
             </div>
-          )}
+          }
         </div>
         <div className="es-article-footer">
           <div className="es-article-content-inner">
@@ -198,7 +200,5 @@ const ArticleCard = ({ key = "", article = {} }) => {
     </div>
   );
 };
-
-
 
 export default ArticleCard;
