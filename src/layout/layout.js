@@ -53,8 +53,8 @@ const Layout = ({ children }) => {
   const fetchUserInfo = async () => {
     try {
       const res = await axios.get(`/users/me`);
-      console.log("me", res?.data?.data);
-      dispatch(getUserInfo(res?.data?.data));
+      console.log("me", res?.data);
+      dispatch(getUserInfo(res?.data));
     } catch (err) {
       console.log(`Unhandled Error While Fetching User ${err}`);
     }
@@ -150,7 +150,7 @@ const Layout = ({ children }) => {
   }, []);
 
   return (
-    <div>
+    <div className="es-layout">
       <Navbar />
       {children}
       <AuthModal />

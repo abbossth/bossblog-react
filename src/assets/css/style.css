@@ -26,6 +26,7 @@ body {
  font-weight: normal;
  position: relative;
  box-sizing: border-box;
+ min-height: 100vh;
 }
 
 a {
@@ -44,6 +45,13 @@ button:focus,
 .btn:focus {
  outline: none;
  box-shadow: none !important;
+}
+
+.es-layout {
+  min-height: 100vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .es-btn-primary {
@@ -483,6 +491,7 @@ button:focus,
 .es-footer {
  background-color: #F7F7F7;
  padding: 48px 0;
+ margin-top: auto!important;
 }
 
 .es-footer-logo a img {

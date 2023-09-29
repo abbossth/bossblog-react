@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import banner from "../assets/img/banner_profile.jpg";
 
 const ProfileEdit = () => {
-  const { userInfo } = useSelector((state) => state.userInfoReducer);
+  const { userInfo, tabImage } = useSelector((state) => state.userInfoReducer);
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -14,11 +15,16 @@ const ProfileEdit = () => {
     setEmail(userInfo?.email);
     setBio(userInfo?.description);
   }, [userInfo]);
-  console.log(userInfo);
+  console.log(tabImage);
   return (
     <main>
       <section className="es-regular-section es-profile-header-section">
-        <div className="es-profile-header"></div>
+        <div
+          className="es-profile-header"
+          style={{
+            backgroundImage: tabImage ? `url(${tabImage})` : `var(${banner})`,
+          }}
+        ></div>
         <div className="container">
           <div className="es-btn-update-banner">
             <button className="btn es-btn-light">

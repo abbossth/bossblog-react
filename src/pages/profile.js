@@ -1,6 +1,3 @@
-import ProfileIcon from "../assets/img/ic_profile.svg";
-import Time from "../assets/img/ic_time.svg";
-import Seen from "../assets/img/ic_seen.svg";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "../api/axios";
