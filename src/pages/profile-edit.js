@@ -169,7 +169,7 @@ const ProfileEdit = () => {
             <div className="es-profile-header-right-wrp">
               <div className="es-profile-owner xl-hide">
                 <h3 className="es-profile-owner-n">{userInfo?.full_name}</h3>
-                <button className="btn es-btn-light">
+                <label for="uploadUserImg" className="btn es-btn-light">
                   <svg
                     width="16"
                     height="16"
@@ -183,7 +183,13 @@ const ProfileEdit = () => {
                     />
                   </svg>
                   Rasmni yangilash
-                </button>
+                </label>
+                <input
+                  className="d-none"
+                  type="file"
+                  id="uploadUserImg"
+                  onChange={handleUserImageUpload}
+                />
               </div>
             </div>
           </div>
