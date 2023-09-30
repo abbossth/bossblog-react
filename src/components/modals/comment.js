@@ -15,9 +15,11 @@ const Comment = () => {
   const { userInfo } = useSelector((state) => state.userInfoReducer);
   const { comment } = useSelector((state) => state.modalsReducer);
   const { commentId } = useSelector((state) => state.modalsReducer);
-  const [isExpanded, setExpanded] = useState(false);
   const [comments, setComments] = useState([]);
+  const [replies, setReplies] = useState([]);
   const [newCommentMessage, setNewCommentMessage] = useState("");
+  const [newReplyMessage, setNewReplyMessage] = useState("");
+  const [selectedCommentId, setSelectedCommentId] = useState("");
 
   const hideCommentModal = () => {
     dispatch(closeCommentModal());
@@ -40,9 +42,34 @@ const Comment = () => {
         post_id: commentId,
         comment: newCommentMessage,
       });
+      setNewCommentMessage("");
       fetchComments();
     } catch (error) {
       console.log(`Unhandled Error while posting new comment ${error}`);
+    }
+  };
+
+  const postNewReply = async (id) => {
+    if (!newReplyMessage?.length) return;
+    try {
+      const res = await axios.post(`/comments`, {
+        post_id: commentId,
+        comment: newReplyMessage,
+        reply: id,
+      });
+      setNewReplyMessage("");
+      fetchCommentReplies(selectedCommentId);
+    } catch (error) {
+      console.log(`Unhandled Error while posting new comment ${error}`);
+    }
+  };
+
+  const fetchCommentReplies = async (id) => {
+    try {
+      const res = await axios.get(`/comments/replies/${id}`);
+      setReplies(res?.data?.data);
+    } catch (error) {
+      console.log(`Unhandled Error while fetching comment replies ${error}`);
     }
   };
 
@@ -107,10 +134,9 @@ const Comment = () => {
               </div>
             )}
 
-            <div className="es-modal-comment-list">
+            <div className="es-modal-comment-list" id="replyAccordion">
               {comments &&
                 comments.map((c) => {
-                  console.log(c);
                   return (
                     <div className="es-modal-comment-item">
                       <div className="es-comment-item-info">
@@ -130,9 +156,9 @@ const Comment = () => {
                         </div>
                       </div>
                       <div className="es-comment-item-text">{c?.comment}</div>
-                      <button className="btn es-comment-item-text-more">
+                      {/* <button className="btn es-comment-item-text-more">
                         More
-                      </button>
+                      </button> */}
                       <div className="es-comment-item-reaction">
                         <button className="btn es-like-btn">
                           <img src={LikeIcon} alt="like" />4
@@ -141,25 +167,87 @@ const Comment = () => {
                           className="btn es-btn-light"
                           type="button"
                           data-bs-toggle="collapse"
-                          data-bs-target={`#collapseComment-${1}`}
-                          aria-expanded="false"
-                          aria-controls="collapseExample"
+                          data-bs-target={`#collapseComment-${c?.id}`}
+                          aria-expanded="true"
+                          aria-controls="collapseOne"
+                          onClick={() => {
+                            fetchCommentReplies(c?.id);
+                            setSelectedCommentId(c?.id);
+                          }}
                         >
-                          <img src={Reply} alt="reply" /> Reply
+                          <img src={Reply} alt="reply" /> Replies
                         </button>
                       </div>
-                      <div className="collapse" id={`collapseComment-${1}`}>
+                      <div
+                        className="collapse"
+                        id={`collapseComment-${c?.id}`}
+                        aria-labelledby="replyAccordion"
+                        data-bs-parent="#replyAccordion"
+                      >
                         <div className="card card-body es-card-body">
-                          <div className="form-group">
+                          <div className="form-group mb-3">
                             <textarea
                               className="form-control"
                               placeholder="Izohingiz matni bayon qiling"
                               rows="5"
+                              value={newReplyMessage}
+                              onChange={(e) =>
+                                setNewReplyMessage(e.target.value)
+                              }
                             ></textarea>
                           </div>
-                          <button className="btn es-btn-light">
+                          <button
+                            className="btn es-btn-light"
+                            onClick={() => postNewReply(c?.id)}
+                          >
                             Chop etish
                           </button>
+                          <div className="es-modal-comment-list">
+                            {replies &&
+                              replies.map((r) => {
+                                return (
+                                  <div className="es-modal-comment-item">
+                                    <div className="es-comment-item-info">
+                                      <a href="#">
+                                        <img
+                                          src={
+                                            r?.user?.user_img
+                                              ? `${r?.user?.user_img}`
+                                              : Profile
+                                          }
+                                          alt="profile"
+                                        />
+                                        {r?.user?.full_name}
+                                      </a>
+                                      <div className="es-comment-item-date">
+                                        {moment(r?.createdAt).format("ll")}
+                                      </div>
+                                    </div>
+                                    <div className="es-comment-item-text">
+                                      {r?.comment}
+                                    </div>
+                                    {/* <div className="es-comment-item-reaction">
+                                      <button className="btn es-like-btn">
+                                        <img src={LikeIcon} alt="like" />4
+                                      </button>
+                                      <button
+                                        className="btn es-btn-light"
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target={`#collapseComment-${r?.id}`}
+                                        aria-expanded="true"
+                                        aria-controls="collapseOne"
+                                        onClick={() =>
+                                          fetchCommentReplies(r?.id)
+                                        }
+                                      >
+                                        <img src={Reply} alt="reply" /> Replies
+                                      </button>
+                                    </div> */}
+                                  </div>
+                                );
+                              })}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -209,50 +297,7 @@ const Comment = () => {
                   </div>
                 </div>
               </div>
-              <div className="es-modal-comment-item">
-                <div className="es-comment-item-info">
-                  <a href="#">
-                    <img src={Profile} alt="profile" />
-                    Ilhomjon Davlatov
-                  </a>
-                  <div className="es-comment-item-date">17 Sep 2020</div>
-                </div>
-                <div className="es-comment-item-text">
-                  Wow, I've been using Axios for data fetching in my React
-                  projects, but I didn't know about React Query. The code
-                  example you provided looks clean and concise. I'll definitely
-                  give it a try in my next project. Thanks for introducing me to
-                  a new approa
-                </div>
-                <button className="btn es-comment-item-text-more">More</button>
-                <div className="es-comment-item-reaction">
-                  <button className="btn es-like-btn">
-                    <img src={LikeIcon} alt="like" />4
-                  </button>
-                  <button
-                    className="btn es-btn-light"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target={`#collapseComment-${3}`}
-                    aria-expanded="false"
-                    aria-controls="collapseExample"
-                  >
-                    <img src={Reply} alt="reply" /> Reply
-                  </button>
-                </div>
-                <div className="collapse" id={`collapseComment-${3}`}>
-                  <div className="card card-body es-card-body">
-                    <div className="form-group">
-                      <textarea
-                        className="form-control"
-                        placeholder="Izohingiz matni bayon qiling"
-                        rows="5"
-                      ></textarea>
-                    </div>
-                    <button className="btn es-btn-light">Chop etish</button>
-                  </div>
-                </div>
-              </div> */}
+              */}
             </div>
           </div>
         </div>
