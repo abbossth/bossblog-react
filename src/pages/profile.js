@@ -1,20 +1,38 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import axios from "../api/axios";
 import banner from "../assets/img/banner_profile.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserArticles } from "../store/actions/userArticlesAction";
 import ArticleCard from "../components/article-card";
+import { getFollowingUsers } from "../store/actions/followingUsersAction";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const { articles } = useSelector((state) => state.userArticlesReducer);
+  const { userInfo } = useSelector((state) => state.userInfoReducer);
   const { profileId } = useParams();
+  const { pathname } = useLocation();
   const [profile, setProfile] = useState(null);
+  const { followingUsers } = useSelector(
+    (state) => state.followingUsersReducer
+  );
+  const isMyProfile = profileId === userInfo?.username;
+  console.log(isMyProfile);
+
+  const fetchFollowingUsers = async (id) => {
+    try {
+      const res = await axios.get(`/follows/followings/${id}`);
+      dispatch(getFollowingUsers(res?.data?.data?.follows));
+    } catch (error) {
+      console.log(`Unhandled Error While fetching following users ${error}`);
+    }
+  };
+
   const fetchProfile = async () => {
     try {
       const res = await axios.get(`/users/public/${profileId}`);
-      console.log(res?.data?.data);
+      console.log("dd", res?.data?.data);
       setProfile(res?.data?.data);
     } catch (err) {
       console.log(
@@ -26,7 +44,6 @@ const Profile = () => {
   const fetchUserPosts = async () => {
     try {
       const res = await axios.get(`/users/posts/${profileId}`);
-      console.log("user posts", res.data);
       dispatch(getUserArticles(res.data));
     } catch (err) {
       console.log(
@@ -35,23 +52,25 @@ const Profile = () => {
     }
   };
 
-  const handleFollowUser = async () => {
+  const handleFollowUser = async (id) => {
     try {
       const res = await axios.post(`/follows/following`, {
-        follow_id: profileId,
+        follow_id: id,
       });
       console.log(res?.data);
+      fetchFollowingUsers(userInfo.username);
     } catch (err) {
       console.log(`Unhandled Error while following user. Error: ${err}`);
     }
   };
 
-  const handleUnfollowUser = async () => {
+  const handleUnfollowUser = async (id) => {
     try {
       const res = await axios.post(`/follows/unfollow`, {
-        follow_id: profileId,
+        follow_id: id,
       });
       console.log(res?.data);
+      fetchFollowingUsers(userInfo?.username);
     } catch (err) {
       console.log(`Unhandled Error while unfollowing user. Error: ${err}`);
     }
@@ -62,6 +81,7 @@ const Profile = () => {
     fetchProfile();
     fetchUserPosts();
   }, []);
+  console.log("aaa", profile, "aaa", followingUsers);
   return (
     <main>
       <section className="es-regular-section es-profile-header-section">
@@ -91,12 +111,24 @@ const Profile = () => {
                   <h3 className="es-profile-owner-n">
                     {profile?.users?.full_name}
                   </h3>
-                  <button
-                    onClick={handleFollowUser}
-                    className="btn es-btn-primary"
-                  >
-                    Obuna bo’lish
-                  </button>
+                  {!isMyProfile &&
+                    (!!followingUsers.find(
+                      (u) => u.followers.id === profile?.users?.id
+                    ) ? (
+                      <button
+                        onClick={() => handleUnfollowUser(profile?.users?.id)}
+                        className="btn es-btn-primary-outline"
+                      >
+                        Obuna bo’lingan
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => handleFollowUser(profile?.users?.id)}
+                        className="btn es-btn-primary"
+                      >
+                        Obuna bo’lish
+                      </button>
+                    ))}
                 </div>
               </div>
               <div className="es-profile-header-right-wrp">
@@ -104,12 +136,24 @@ const Profile = () => {
                   <h3 className="es-profile-owner-n">
                     {profile?.users?.full_name}
                   </h3>
-                  <button
-                    onClick={handleFollowUser}
-                    className="btn es-btn-primary"
-                  >
-                    Obuna bo’lish
-                  </button>
+                  {!isMyProfile &&
+                    (!!followingUsers.find(
+                      (u) => u.followers.id === profile?.users?.id
+                    ) ? (
+                      <button
+                        onClick={() => handleUnfollowUser(profile?.users?.id)}
+                        className="btn es-btn-primary-outline"
+                      >
+                        Obuna bo’lingan
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => handleFollowUser(profile?.users?.id)}
+                        className="btn es-btn-primary"
+                      >
+                        Obuna bo’lish
+                      </button>
+                    ))}
                 </div>
                 <div className="es-profile-aricles">
                   <div className="es-profile-ar-h">Maqolalar</div>

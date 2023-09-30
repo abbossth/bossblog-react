@@ -1073,12 +1073,6 @@ button:focus,
  border-radius: 50%;
 }
 
-.es-profile-owner .btn:hover {
- background-color: var(--main-blue-color);
- color: var(--main-light-color);
- border-color: var(--main-blue-color);
-}
-
 .es-profile-owner .btn:hover svg path {
  fill: var(--main-light-color);
 }

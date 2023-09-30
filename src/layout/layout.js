@@ -15,6 +15,7 @@ import Top from "../assets/img/ic_top.svg";
 import { getUserInfo } from "../store/actions/userInfoAction";
 import { getFollowTopics } from "../store/actions/followTopicsAction";
 import { getTopics } from "../store/actions/topicsAction";
+import { getFollowingUsers } from "../store/actions/followingUsersAction";
 
 const Layout = ({ children }) => {
   const dispatch = useDispatch();
@@ -80,10 +81,10 @@ const Layout = ({ children }) => {
     }
   };
 
-  const fetchFollowingUsers = async (username) => {
+  const fetchFollowingUsers = async (id) => {
     try {
-      const res = await axios.get(`/follows/followings/${username}`);
-      console.log("followings", res?.data?.data?.follows);
+      const res = await axios.get(`/follows/followings/${id}`);
+      dispatch(getFollowingUsers(res?.data?.data?.follows));
     } catch (error) {
       console.log(`Unhandled Error While fetching following users ${error}`);
     }
@@ -97,6 +98,7 @@ const Layout = ({ children }) => {
 
   useEffect(() => {
     if (loggedIn) {
+      fetchUserInfo();
       fetchFollowingTopics();
     }
   }, [loggedIn]);
@@ -105,9 +107,6 @@ const Layout = ({ children }) => {
     fetchTopics();
     fetchTrendingTopics();
     fetchTrendingArticles();
-    if (loggedIn) {
-      fetchUserInfo();
-    }
   }, []);
 
   useEffect(() => {
