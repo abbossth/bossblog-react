@@ -57,11 +57,9 @@ const UserArticles = () => {
       fetchMyArticles();
     }
     if (queryTab === QUERY_TYPES.DRAFT_POSTS) {
-      console.log("Draft posts");
       fetchDraftArticles();
     }
     if (queryTab === QUERY_TYPES.MODERATION_POSTS) {
-      console.log("Moderation posts");
       fetchModerationArticles();
     }
     console.log(queryTab);

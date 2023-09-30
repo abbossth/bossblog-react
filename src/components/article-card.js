@@ -14,27 +14,19 @@ const ArticleCard = ({ key = "", article = {} }) => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const isUserArticle = pathname === "/user-articles";
-  const handleDelete = async (id) => {
-    try {
-      const res = await axios.delete(`posts/${id}`);
-      dispatch(
-        getSavedArticles({
-          posts: res?.data?.data,
-          pagination: {
-            page: "1",
-            totalPages: 1,
-            totalCount: res?.data?.data?.length,
-          },
-        })
-      );
-    } catch (err) {
-      console.log(`Unhandled Error While Fetching Topics ${err}`);
+  const handleDelete = async () => {
+    if (window.confirm("Siz haqiqatdan ham shu maqolani o'chirmoqchimisiz?")) {
+      try {
+        const res = await axios.delete(`posts/${article?.id}`);
+      } catch (err) {
+        console.log(
+          `Unhandled Error While deleting post with id ${article?.id}. Error: ${err}`
+        );
+      }
     }
   };
 
-  // useEffect(() => {
-  //     handleDelete();
-  // }, [article]);
+  const handlePostUpdate = () => {};
 
   return (
     <div className="es-article-item" key={key}>
@@ -72,7 +64,10 @@ const ArticleCard = ({ key = "", article = {} }) => {
                   <img src={Ellipse} />
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="dropdown-menu">
-                  <a class="dropdown-item es-ellipse-item" href="#">
+                  <div
+                    class="dropdown-item es-ellipse-item"
+                    onClick={handlePostUpdate}
+                  >
                     <svg
                       width="16"
                       height="16"
@@ -95,10 +90,10 @@ const ArticleCard = ({ key = "", article = {} }) => {
                       />
                     </svg>
                     Tahrirlash
-                  </a>
+                  </div>
                   <button
                     class="btn dropdown-item es-ellipse-item"
-                    onClick={() => dispatch(handleDelete(article.id))}
+                    onClick={handleDelete}
                   >
                     <svg
                       width="16"

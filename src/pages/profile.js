@@ -6,13 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserArticles } from "../store/actions/userArticlesAction";
 import ArticleCard from "../components/article-card";
 import { getFollowingUsers } from "../store/actions/followingUsersAction";
+import { showAuthSignInOptions } from "../store/actions/modalAction";
 
 const Profile = () => {
   const dispatch = useDispatch();
+  const { loggedIn } = useSelector((state) => state.loginReducer);
   const { articles } = useSelector((state) => state.userArticlesReducer);
   const { userInfo } = useSelector((state) => state.userInfoReducer);
   const { profileId } = useParams();
-  const { pathname } = useLocation();
   const [profile, setProfile] = useState(null);
   const { followingUsers } = useSelector(
     (state) => state.followingUsersReducer
@@ -123,7 +124,11 @@ const Profile = () => {
                       </button>
                     ) : (
                       <button
-                        onClick={() => handleFollowUser(profile?.users?.id)}
+                        onClick={() =>
+                          loggedIn
+                            ? handleFollowUser(profile?.users?.id)
+                            : dispatch(showAuthSignInOptions())
+                        }
                         className="btn es-btn-primary"
                       >
                         Obuna bo’lish
@@ -148,7 +153,11 @@ const Profile = () => {
                       </button>
                     ) : (
                       <button
-                        onClick={() => handleFollowUser(profile?.users?.id)}
+                        onClick={() =>
+                          loggedIn
+                            ? handleFollowUser(profile?.users?.id)
+                            : dispatch(showAuthSignInOptions())
+                        }
                         className="btn es-btn-primary"
                       >
                         Obuna bo’lish
