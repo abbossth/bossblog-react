@@ -3,7 +3,10 @@ import { useLocation, useParams } from "react-router-dom";
 import axios from "../api/axios";
 import banner from "../assets/img/banner_profile.jpg";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserArticles } from "../store/actions/userArticlesAction";
+import {
+  getUserArticles,
+  loadMoreUserArticles,
+} from "../store/actions/userArticlesAction";
 import ArticleCard from "../components/article-card";
 import { getFollowingUsers } from "../store/actions/followingUsersAction";
 import { showAuthSignInOptions } from "../store/actions/modalAction";
@@ -11,7 +14,9 @@ import { showAuthSignInOptions } from "../store/actions/modalAction";
 const Profile = () => {
   const dispatch = useDispatch();
   const { loggedIn } = useSelector((state) => state.loginReducer);
-  const { articles } = useSelector((state) => state.userArticlesReducer);
+  const { articles, limit, currentPage, pagination } = useSelector(
+    (state) => state.userArticlesReducer
+  );
   const { userInfo } = useSelector((state) => state.userInfoReducer);
   const { profileId } = useParams();
   const [profile, setProfile] = useState(null);
@@ -20,6 +25,10 @@ const Profile = () => {
   );
   const isMyProfile = profileId === userInfo?.username;
   console.log(isMyProfile);
+
+  const loadMoreHandler = () => {
+    dispatch(loadMoreUserArticles());
+  };
 
   const fetchFollowingUsers = async (id) => {
     try {
@@ -44,7 +53,9 @@ const Profile = () => {
 
   const fetchUserPosts = async () => {
     try {
-      const res = await axios.get(`/users/posts/${profileId}`);
+      const res = await axios.get(
+        `/users/posts/${profileId}?limit=${limit}&page=${currentPage}`
+      );
       dispatch(getUserArticles(res.data));
     } catch (err) {
       console.log(
@@ -78,11 +89,13 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    console.log(profileId);
     fetchProfile();
-    fetchUserPosts();
   }, []);
-  console.log("aaa", profile, "aaa", followingUsers);
+
+  useEffect(() => {
+    fetchUserPosts();
+  }, [currentPage]);
+
   return (
     <main>
       <section className="es-regular-section es-profile-header-section">
@@ -194,6 +207,30 @@ const Profile = () => {
             })}
           </div>
         </div>
+        {currentPage !== pagination.totalPages && (
+          <div className="es-more-article">
+            <button
+              className="btn es-btn-light es-btn-save"
+              onClick={loadMoreHandler}
+            >
+              <svg
+                width="15"
+                height="14"
+                viewBox="0 0 15 14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M12.209 2.2917C10.8507 0.933368 8.92571 0.150034 6.80904 0.366701C3.75071 0.675034 1.23404 3.15837 0.892376 6.2167C0.434043 10.2584 3.55904 13.6667 7.50071 13.6667C10.159 13.6667 12.4424 12.1084 13.509 9.8667C13.7757 9.30837 13.3757 8.6667 12.759 8.6667C12.4507 8.6667 12.159 8.83337 12.0257 9.10837C11.084 11.1334 8.82571 12.4167 6.35904 11.8667C4.50904 11.4584 3.01738 9.95003 2.62571 8.10003C1.92571 4.8667 4.38404 2.00003 7.50071 2.00003C8.88404 2.00003 10.1174 2.57503 11.0174 3.48337L9.75904 4.7417C9.23404 5.2667 9.60071 6.1667 10.3424 6.1667H13.334C13.7924 6.1667 14.1674 5.7917 14.1674 5.33337V2.3417C14.1674 1.60003 13.2674 1.22503 12.7424 1.75003L12.209 2.2917Z"
+                  fill="#969696"
+                />
+              </svg>
+              Ko’proq yuklash
+            </button>
+          </div>
+        )}
       </section>
     </main>
   );
