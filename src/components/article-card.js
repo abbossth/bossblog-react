@@ -66,7 +66,7 @@ const ArticleCard = ({ key = "", article = {} }) => {
               {article.sub_title}
             </Link>
           </div>
-          {
+          {isUserArticle && (
             <div>
               <Dropdown className="dropdown es-ellipse-dd">
                 <Dropdown.Toggle className="btn es-ellipse-btn">
@@ -127,7 +127,7 @@ const ArticleCard = ({ key = "", article = {} }) => {
                 </Dropdown.Menu>
               </Dropdown>
             </div>
-          }
+          )}
         </div>
         <div className="es-article-footer">
           <div className="es-article-content-inner">

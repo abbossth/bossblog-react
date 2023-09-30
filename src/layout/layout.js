@@ -17,12 +17,13 @@ import { getFollowTopics } from "../store/actions/followTopicsAction";
 import { getTopics } from "../store/actions/topicsAction";
 
 const Layout = ({ children }) => {
-  const { loggedIn, token } = useSelector((state) => state.loginReducer);
-  const { pathname } = useLocation();
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
+  const { loggedIn, token } = useSelector((state) => state.loginReducer);
   const { currentPage, limit, pagination } = useSelector(
     (state) => state.articleReducer
   );
+  const { userInfo } = useSelector((state) => state.userInfoReducer);
   const fetchTrendingTopics = async () => {
     try {
       const res = await axios.get(`/topics/tranding`);
@@ -79,6 +80,15 @@ const Layout = ({ children }) => {
     }
   };
 
+  const fetchFollowingUsers = async (username) => {
+    try {
+      const res = await axios.get(`/follows/followings/${username}`);
+      console.log("followings", res?.data?.data?.follows);
+    } catch (error) {
+      console.log(`Unhandled Error While fetching following users ${error}`);
+    }
+  };
+
   useEffect(() => {
     if (token.length > 0) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -99,6 +109,10 @@ const Layout = ({ children }) => {
       fetchUserInfo();
     }
   }, []);
+
+  useEffect(() => {
+    if (userInfo) fetchFollowingUsers(userInfo?.username);
+  }, [userInfo]);
 
   useEffect(() => {
     if (!loggedIn) {

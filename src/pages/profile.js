@@ -34,9 +34,28 @@ const Profile = () => {
       );
     }
   };
-  console.log("aa", articles);
 
-  const handleFollowUser = () => {};
+  const handleFollowUser = async () => {
+    try {
+      const res = await axios.post(`/follows/following`, {
+        follow_id: profileId,
+      });
+      console.log(res?.data);
+    } catch (err) {
+      console.log(`Unhandled Error while following user. Error: ${err}`);
+    }
+  };
+
+  const handleUnfollowUser = async () => {
+    try {
+      const res = await axios.post(`/follows/unfollow`, {
+        follow_id: profileId,
+      });
+      console.log(res?.data);
+    } catch (err) {
+      console.log(`Unhandled Error while unfollowing user. Error: ${err}`);
+    }
+  };
 
   useEffect(() => {
     console.log(profileId);

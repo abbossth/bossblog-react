@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Icon from "../assets/img/ic_topic.svg";
 import Time from "../assets/img/ic_time.svg";
 import Seen from "../assets/img/ic_seen.svg";
@@ -8,6 +8,8 @@ import ArticleCard from "../components/article-card";
 import { useDispatch, useSelector } from "react-redux";
 import { getTopicArticles } from "../store/actions/topicArticlesAction";
 import { showAuthSignUpOptions } from "../store/actions/modalAction";
+import { getTopics } from "../store/actions/topicsAction";
+import { getFollowTopics } from "../store/actions/followTopicsAction";
 
 const Topic = () => {
   const navigate = useNavigate();
@@ -16,6 +18,18 @@ const Topic = () => {
   const { topicId } = useParams();
   const { articles } = useSelector((state) => state.topicArticlesReducer);
   const { loggedIn } = useSelector((state) => state.loginReducer);
+  const { followTopics } = useSelector((state) => state.followTopicsReducer);
+
+  const fetchFollowingTopics = async () => {
+    try {
+      const res = await axios.get(`/follow-topic`);
+      console.log("follow-topic", res?.data?.data);
+      dispatch(getFollowTopics(res?.data?.data));
+    } catch (err) {
+      console.log(`Unhandled Error While Fetching Follow Topics ${err}`);
+    }
+  };
+
   const fetchTopic = async () => {
     try {
       const res = await axios.get(`/topics/${topicId}`);
@@ -38,7 +52,26 @@ const Topic = () => {
     }
   };
 
-  const handleFollowTopic = () => {};
+  const handleFollowTopic = async () => {
+    try {
+      const res = await axios.get(`/follow-topic/${topicId}`);
+      fetchFollowingTopics();
+    } catch (err) {
+      console.log(
+        `Unhandled Error while following topic with ID: ${topicId}. Error: ${err}`
+      );
+    }
+  };
+  const handleUnfollowTopic = async () => {
+    try {
+      const res = await axios.delete(`/follow-topic/${topicId}`);
+      fetchFollowingTopics();
+    } catch (err) {
+      console.log(
+        `Unhandled Error while unfollowing topic with ID: ${topicId}. Error: ${err}`
+      );
+    }
+  };
 
   const handleOnWriteClick = () => {
     return loggedIn ? navigate("/write") : dispatch(showAuthSignUpOptions());
@@ -47,7 +80,7 @@ const Topic = () => {
   useState(() => {
     fetchTopic();
     fetchTopicPosts();
-  }, [topicId]);
+  }, [topicId, followTopics]);
 
   return (
     <main>
@@ -58,12 +91,21 @@ const Topic = () => {
               <h1 className="es-topic-title">
                 <img src={Icon} alt="topic" /> {topic && topic.name}
               </h1>
-              <button
-                className="btn es-btn-primary me-2"
-                onClick={handleFollowTopic}
-              >
-                Kuzatish
-              </button>
+              {!!followTopics.find((f) => f.id === topicId) ? (
+                <button
+                  className="btn es-btn-primary-outline me-2"
+                  onClick={handleUnfollowTopic}
+                >
+                  Obuna bo'lingan
+                </button>
+              ) : (
+                <button
+                  className="btn es-btn-primary me-2"
+                  onClick={handleFollowTopic}
+                >
+                  Obuna bo'lish
+                </button>
+              )}
               <button
                 className="btn es-btn-primary"
                 onClick={handleOnWriteClick}

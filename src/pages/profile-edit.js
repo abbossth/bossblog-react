@@ -1,13 +1,93 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import banner from "../assets/img/banner_profile.jpg";
+import { getUserInfo } from "../store/actions/userInfoAction";
+import axios from "../api/axios";
 
 const ProfileEdit = () => {
+  const dispatch = useDispatch();
   const { userInfo, tabImage } = useSelector((state) => state.userInfoReducer);
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState("");
+  const [userImg, setUserImg] = useState(null);
+  const [tabImg, setTabImg] = useState(null);
+
+  const fetchUserInfo = async () => {
+    try {
+      const res = await axios.get(`/users/me`);
+      console.log("me2", res?.data);
+      dispatch(getUserInfo(res?.data));
+    } catch (err) {
+      console.log(`Unhandled Error While Fetching User ${err}`);
+    }
+  };
+
+  const uploadNewTabImage = async (image) => {
+    const formData = new FormData();
+    formData.append("image", image);
+    try {
+      if (tabImage) {
+        const res = await axios.patch(`/users/usertab`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: false,
+        });
+      } else {
+        const res = await axios.post(`/users/usertab`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: false,
+        });
+      }
+      fetchUserInfo();
+    } catch (err) {
+      console.log(`Unhandled Error While uploading new tab image ${err}`);
+    }
+  };
+
+  const uploadUserImage = async (image) => {
+    const formData = new FormData();
+    formData.append("image", image);
+    try {
+      const res = await axios.patch(`/users/updateimg`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: false,
+      });
+      fetchUserInfo();
+    } catch (err) {
+      console.log(`Unhandled Error While uploading user image ${err}`);
+    }
+  };
+
+  const handleUpdateMyInfo = async () => {
+    try {
+      const res = await axios.patch(`/users/updateme`, {
+        full_name: fullName,
+        username,
+        email,
+        description: bio,
+      });
+      fetchUserInfo();
+    } catch (error) {
+      console.log(`Unhandled Error while updating user info ${error}`);
+    }
+  };
+
+  const handleTabImageUpload = async (e) => {
+    e.preventDefault();
+    uploadNewTabImage(e.target.files[0]);
+  };
+
+  const handleUserImageUpload = async (e) => {
+    e.preventDefault();
+    uploadUserImage(e.target.files[0]);
+  };
 
   useEffect(() => {
     setFullName(userInfo?.full_name);
@@ -15,7 +95,7 @@ const ProfileEdit = () => {
     setEmail(userInfo?.email);
     setBio(userInfo?.description);
   }, [userInfo]);
-  console.log(tabImage);
+
   return (
     <main>
       <section className="es-regular-section es-profile-header-section">
@@ -27,7 +107,7 @@ const ProfileEdit = () => {
         ></div>
         <div className="container">
           <div className="es-btn-update-banner">
-            <button className="btn es-btn-light">
+            <label for="tabImageUpload" className="btn es-btn-light">
               <svg
                 width="16"
                 height="16"
@@ -41,7 +121,13 @@ const ProfileEdit = () => {
                 />
               </svg>
               Yangilash
-            </button>
+            </label>
+            <input
+              id="tabImageUpload"
+              type="file"
+              className="d-none"
+              onChange={handleTabImageUpload}
+            />
           </div>
           <div className="es-profile-header-content mt-5">
             <div className="es-profile-header-left-wrp">
@@ -57,7 +143,7 @@ const ProfileEdit = () => {
               </div>
               <div className="es-profile-owner sm-hide">
                 <h3 className="es-profile-owner-n">{userInfo?.full_name}</h3>
-                <button className="btn es-btn-light">
+                <label for="uploadUserImg" className="btn es-btn-light">
                   <svg
                     width="16"
                     height="16"
@@ -71,7 +157,13 @@ const ProfileEdit = () => {
                     />
                   </svg>
                   Rasmni yangilash
-                </button>
+                </label>
+                <input
+                  className="d-none"
+                  type="file"
+                  id="uploadUserImg"
+                  onChange={handleUserImageUpload}
+                />
               </div>
             </div>
             <div className="es-profile-header-right-wrp">
@@ -110,6 +202,7 @@ const ProfileEdit = () => {
                     id="name"
                     placeholder="Abbosbek"
                     value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
                   />
                 </div>
               </div>
@@ -122,6 +215,7 @@ const ProfileEdit = () => {
                     id="username"
                     placeholder="abbossth"
                     value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                   />
                 </div>
               </div>
@@ -134,6 +228,7 @@ const ProfileEdit = () => {
                     id="email"
                     placeholder="bosskodevelopment@gmail.com"
                     value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
               </div>
@@ -146,12 +241,13 @@ const ProfileEdit = () => {
                     rows="4"
                     placeholder="I am student...."
                     value={bio}
+                    onChange={(e) => setBio(e.target.value)}
                   ></textarea>
                 </div>
               </div>
             </div>
           </div>
-          <button className="btn es-profile-save">
+          <button onClick={handleUpdateMyInfo} className="btn es-profile-save">
             <svg
               width="16"
               height="16"

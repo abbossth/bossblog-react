@@ -61,6 +61,18 @@ button:focus,
  padding: 6px 15px;
 }
 
+.es-btn-primary-outline {
+  border: 1px solid var(--main-black-color);
+  background-color: var(--main-light-color);
+  color: var(--main-black-color);
+}
+
+.es-btn-primary-outline:hover {
+  border: 1px solid var(--main-black-color);
+  transform: translateY(-2px);
+  transition: transform 0.4s linear 0s;
+ }
+
 .es-btn-primary:hover {
  background-color: var(--main-black-color) !important;
  color: var(--btn-hover-color) !important;
@@ -1784,7 +1796,7 @@ button:focus,
   color: var(--main-blue-color);
 }
 
-.es-sr-content .es-btn-primary {
+/* .es-sr-content .es-btn-primary {
   border-color: #E8E8E8;
   background-color: var(--main-light-color);
   color: var(--main-black-color);
@@ -1797,7 +1809,7 @@ button:focus,
 
 .es-sr-content .es-btn-primary:hover svg {
   fill: var(--main-light-color);
-}
+} */
 
 .es-topic-wrp {
   display: flex;

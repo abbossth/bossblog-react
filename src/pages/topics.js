@@ -6,11 +6,45 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTopics } from "../store/actions/topicsAction";
 import { showAuthSignInOptions } from "../store/actions/modalAction";
 import { Link } from "react-router-dom";
+import { getFollowTopics } from "../store/actions/followTopicsAction";
 
 const Topics = () => {
   const dispatch = useDispatch();
   const { topics } = useSelector((state) => state.topicsReducer);
   const { loggedIn } = useSelector((state) => state.loginReducer);
+  const { followTopics } = useSelector((state) => state.followTopicsReducer);
+
+  const fetchFollowingTopics = async () => {
+    try {
+      const res = await axios.get(`/follow-topic`);
+      console.log("follow-topic", res?.data?.data);
+      dispatch(getFollowTopics(res?.data?.data));
+    } catch (err) {
+      console.log(`Unhandled Error While Fetching Follow Topics ${err}`);
+    }
+  };
+
+  const handleFollowTopic = async (topicId) => {
+    try {
+      const res = await axios.get(`/follow-topic/${topicId}`);
+      fetchFollowingTopics();
+    } catch (err) {
+      console.log(
+        `Unhandled Error while following topic with ID: ${topicId}. Error: ${err}`
+      );
+    }
+  };
+  const handleUnfollowTopic = async (topicId) => {
+    try {
+      const res = await axios.delete(`/follow-topic/${topicId}`);
+      fetchFollowingTopics();
+    } catch (err) {
+      console.log(
+        `Unhandled Error while unfollowing topic with ID: ${topicId}. Error: ${err}`
+      );
+    }
+  };
+
   const fetchTopics = async () => {
     try {
       const res = await axios.get(`/topics`);
@@ -26,8 +60,6 @@ const Topics = () => {
   const handleShowSignInOptions = () => {
     dispatch(showAuthSignInOptions());
   };
-
-  const handleFollowTopic = () => {};
 
   return (
     <main>
@@ -78,14 +110,29 @@ const Topics = () => {
                       <div className="es-sr-title">
                         <Link to={`/topics/${t.id}`}>{t.name}</Link>
                       </div>
-                      <button
-                        className="btn es-btn-primary"
-                        onClick={
-                          loggedIn ? handleFollowTopic : handleShowSignInOptions
-                        }
-                      >
-                        Obuna bo’lish
-                      </button>
+                      {followTopics.find((f) => f.id === t.id) ? (
+                        <button
+                          className="btn es-btn-primary-outline"
+                          onClick={
+                            loggedIn
+                              ? () => handleUnfollowTopic(t.id)
+                              : handleShowSignInOptions
+                          }
+                        >
+                          Obuna bo’lingan
+                        </button>
+                      ) : (
+                        <button
+                          className="btn es-btn-primary"
+                          onClick={
+                            loggedIn
+                              ? () => handleFollowTopic(t.id)
+                              : handleShowSignInOptions
+                          }
+                        >
+                          Obuna bo’lish
+                        </button>
+                      )}
                     </div>
                   </div>
                 );
