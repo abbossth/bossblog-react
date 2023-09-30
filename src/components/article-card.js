@@ -152,7 +152,11 @@ const ArticleCard = ({ key = "", article = {} }) => {
               </div>
               <button
                 className="btn es-article-chat-modal"
-                onClick={() => dispatch(showCommentModal(article?.id))}
+                onClick={() =>
+                  dispatch(
+                    showCommentModal(article?.id, article?.body?.comments)
+                  )
+                }
                 data-target="#commentModal"
                 data-toggle="modal"
               >

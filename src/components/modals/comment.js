@@ -13,8 +13,9 @@ const Comment = () => {
   const dispatch = useDispatch();
   const { loggedIn } = useSelector((state) => state.loginReducer);
   const { userInfo } = useSelector((state) => state.userInfoReducer);
-  const { comment } = useSelector((state) => state.modalsReducer);
-  const { commentId } = useSelector((state) => state.modalsReducer);
+  const { comment, commentId, count } = useSelector(
+    (state) => state.modalsReducer
+  );
   const [comments, setComments] = useState([]);
   const [replies, setReplies] = useState([]);
   const [newCommentMessage, setNewCommentMessage] = useState("");
@@ -77,6 +78,13 @@ const Comment = () => {
     if (commentId) fetchComments();
   }, [commentId]);
 
+  useEffect(() => {
+    if (!comment) {
+      setComments([]);
+      setReplies([]);
+    }
+  }, [comment]);
+
   return (
     <Modal
       show={comment}
@@ -93,7 +101,7 @@ const Comment = () => {
         <div className="modal-content">
           <div className="container">
             <div className="modal-header border-0">
-              <h5 className="modal-title">Izohlar ({comments?.length})</h5>
+              <h5 className="modal-title">Izohlar ({count})</h5>
               <button
                 type="button"
                 className="btn close p-0"
@@ -185,23 +193,27 @@ const Comment = () => {
                         data-bs-parent="#replyAccordion"
                       >
                         <div className="card card-body es-card-body">
-                          <div className="form-group mb-3">
-                            <textarea
-                              className="form-control"
-                              placeholder="Izohingiz matni bayon qiling"
-                              rows="5"
-                              value={newReplyMessage}
-                              onChange={(e) =>
-                                setNewReplyMessage(e.target.value)
-                              }
-                            ></textarea>
-                          </div>
-                          <button
-                            className="btn es-btn-light"
-                            onClick={() => postNewReply(c?.id)}
-                          >
-                            Chop etish
-                          </button>
+                          {loggedIn && (
+                            <>
+                              <div className="form-group mb-3">
+                                <textarea
+                                  className="form-control"
+                                  placeholder="Izohingiz matni bayon qiling"
+                                  rows="5"
+                                  value={newReplyMessage}
+                                  onChange={(e) =>
+                                    setNewReplyMessage(e.target.value)
+                                  }
+                                ></textarea>
+                              </div>
+                              <button
+                                className="btn es-btn-light"
+                                onClick={() => postNewReply(c?.id)}
+                              >
+                                Chop etish
+                              </button>
+                            </>
+                          )}
                           <div className="es-modal-comment-list">
                             {replies &&
                               replies.map((r) => {

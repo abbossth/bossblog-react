@@ -5,6 +5,7 @@ const initialState = {
   authModal: false,
   comment: false,
   commentId: null,
+  count: 0,
   sendCode: false,
   store: {
     modalType: null,
@@ -52,9 +53,14 @@ const modalsReducer = (state = initialState, action) => {
     case ActionTypes.MODALS.CLOSE_AUTH:
       return { ...state, authModal: false, store: { modalType: null } };
     case ActionTypes.MODALS.SHOW_COMMENT_MODAL:
-      return { ...state, comment: true, commentId: action.payload };
+      return {
+        ...state,
+        comment: true,
+        commentId: action.payload.id,
+        count: action.payload.count,
+      };
     case ActionTypes.MODALS.CLOSE_COMMENT_MODAL:
-      return { ...state, comment: false, commentId: null };
+      return { ...state, comment: false, commentId: null, count: null };
     default:
       return state;
   }

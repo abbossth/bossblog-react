@@ -29,8 +29,8 @@ const Article = () => {
     }
   };
 
-  const handleShowComment = () => {
-    dispatch(showCommentModal());
+  const handleShowComment = (count) => {
+    dispatch(showCommentModal(articleId, count));
   };
 
   useEffect(() => {
@@ -87,7 +87,7 @@ const Article = () => {
                   className="nav-link btn"
                   data-target="#commentModal"
                   data-toggle="modal"
-                  onClick={handleShowComment}
+                  onClick={() => handleShowComment(article?.comments.length)}
                 >
                   <CommentIcon />
                   <span>{article?.comments.length} Izoh</span>
