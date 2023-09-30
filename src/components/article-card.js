@@ -3,7 +3,7 @@ import Time from "../assets/img/ic_time.svg";
 import Seen from "../assets/img/ic_seen.svg";
 import moment from "moment/moment";
 import { Link, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { showCommentModal } from "../store/actions/modalAction";
 import Ellipse from "../assets/img/ic_ellipse.svg";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -14,7 +14,6 @@ const ArticleCard = ({ key = "", article = {} }) => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const isUserArticle = pathname === "/user-articles";
-
   const handleDelete = async (id) => {
     try {
       const res = await axios.delete(`posts/${id}`);
@@ -153,7 +152,7 @@ const ArticleCard = ({ key = "", article = {} }) => {
               </div>
               <button
                 className="btn es-article-chat-modal"
-                onClick={() => dispatch(showCommentModal())}
+                onClick={() => dispatch(showCommentModal(article?.id))}
                 data-target="#commentModal"
                 data-toggle="modal"
               >

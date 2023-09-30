@@ -266,7 +266,7 @@ button:focus,
 }
 
 .es-btn-light {
- border: 1px solid #F7F7F7;
+ border: 1px solid #ccc;
  border-radius: 8px;
  padding: 7px 15px;
  font-weight: 500;
@@ -290,6 +290,7 @@ button:focus,
 
 .es-btn-light:hover {
  color: var(--main-blue-color);
+ border: 1px solid var(--main-blue-color);
 }
 
 .es-btn-light:hover svg path {
@@ -717,7 +718,8 @@ button:focus,
  margin-top: 0;
  margin-bottom: 0;
  right: 0;
- height: 100%;
+ height: 100vh;
+ width: 100%;
  padding-right: 0;
 }
 
@@ -1948,6 +1950,9 @@ button:focus,
 .es-comment-item-info a img,
 .es-new-comment-writer img {
   margin-right: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
 }
 
 .modal-header {

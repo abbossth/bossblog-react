@@ -40,9 +40,10 @@ export const closeAuth = () => {
   };
 };
 
-export const showCommentModal = () => {
+export const showCommentModal = (id) => {
   return {
     type: ActionTypes.MODALS.SHOW_COMMENT_MODAL,
+    payload: id,
   };
 };
 
