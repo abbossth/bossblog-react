@@ -1,7 +1,7 @@
 import ActionTypes from "../action-types/actionTypes";
 
 const initialState = {
-  articles: [],
+  savedArticles: [],
   pagination: {
     page: 1,
     totalCount: 1,
@@ -17,13 +17,13 @@ const savedArticleReducer = (state = initialState, action) => {
       if (state.currentPage === 1) {
         return {
           ...state,
-          articles: action.payload?.posts,
+          savedArticles: action.payload?.posts,
           pagination: action.payload?.pagination,
         };
       } else if (state.currentPage > 1) {
         return {
           ...state,
-          articles: [...state.articles, ...action.payload?.posts],
+          savedArticles: [...state.savedArticles, ...action.payload?.posts],
           pagination: action.payload?.pagination,
         };
       }

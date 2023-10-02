@@ -14,6 +14,7 @@ import followTopicsReducer from "./reducers/followTopicsReducer";
 import writtenDraftReducer from "./reducers/writtenDraftReducer";
 import savedArticleReducer from "./reducers/savedArticleReducer";
 import followingUsersReducer from "./reducers/followingUsersReducer";
+import postReactionsReducer from "./reducers/reactionsReducer";
 
 import {
   persistStore,
@@ -42,6 +43,7 @@ const rootReducer = combineReducers({
   writtenDraftReducer,
   savedArticleReducer,
   followingUsersReducer,
+  postReactionsReducer,
 });
 
 const persistConfig = {

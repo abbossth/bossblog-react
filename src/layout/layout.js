@@ -16,6 +16,7 @@ import { getUserInfo } from "../store/actions/userInfoAction";
 import { getFollowTopics } from "../store/actions/followTopicsAction";
 import { getTopics } from "../store/actions/topicsAction";
 import { getFollowingUsers } from "../store/actions/followingUsersAction";
+import { getSavedArticles } from "../store/actions/savedArticleAction";
 
 const Layout = ({ children }) => {
   const dispatch = useDispatch();
@@ -90,6 +91,16 @@ const Layout = ({ children }) => {
     }
   };
 
+  const fetchSavedArticles = async () => {
+    try {
+      const res = await axios.get(`/saved-posts/giveMine`);
+      dispatch(getSavedArticles(res?.data));
+      console.log(res?.data);
+    } catch (err) {
+      console.log(`Unhandled Error in fetching saved articles ${err}`);
+    }
+  };
+
   useEffect(() => {
     if (token.length > 0) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -100,6 +111,7 @@ const Layout = ({ children }) => {
     if (loggedIn) {
       fetchUserInfo();
       fetchFollowingTopics();
+      fetchSavedArticles();
     }
   }, [loggedIn]);
 

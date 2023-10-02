@@ -1,4 +1,8 @@
+import { useEffect, useState } from "react";
+import axios from "../api/axios";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
+import moment from "moment/moment";
 import { ReactComponent as ProfilePhoto } from "../assets/img/profile_img.svg";
 import { ReactComponent as TelegramIcon } from "../assets/img/ic_telegram.svg";
 import { ReactComponent as FacebookIcon } from "../assets/img/ic_facebook (2).svg";
@@ -6,17 +10,18 @@ import { ReactComponent as TwitterIcon } from "../assets/img/ic_twiter.svg";
 import { ReactComponent as DateIcon } from "../assets/img/ic_date.svg";
 import { ReactComponent as TimeIcon } from "../assets/img/ic_time_dark.svg";
 import { ReactComponent as CommentIcon } from "../assets/img/ic_comments.svg";
-import axios from "../api/axios";
-import { useEffect, useState } from "react";
-import moment from "moment/moment";
-import { useDispatch } from "react-redux";
 import { showCommentModal } from "../store/actions/modalAction";
+import {
+  getArticleReactionsActions,
+  removeArticleReactionActions,
+} from "../store/actions/reactionsAction";
 
 const Article = () => {
   const dispatch = useDispatch();
   const { articleId } = useParams();
   const [article, setArticle] = useState(null);
-  console.log("articleId", articleId);
+  const { postReactions } = useSelector((state) => state.postReactionsReducer);
+
   const fetchArticle = async () => {
     try {
       const res = await axios.get(`/posts/${articleId}`);
@@ -29,8 +34,36 @@ const Article = () => {
     }
   };
 
+  const ToggleReactionToPost = async (id) => {
+    const isReactionExist = postReactions.find((r) => r === id);
+
+    if (!isReactionExist) {
+      try {
+        const res = await axios.post(`/reactions/create/${id}`);
+        return dispatch(getArticleReactionsActions(`${id}`));
+      } catch (err) {
+        console.log(`Unhandled Error while creating a reaction to post ${err}`);
+        return;
+      }
+    } else {
+      try {
+        const res = await axios.post(`/reactions/delete/${id}`);
+        return dispatch(removeArticleReactionActions(`${id}`));
+      } catch (err) {
+        console.log(
+          `Unhandled Error while deleting a reaction from post ${err}`
+        );
+        return;
+      }
+    }
+  };
+
   const handleShowComment = (count) => {
     dispatch(showCommentModal(articleId, count));
+  };
+
+  const handleReactionToggle = () => {
+    ToggleReactionToPost(articleId);
   };
 
   useEffect(() => {
@@ -46,11 +79,11 @@ const Article = () => {
               <div className="es-av-title">{article?.title}</div>
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb">
-                  <li className="breadcrumb-item">
+                  <li className="breadcrumb-item active">
                     <Link to="/">Home</Link>
                   </li>
-                  <li className="breadcrumb-item active" aria-current="page">
-                    Article
+                  <li className="breadcrumb-item" aria-current="page">
+                    {article?.title}
                   </li>
                 </ol>
               </nav>
@@ -182,7 +215,10 @@ const Article = () => {
                 </Link>
               </div>
               <div className="es-av-reaction">
-                <button className="btn es-btn-light es-btn-save">
+                <button
+                  onClick={handleReactionToggle}
+                  className="btn es-btn-light es-btn-save"
+                >
                   <svg
                     width="20"
                     height="17"
@@ -197,7 +233,7 @@ const Article = () => {
                       fill="#969696"
                     />
                   </svg>{" "}
-                  +5
+                  +{article?.clups}
                 </button>
                 <button className="btn es-btn-light es-btn-save">
                   <svg

@@ -1,6 +1,6 @@
 import axios from "../api/axios";
 import { Link, useSearchParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ArticleCard from "../components/article-card";
 import { useDispatch, useSelector } from "react-redux";
 import { getSavedArticles } from "../store/actions/savedArticleAction";
@@ -9,16 +9,16 @@ import { QUERY_TYPES } from "../utils/utils";
 
 const Saved = () => {
   const dispatch = useDispatch();
-  const { articles } = useSelector((state) => state.savedArticleReducer);
+  const { savedArticles } = useSelector((state) => state.savedArticleReducer);
   const [searchParams, setSearchParams] = useSearchParams();
+  const queryTab = searchParams.get("tab");
 
   const fetchSavedArticles = async () => {
     try {
       const res = await axios.get(`/saved-posts/giveMine`);
       dispatch(getSavedArticles(res?.data));
-      console.log(res?.data);
     } catch (err) {
-      console.log(`Unhandled Error in fetching articles ${err}`);
+      console.log(`Unhandled Error in fetching saved articles ${err}`);
     }
   };
 
@@ -26,13 +26,10 @@ const Saved = () => {
     try {
       const res = await axios.get(`/users/recentPosts`);
       dispatch(getSavedArticles(res?.data));
-      console.log(res?.data);
     } catch (err) {
       console.log(`Unhandled Error in fetching articles ${err}`);
     }
   };
-
-  const queryTab = searchParams.get("tab");
 
   const setQuery = (value = null) => {
     if (value === QUERY_TYPES.RECENT_POSTS) {
@@ -48,13 +45,9 @@ const Saved = () => {
       fetchSavedArticles();
     }
     if (queryTab === QUERY_TYPES.RECENT_POSTS) {
-      console.log("Recent posts");
       fetchRecentArticles();
     }
-    console.log(queryTab);
   }, [queryTab]);
-
-  console.log("articles", articles);
 
   return (
     <main>
@@ -116,11 +109,11 @@ const Saved = () => {
           <div className="tab-content" id="pills-tabContent">
             <div className={"show-tab-pane"} id="pills-saved">
               <div className="es-article-list">
-                {articles &&
-                  articles.map((x) => (
+                {savedArticles &&
+                  savedArticles.map((x) => (
                     <ArticleCard key={"saved-topic-id-" + x.id} article={x} />
                   ))}
-                {!articles?.length && (
+                {!savedArticles?.length && (
                   <p className="text-danger">
                     Saqlangan maqolalar topilmadi...
                   </p>
