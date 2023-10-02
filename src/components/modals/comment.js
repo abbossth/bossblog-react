@@ -8,6 +8,7 @@ import LikeIcon from "../../assets/img/ic_like.svg";
 import Reply from "../../assets/img/ic_reply.svg";
 import Profile from "../../assets/img/ic_profile.svg";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 const Comment = () => {
   const dispatch = useDispatch();
@@ -146,9 +147,12 @@ const Comment = () => {
               {comments &&
                 comments.map((c) => {
                   return (
-                    <div className="es-modal-comment-item">
+                    <div key={c?.id} className="es-modal-comment-item">
                       <div className="es-comment-item-info">
-                        <a href="#">
+                        <Link
+                          to={`/profile/${c?.user?.username}`}
+                          onClick={() => dispatch(closeCommentModal())}
+                        >
                           <img
                             src={
                               c?.user?.user_img
@@ -158,7 +162,7 @@ const Comment = () => {
                             alt="profile"
                           />
                           {c?.user?.full_name}
-                        </a>
+                        </Link>
                         <div className="es-comment-item-date">
                           {moment(c?.createdAt).format("ll")}
                         </div>
@@ -220,7 +224,9 @@ const Comment = () => {
                                 return (
                                   <div className="es-modal-comment-item">
                                     <div className="es-comment-item-info">
-                                      <a href="#">
+                                      <Link
+                                        to={`/profile/${r?.user?.username}`}
+                                      >
                                         <img
                                           src={
                                             r?.user?.user_img
@@ -230,7 +236,7 @@ const Comment = () => {
                                           alt="profile"
                                         />
                                         {r?.user?.full_name}
-                                      </a>
+                                      </Link>
                                       <div className="es-comment-item-date">
                                         {moment(r?.createdAt).format("ll")}
                                       </div>
