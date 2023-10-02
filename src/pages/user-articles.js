@@ -9,7 +9,7 @@ import { getSavedArticles } from "../store/actions/savedArticleAction";
 
 const UserArticles = () => {
   const dispatch = useDispatch();
-  const { articles } = useSelector((state) => state.savedArticleReducer);
+  const { savedArticles } = useSelector((state) => state.savedArticleReducer);
   const [searchParams, setSearchParams] = useSearchParams();
   const queryTab = searchParams.get("tab");
 
@@ -65,7 +65,7 @@ const UserArticles = () => {
     console.log(queryTab);
   }, [queryTab]);
 
-  console.log("articlesss", articles);
+  console.log("articlesss", savedArticles);
   return (
     <main>
       <section className="es-article-header es-regular-section">
@@ -124,11 +124,11 @@ const UserArticles = () => {
           <div className="tab-content" id="pills-tabContent">
             <div className="tab-pane fade show active" id="pills-published">
               <div className="es-article-list">
-                {articles &&
-                  articles.map((x) => (
+                {savedArticles &&
+                  savedArticles.map((x) => (
                     <ArticleCard key={"saved-topic-id-" + x.id} article={x} />
                   ))}
-                {!articles?.length && (
+                {!savedArticles?.length && (
                   <p className="text-danger">
                     Saqlangan maqolalar topilmadi...
                   </p>
