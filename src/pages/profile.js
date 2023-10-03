@@ -24,7 +24,6 @@ const Profile = () => {
     (state) => state.followingUsersReducer
   );
   const isMyProfile = profileId === userInfo?.username;
-  console.log(isMyProfile);
 
   const loadMoreHandler = () => {
     dispatch(loadMoreUserArticles());

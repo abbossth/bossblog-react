@@ -827,15 +827,27 @@ button:focus,
 }
 
 .es-btn-follow {
- border: 1px solid #00BA34;
- color: #00BA34;
- border-radius: 20px;
- margin-left: 30px;
+  background-color: #00BA34;
+  color: var(--main-light-color);
+  border-radius: 20px;
+  margin-left: 30px;
+}
+ 
+.es-btn-follow-outline:hover {
+  border: 1px solid #00BA34;
+  color: #00BA34;
+}
+
+.es-btn-follow-outline {
+  border: 1px solid #00BA34;
+  color: #00BA34;
+  border-radius: 20px;
+  margin-left: 30px;
 }
 
 .es-btn-follow:hover {
- background-color: #00BA34;
- color: var(--main-light-color);
+  background-color: #00BA34;
+  color: var(--main-light-color);
 }
 
 .es-av-nav {

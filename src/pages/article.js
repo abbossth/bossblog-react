@@ -10,17 +10,27 @@ import { ReactComponent as TwitterIcon } from "../assets/img/ic_twiter.svg";
 import { ReactComponent as DateIcon } from "../assets/img/ic_date.svg";
 import { ReactComponent as TimeIcon } from "../assets/img/ic_time_dark.svg";
 import { ReactComponent as CommentIcon } from "../assets/img/ic_comments.svg";
-import { showCommentModal } from "../store/actions/modalAction";
+import {
+  showAuthSignInOptions,
+  showCommentModal,
+} from "../store/actions/modalAction";
 import {
   getArticleReactionsActions,
   removeArticleReactionActions,
 } from "../store/actions/reactionsAction";
+import { getFollowingUsers } from "../store/actions/followingUsersAction";
 
 const Article = () => {
   const dispatch = useDispatch();
   const { articleId } = useParams();
   const [article, setArticle] = useState(null);
   const { postReactions } = useSelector((state) => state.postReactionsReducer);
+  const { userInfo } = useSelector((state) => state.userInfoReducer);
+  const isMyProfile = article?.user?.username === userInfo?.username;
+  const { followingUsers } = useSelector(
+    (state) => state.followingUsersReducer
+  );
+  const { loggedIn } = useSelector((state) => state.loginReducer);
 
   const fetchArticle = async () => {
     try {
@@ -58,6 +68,37 @@ const Article = () => {
     }
   };
 
+  const handleFollowUser = async (id) => {
+    try {
+      const res = await axios.post(`/follows/following`, {
+        follow_id: id,
+      });
+      fetchFollowingUsers(userInfo.username);
+    } catch (err) {
+      console.log(`Unhandled Error while following user. Error: ${err}`);
+    }
+  };
+
+  const handleUnfollowUser = async (id) => {
+    try {
+      const res = await axios.post(`/follows/unfollow`, {
+        follow_id: id,
+      });
+      fetchFollowingUsers(userInfo?.username);
+    } catch (err) {
+      console.log(`Unhandled Error while unfollowing user. Error: ${err}`);
+    }
+  };
+
+  const fetchFollowingUsers = async (id) => {
+    try {
+      const res = await axios.get(`/follows/followings/${id}`);
+      dispatch(getFollowingUsers(res?.data?.data?.follows));
+    } catch (error) {
+      console.log(`Unhandled Error While fetching following users ${error}`);
+    }
+  };
+
   const handleShowComment = (count) => {
     dispatch(showCommentModal(articleId, count));
   };
@@ -79,8 +120,10 @@ const Article = () => {
               <div className="es-av-title">{article?.title}</div>
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb">
-                  <li className="breadcrumb-item active">
-                    <Link to="/">Home</Link>
+                  <li className="breadcrumb-item">
+                    <Link to="/" className="text-primary">
+                      Home
+                    </Link>
                   </li>
                   <li className="breadcrumb-item" aria-current="page">
                     {article?.title}
@@ -104,7 +147,28 @@ const Article = () => {
                 {!article?.user?.user_img && <ProfilePhoto className="me-2" />}
                 <span>{article?.user?.full_name}</span>
               </Link>
-              <button className="btn es-btn-follow">Obuna bo‘lish</button>
+              {!isMyProfile &&
+                (!!followingUsers.find(
+                  (u) => u.followers.id === article?.user?.id
+                ) ? (
+                  <button
+                    onClick={() => handleUnfollowUser(article?.user?.id)}
+                    className="btn es-btn-follow-outline"
+                  >
+                    Obuna bo’lingan
+                  </button>
+                ) : (
+                  <button
+                    onClick={() =>
+                      loggedIn
+                        ? handleFollowUser(article?.user?.id)
+                        : dispatch(showAuthSignInOptions())
+                    }
+                    className="btn es-btn-follow"
+                  >
+                    Obuna bo’lish
+                  </button>
+                ))}
             </div>
             <div className="es-av-nav">
               <nav className="nav">
