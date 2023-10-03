@@ -294,7 +294,8 @@ button:focus,
 }
 
 .es-btn-light:hover svg path {
- fill: var(--main-blue-color);
+ /* fill: var(--main-blue-color); */
+ fill: red;
 }
 
 .es-input-select {
@@ -414,6 +415,11 @@ button:focus,
  color: var(--main-black-color);
 }
 
+.es-btn-save.active svg path{
+  fill: var(--main-black-color);
+  color: var(--main-black-color);
+}
+
 .es-article-info:hover {
  color: var(--main-blue-color);
 }
@@ -450,6 +456,7 @@ button:focus,
 
 .es-btn-save {
  padding: 0 14px;
+ margin-right: 1rem;
  font-size: 13px;
  line-height: 20px;
  color: var(--main-black-color);
@@ -921,6 +928,10 @@ button:focus,
  width: 100%;
  max-width: 1000px;
  margin: 0 auto  40px auto;
+}
+
+.es-av-content a, .es-av-content mark, .es-av-content b, .es-av-content i, .es-av-content code {
+  color: red;
 }
 
 .es-category-list {

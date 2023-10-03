@@ -32,6 +32,7 @@ const Article = () => {
     (state) => state.followingUsersReducer
   );
   const { loggedIn } = useSelector((state) => state.loginReducer);
+  const isReactionExist = postReactions.find((r) => r === articleId);
 
   const fetchArticle = async () => {
     try {
@@ -46,11 +47,10 @@ const Article = () => {
   };
 
   const ToggleReactionToPost = async (id) => {
-    const isReactionExist = postReactions.find((r) => r === id);
-
     if (!isReactionExist) {
       try {
-        const res = await axios.post(`/reactions/create/${id}`);
+        const res = await axios.get(`/reaction/create/${id}`);
+        fetchArticle();
         return dispatch(getArticleReactionsActions(`${id}`));
       } catch (err) {
         console.log(`Unhandled Error while creating a reaction to post ${err}`);
@@ -58,7 +58,8 @@ const Article = () => {
       }
     } else {
       try {
-        const res = await axios.post(`/reactions/delete/${id}`);
+        const res = await axios.get(`/reaction/delete/${id}`);
+        fetchArticle();
         return dispatch(removeArticleReactionActions(`${id}`));
       } catch (err) {
         console.log(
@@ -288,10 +289,13 @@ const Article = () => {
               <div className="es-av-reaction">
                 <button
                   onClick={handleReactionToggle}
-                  className="btn es-btn-light es-btn-save"
+                  className={`btn es-btn-light es-btn-save ${
+                    isReactionExist && "active"
+                  }`}
                 >
                   <svg
                     width="20"
+                    className="me-2"
                     height="17"
                     viewBox="0 0 20 17"
                     fill="none"
@@ -304,7 +308,7 @@ const Article = () => {
                       fill="#969696"
                     />
                   </svg>{" "}
-                  +{article?.clups}
+                  <span>{article?.clups}</span>
                 </button>
                 <button className="btn es-btn-light es-btn-save">
                   <svg

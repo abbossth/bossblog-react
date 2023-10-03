@@ -1,9 +1,8 @@
-import React from "react";
-
 const HeaderBlock = ({ data }) => {
+  const parse = require("html-react-parser");
   return (
     <div className="es-av-content">
-      <h2 className="es-av-heading">{data && data.text}</h2>
+      <h2 className="es-av-heading">{data && parse(data.text)}</h2>
     </div>
   );
 };
