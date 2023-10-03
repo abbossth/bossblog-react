@@ -832,6 +832,7 @@ button:focus,
 }
 
 .es-av-writer {
+  display: flex;
  margin-bottom: 30px;
  width: 100%;
  max-width: 1000px;

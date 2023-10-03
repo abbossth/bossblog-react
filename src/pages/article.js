@@ -128,7 +128,8 @@ const Article = () => {
                     </Link>
                   </li>
                   <li className="breadcrumb-item" aria-current="page">
-                    {article?.title}
+                    {/* {article?.title} */}
+                    Maqola
                   </li>
                 </ol>
               </nav>
@@ -156,23 +157,27 @@ const Article = () => {
                   (!!followingUsers.find(
                     (u) => u.followers.id === article?.user?.id
                   ) ? (
-                    <button
-                      onClick={() => handleUnfollowUser(article?.user?.id)}
-                      className="btn es-btn-follow-outline"
-                    >
-                      Obuna bo’lingan
-                    </button>
+                    <div className="d-flex align-items-center">
+                      <button
+                        onClick={() => handleUnfollowUser(article?.user?.id)}
+                        className="btn es-btn-follow-outline"
+                      >
+                        Obuna bo’lingan
+                      </button>
+                    </div>
                   ) : (
-                    <button
-                      onClick={() =>
-                        loggedIn
-                          ? handleFollowUser(article?.user?.id)
-                          : dispatch(showAuthSignInOptions())
-                      }
-                      className="btn es-btn-follow"
-                    >
-                      Obuna bo’lish
-                    </button>
+                    <div className="d-flex align-items-center">
+                      <button
+                        onClick={() =>
+                          loggedIn
+                            ? handleFollowUser(article?.user?.id)
+                            : dispatch(showAuthSignInOptions())
+                        }
+                        className="btn es-btn-follow"
+                      >
+                        Obuna bo’lish
+                      </button>
+                    </div>
                   ))}
               </div>
               <div className="es-av-nav">
@@ -217,73 +222,17 @@ const Article = () => {
               </div>
             </div>
             <ArticleReader blocks={article?.body?.blocks} />
-
-            {/* <div className="es-av-banner">
-              {article?.image && (
-                <img
-                  className="img-fluid w-100"
-                  src={`${article?.image}`}
-                  alt={`${article?.title}`}
-                />
-              )}
-              {!article?.image && (
-                <img
-                  className="img-fluid w-100"
-                  src={require("../assets/img/chatgpt.jpg")}
-                  alt="ChatGPT"
-                />
-              )}
-            </div>
-            <div className="es-av-content">
-              <h2 className="es-av-heading">
-                Might have been that first time you looked through a telescope.
-                But for many of us, it was that first time we saw a rain of fire
-                from the sky that we eventually.
-              </h2>
-              <p className="es-av-text">
-                If you are a serious astronomy fanatic like a lot of us are, you
-                can probably remember that one event in childhood that started
-                you along this exciting hobby. It might have been that first
-                time you looked through a telescope. But for many of us, it was
-                that first time we saw a rain of fire from the sky that we
-                eventually came to know as a meteoroid shower. At the time when
-                you see the first one, it’s easy to remember the movie “war of
-                the worlds” or some other fantastic image of aliens entering our
-                atmosphere in droves to take over the planet.
-              </p>
-              <p className="es-av-text">
-                If you are a serious astronomy fanatic like a lot of us are, you
-                can probably remember that one event in childhood that started
-                you along this exciting hobby. It might have been that first
-                time you looked through a telescope. But for many of us, it was
-                that first time we saw a rain of fire from the sky that we
-                eventually came to know as a meteoroid shower.
-              </p>
-              <h5 className="es-av-subheading">
-                Might have been that first time you looked through a telescope.
-                But for many of us, it was that first time we saw a rain of fire
-                from the sky that we eventually.
-              </h5>
-              <p className="es-av-text">
-                If you are a serious astronomy fanatic like a lot of us are, you
-                can probably remember that one event in childhood that started
-                you along this exciting hobby.
-              </p>
-            </div> */}
             <div className="es-av-footer">
               <div className="es-av-sending">
                 <div className="es-av-sending-title">Ulashish</div>
                 <Link to="#">
                   <FacebookIcon />
-                  {/* <img src="img/ic_facebook (2).svg" alt="facebook" /> */}
                 </Link>
                 <Link to="#">
                   <TelegramIcon />
-                  {/* <img src="img/ic_telegram.svg" alt="telegram" /> */}
                 </Link>
                 <Link to="#">
                   <TwitterIcon />
-                  {/* <img src="img/ic_twiter.svg" alt="twitter" /> */}
                 </Link>
               </div>
               <div className="es-av-reaction">

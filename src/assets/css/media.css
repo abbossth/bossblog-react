@@ -365,9 +365,6 @@
   font-weight: 500;
   margin-bottom: 8px;
  }
- .es-article-header {
-  height: 130px;
- }
  .es-form-search-main {
   display: none;
  }
@@ -386,6 +383,13 @@
   display: flex;
   justify-content: space-between;
  }
+
+ .es-btn-follow, .es-btn-follow-outline {
+   padding: 5px;
+   font-size: 14px;
+   margin-left: 10px;
+ }
+
  .es-av-nav .nav-link {
   margin: 0;
   padding: 0 10px;
@@ -402,7 +406,7 @@
  } */
  .es-av-writer {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   margin-bottom: 20px;
  }
  .es-av-writer a {
