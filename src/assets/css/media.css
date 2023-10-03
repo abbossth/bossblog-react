@@ -113,7 +113,7 @@
   margin: auto 0;
  }
  .es-av-banner img {
-  height: 350px;
+  min-height: 350px;
  }
  .es-av-banner {
   margin-bottom: 40px;

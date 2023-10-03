@@ -774,7 +774,8 @@ button:focus,
 }
 
 .es-av-header {
- position: absolute;
+ /* position: absolute; */
+ padding-bottom: 3rem;
  top: 0;
  left: 0;
  right: 0;
@@ -787,7 +788,8 @@ button:focus,
 
 .es-article-header {
   position: relative;
-  height: 140px;
+  /* height: 10px; */
+  min-height: 10vh;
   background-size: cover;
   background-color: #D7ECFF;
 }
@@ -824,6 +826,8 @@ button:focus,
 
 .es-av-writer {
  margin-bottom: 30px;
+ width: 100%;
+ max-width: 1000px;
 }
 
 .es-btn-follow {
@@ -849,7 +853,12 @@ button:focus,
   background-color: #00BA34;
   color: var(--main-light-color);
 }
-
+.es-av-article-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 .es-av-nav {
  display: flex;
  justify-content: space-between;
@@ -857,6 +866,8 @@ button:focus,
  border-bottom: 1px solid #D6D6D6;
  padding: 0.5rem 0;
  margin-bottom: 30px;
+ width: 100%;
+ max-width: 1000px;
 }
 
 .es-btns-sm {
@@ -881,11 +892,17 @@ button:focus,
 }
 
 .es-av-banner img {
- height: 450px;
+ /* min-height: 450px; */
+ width: 100%;
+ max-width: 1000px;
 }
 
 .es-av-banner {
  margin-bottom: 80px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ flex-direction: column;
 }
 
 .es-av-text {
@@ -901,7 +918,8 @@ button:focus,
 }
 
 .es-av-content {
- max-width: 900px;
+ width: 100%;
+ max-width: 1000px;
  margin: 0 auto  40px auto;
 }
 

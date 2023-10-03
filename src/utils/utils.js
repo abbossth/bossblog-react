@@ -36,3 +36,9 @@ export const initialBlocks = [
     },
   },
 ];
+
+export const BLOCK_TYPES = {
+  IMAGE: "image",
+  PARAGRAPH: "paragraph",
+  HEADER: "header",
+};

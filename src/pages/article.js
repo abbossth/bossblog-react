@@ -19,6 +19,7 @@ import {
   removeArticleReactionActions,
 } from "../store/actions/reactionsAction";
 import { getFollowingUsers } from "../store/actions/followingUsersAction";
+import ArticleReader from "../components/articleReader/articleReader";
 
 const Article = () => {
   const dispatch = useDispatch();
@@ -135,82 +136,88 @@ const Article = () => {
         </section>
         <section className="es-regular-section">
           <div className="container">
-            <div className="es-av-writer">
-              <Link to={`/profile/${article?.user?.username}`}>
-                {article?.user?.user_img && (
-                  <img
-                    width={50}
-                    src={`${article?.user?.user_img}`}
-                    alt="profile"
-                  />
-                )}
-                {!article?.user?.user_img && <ProfilePhoto className="me-2" />}
-                <span>{article?.user?.full_name}</span>
-              </Link>
-              {!isMyProfile &&
-                (!!followingUsers.find(
-                  (u) => u.followers.id === article?.user?.id
-                ) ? (
-                  <button
-                    onClick={() => handleUnfollowUser(article?.user?.id)}
-                    className="btn es-btn-follow-outline"
-                  >
-                    Obuna bo’lingan
-                  </button>
-                ) : (
-                  <button
-                    onClick={() =>
-                      loggedIn
-                        ? handleFollowUser(article?.user?.id)
-                        : dispatch(showAuthSignInOptions())
-                    }
-                    className="btn es-btn-follow"
-                  >
-                    Obuna bo’lish
-                  </button>
-                ))}
-            </div>
-            <div className="es-av-nav">
-              <nav className="nav">
-                <div className="nav-link pl-0 active">
-                  <DateIcon />
-                  {moment(article?.createdAt).format("ll")}
-                </div>
-                <div className="nav-link">
-                  <TimeIcon />
-                  <span>{Math.floor(article?.readingTime / 60)} daqiqa</span>
-                </div>
-                <button
-                  className="nav-link btn"
-                  data-target="#commentModal"
-                  data-toggle="modal"
-                  onClick={() => handleShowComment(article?.comments.length)}
-                >
-                  <CommentIcon />
-                  <span>{article?.comments.length} Izoh</span>
-                </button>
-              </nav>
-              <div className="es-btns-sm">
-                <button className="btn es-btn-light es-btn-save">
-                  <svg
-                    width="13"
-                    height="13"
-                    viewBox="0 0 10 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M8.33398 0H1.66732C0.933984 0 0.333984 0.6 0.333984 1.33333V12L5.00065 10L9.66732 12V1.33333C9.66732 0.6 9.06732 0 8.33398 0Z"
-                      fill="#969696"
+            <div className="es-av-article-info">
+              <div className="es-av-writer">
+                <Link to={`/profile/${article?.user?.username}`}>
+                  {article?.user?.user_img && (
+                    <img
+                      width={50}
+                      src={`${article?.user?.user_img}`}
+                      alt="profile"
                     />
-                  </svg>
-                  {/* <span>Saqlash</span> */}
-                </button>
+                  )}
+                  {!article?.user?.user_img && (
+                    <ProfilePhoto className="me-2" />
+                  )}
+                  <span>{article?.user?.full_name}</span>
+                </Link>
+                {!isMyProfile &&
+                  (!!followingUsers.find(
+                    (u) => u.followers.id === article?.user?.id
+                  ) ? (
+                    <button
+                      onClick={() => handleUnfollowUser(article?.user?.id)}
+                      className="btn es-btn-follow-outline"
+                    >
+                      Obuna bo’lingan
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() =>
+                        loggedIn
+                          ? handleFollowUser(article?.user?.id)
+                          : dispatch(showAuthSignInOptions())
+                      }
+                      className="btn es-btn-follow"
+                    >
+                      Obuna bo’lish
+                    </button>
+                  ))}
+              </div>
+              <div className="es-av-nav">
+                <nav className="nav">
+                  <div className="nav-link pl-0 active">
+                    <DateIcon />
+                    {moment(article?.createdAt).format("ll")}
+                  </div>
+                  <div className="nav-link">
+                    <TimeIcon />
+                    <span>{Math.floor(article?.readingTime / 60)} daqiqa</span>
+                  </div>
+                  <button
+                    className="nav-link btn"
+                    data-target="#commentModal"
+                    data-toggle="modal"
+                    onClick={() => handleShowComment(article?.comments.length)}
+                  >
+                    <CommentIcon />
+                    <span>{article?.comments.length} Izoh</span>
+                  </button>
+                </nav>
+                <div className="es-btns-sm">
+                  <button className="btn es-btn-light es-btn-save">
+                    <svg
+                      width="13"
+                      height="13"
+                      viewBox="0 0 10 12"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M8.33398 0H1.66732C0.933984 0 0.333984 0.6 0.333984 1.33333V12L5.00065 10L9.66732 12V1.33333C9.66732 0.6 9.06732 0 8.33398 0Z"
+                        fill="#969696"
+                      />
+                    </svg>
+                    {/* <span>Saqlash</span> */}
+                  </button>
+                </div>
               </div>
             </div>
-            <div className="es-av-banner">
+            <ArticleReader blocks={article?.body?.blocks} />
+
+            {/* <div className="es-av-banner">
               {article?.image && (
                 <img
                   className="img-fluid w-100"
@@ -261,7 +268,7 @@ const Article = () => {
                 can probably remember that one event in childhood that started
                 you along this exciting hobby.
               </p>
-            </div>
+            </div> */}
             <div className="es-av-footer">
               <div className="es-av-sending">
                 <div className="es-av-sending-title">Ulashish</div>
@@ -320,135 +327,6 @@ const Article = () => {
             </div>
           </div>
         </section>
-        {/* <section className="es-regular-section">
-          <div className="container">
-            <h2 className="es-section-title">Tavsiya qilinganlar</h2>
-            <div
-              className="es-category-list category-slick"
-              style={{ marginLeft: "-1.125rem", marginRight: "-1.125rem" }}
-            >
-              <div className="es-category-item">
-                <div className="es-category-img">
-                  <a href="#">
-                    <img
-                      className="lazy img-fluid"
-                      src="img/article_2.jpg"
-                      alt="article"
-                    />
-                  </a>
-                </div>
-                <div className="es-category-ar-title">
-                  <a href="#">
-                    Republican presidential debate beset by bickering and boos for
-                    Trump critics
-                  </a>
-                </div>
-              </div>
-              <div className="es-category-item">
-                <div className="es-category-img">
-                  <a href="#">
-                    <img
-                      className="lazy img-fluid"
-                      src="img/article_2.jpg"
-                      alt="article"
-                    />
-                  </a>
-                </div>
-                <div className="es-category-ar-title">
-                  <a href="#">
-                    Republican presidential debate beset by bickering and boos for
-                    Trump critics
-                  </a>
-                </div>
-              </div>
-              <div className="es-category-item">
-                <div className="es-category-img">
-                  <a href="#">
-                    <img
-                      className="lazy img-fluid"
-                      src="img/article_2.jpg"
-                      alt="article"
-                    />
-                  </a>
-                </div>
-                <div className="es-category-ar-title">
-                  <a href="#">
-                    Republican presidential debate beset by bickering and boos for
-                    Trump critics
-                  </a>
-                </div>
-              </div>
-              <div className="es-category-item">
-                <div className="es-category-img">
-                  <a href="#">
-                    <img
-                      className="lazy img-fluid"
-                      src="img/article_2.jpg"
-                      alt="article"
-                    />
-                  </a>
-                </div>
-                <div className="es-category-ar-title">
-                  <a href="#">
-                    Republican presidential debate beset by bickering and boos for
-                    Trump critics
-                  </a>
-                </div>
-              </div>
-              <div className="es-category-item">
-                <div className="es-category-img">
-                  <a href="#">
-                    <img
-                      className="lazy img-fluid"
-                      src="img/article_2.jpg"
-                      alt="article"
-                    />
-                  </a>
-                </div>
-                <div className="es-category-ar-title">
-                  <a href="#">
-                    Republican presidential debate beset by bickering and boos for
-                    Trump critics
-                  </a>
-                </div>
-              </div>
-              <div className="es-category-item">
-                <div className="es-category-img">
-                  <a href="#">
-                    <img
-                      className="lazy img-fluid"
-                      src="img/article_2.jpg"
-                      alt="article"
-                    />
-                  </a>
-                </div>
-                <div className="es-category-ar-title">
-                  <a href="#">
-                    Republican presidential debate beset by bickering and boos for
-                    Trump critics
-                  </a>
-                </div>
-              </div>
-              <div className="es-category-item">
-                <div className="es-category-img">
-                  <a href="#">
-                    <img
-                      className="lazy img-fluid"
-                      src="img/article_2.jpg"
-                      alt="article"
-                    />
-                  </a>
-                </div>
-                <div className="es-category-ar-title">
-                  <a href="#">
-                    Republican presidential debate beset by bickering and boos for
-                    Trump critics
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section> */}
       </main>
     );
   }
