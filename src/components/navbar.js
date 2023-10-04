@@ -141,12 +141,7 @@ const Navbar = () => {
                       aria-expanded="false"
                     >
                       {userInfo?.user_img ? (
-                        <img
-                          // className="img-fluid"
-                          width={50}
-                          src={`${userInfo?.user_img}`}
-                          alt="user"
-                        />
+                        <img src={`${userInfo?.user_img}`} alt="user" />
                       ) : (
                         <span>{userInfo?.full_name?.[0]}</span>
                       )}
