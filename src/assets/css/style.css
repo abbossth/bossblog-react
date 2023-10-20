@@ -47,6 +47,26 @@ button:focus,
  box-shadow: none !important;
 }
 
+.loader-outer-container {
+  min-height: 100vh;
+  padding-block: 20px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.loader-container {
+  margin-inline: auto;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    max-width: 25%;
+  }
+}
+
 .es-layout {
   min-height: 100vh;
   height: 100%;
