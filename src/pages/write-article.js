@@ -1,5 +1,6 @@
 import React from "react";
 import WritePanel from "../components/writePanel";
+import { Link } from "react-router-dom";
 
 const WriteArticle = () => {
   return (
@@ -12,7 +13,7 @@ const WriteArticle = () => {
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb">
                   <li className="breadcrumb-item">
-                    <a href="#">Asosiy</a>
+                    <Link to="/">Asosiy</Link>
                   </li>
                   <li className="breadcrumb-item active" aria-current="page">
                     Maqola yozish
