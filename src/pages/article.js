@@ -111,7 +111,7 @@ const Article = () => {
 
   useEffect(() => {
     fetchArticle();
-  }, []);
+  }, [articleId]);
 
   if (article) {
     return (

@@ -16,9 +16,15 @@ import {
   setTitleAndSubtitle,
 } from "../store/actions/writtenDraftAction";
 import axios from "../api/axios";
+import { useEffect, useState } from "react";
+import moment from "moment";
+import { ReactComponent as VectorSvg } from "../assets/img/ic_vector.svg";
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const [searchString, setSearchString] = useState("");
+  const [searchResult, setSearchResult] = useState(null);
+  const [isInputFocused, setIsInputFocused] = useState(false);
   const { loggedIn } = useSelector((state) => state.loginReducer);
   const { userInfo } = useSelector((state) => state.userInfoReducer);
   const navigate = useNavigate();
@@ -57,6 +63,19 @@ const Navbar = () => {
     }
   };
 
+  const handleSearch = async () => {
+    try {
+      const res = await axios.get(`/posts/search?search=${searchString}`);
+      setSearchResult(res?.data?.data);
+    } catch (error) {
+      console.log(`Unhandled Error while searching posts ${error}`);
+    }
+  };
+
+  useEffect(() => {
+    handleSearch();
+  }, [searchString]);
+
   return (
     <header className="es-main-navbar">
       <div className="container">
@@ -68,19 +87,85 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item ml-0 pt-1">
-              <form className="form-group es-form-search-main">
-                <img src={Search} alt="seach" />
-                <input
-                  tabIndex="0"
-                  className="form-control"
-                  data-popover-content="#unique-id"
-                  data-toggle="popover"
-                  data-placement="bottom"
-                  type="search"
-                  placeholder="Kalit so’zni kiriting"
-                  aria-label="Search"
-                ></input>
-              </form>
+              <div
+                className={`es-search-container ${isInputFocused && "active"}`}
+              >
+                <form className="form-group es-form-search-main">
+                  <img src={Search} alt="seach" />
+                  <input
+                    tabIndex="0"
+                    className={`form-control ${isInputFocused && "active"}`}
+                    type="search"
+                    placeholder="Kalit so’zni kiriting"
+                    aria-label="Search"
+                    value={searchString}
+                    onChange={(e) => setSearchString(e.target.value)}
+                    onFocus={() => setIsInputFocused(true)}
+                    onBlur={() => {
+                      setTimeout(() => {
+                        setIsInputFocused(false);
+                        setSearchString("");
+                        setSearchResult(null);
+                      }, 100);
+                    }}
+                  ></input>
+                </form>
+                <div
+                  className={`es-search-result-container ${
+                    isInputFocused && "active"
+                  }`}
+                >
+                  {!searchResult && (
+                    <Link className="w-100 p-1" to={"/topics"}>
+                      <VectorSvg className="me-3" />
+                      <span>Mavzularni ko'rish</span>
+                    </Link>
+                  )}
+                  {searchResult &&
+                    searchResult.map((y) => (
+                      <div className="es-search-result" key={y.id}>
+                        <div className="d-flex mb-2">
+                          <div className="es-search-result-img">
+                            <Link to={`/article/${y?.id}`}>
+                              {y?.image === "null" ? (
+                                <img
+                                  src={require("../assets/img/article_2.jpg")}
+                                  alt="article"
+                                />
+                              ) : (
+                                <img src={y?.image} alt="article" />
+                              )}
+                            </Link>
+                          </div>
+                          <div className="es-search-result-title">
+                            <Link to={`/article/${y?.id}`}>{y.title}</Link>
+                          </div>
+                        </div>
+                        <div className="es-search-result-footer">
+                          <div className="es-article-type">
+                            {moment(y.createdAt).format("ll")}
+                          </div>
+                          <button className="btn es-btn-light es-btn-save">
+                            <svg
+                              width="12"
+                              height="16"
+                              viewBox="0 0 12 16"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M10.166 0.5H1.83268C0.916016 0.5 0.166016 1.25 0.166016 2.16667V15.5L5.99935 13L11.8327 15.5V2.16667C11.8327 1.25 11.0827 0.5 10.166 0.5Z"
+                                fill="#969696"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
             </li>
           </ul>
           <div className="collapse navbar-collapse">
