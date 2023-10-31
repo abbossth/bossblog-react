@@ -19,10 +19,11 @@ import axios from "../api/axios";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import { ReactComponent as VectorSvg } from "../assets/img/ic_vector.svg";
+import { isNull } from "lodash";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const [searchString, setSearchString] = useState("");
+  const [searchString, setSearchString] = useState(null);
   const [searchResult, setSearchResult] = useState(null);
   const [isInputFocused, setIsInputFocused] = useState(false);
   const { loggedIn } = useSelector((state) => state.loginReducer);
@@ -73,7 +74,7 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    handleSearch();
+    if (!isNull(searchString)) handleSearch();
   }, [searchString]);
 
   return (
