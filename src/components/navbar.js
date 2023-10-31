@@ -106,7 +106,7 @@ const Navbar = () => {
                         setIsInputFocused(false);
                         setSearchString("");
                         setSearchResult(null);
-                      }, 100);
+                      }, 500);
                     }}
                   ></input>
                 </form>
